@@ -17,6 +17,28 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="gradienth.png" />
+	  <None Remove="gradienth2.png" />
+	  <None Remove="gradientv.png" />
+	  <None Remove="gradientv2.png" />
+	  <None Remove="leftarrow.png" />
+	  <None Remove="leftarrowb.png" />
+	  <None Remove="menu.png" />
+	  <None Remove="menub.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="gradienth.png" />
+	  <EmbeddedResource Include="gradienth2.png" />
+	  <EmbeddedResource Include="gradientv.png" />
+	  <EmbeddedResource Include="gradientv2.png" />
+	  <EmbeddedResource Include="leftarrow.png" />
+	  <EmbeddedResource Include="leftarrowb.png" />
+	  <EmbeddedResource Include="menu.png" />
+	  <EmbeddedResource Include="menub.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="RestSharp" Version="107.3.0" />
 	</ItemGroup>

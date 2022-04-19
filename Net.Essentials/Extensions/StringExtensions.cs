@@ -1,10 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 using System;
+using System.Globalization;
+using System.Text;
 
 namespace Net;
 
 public static class StringExtensions
 {
+    static readonly TextInfo EnUs = new CultureInfo("en-US", false).TextInfo;
+
     public static string Head(this string s, int take = 20)
     {
         if (s == null) return "";
@@ -78,5 +82,67 @@ public static class StringExtensions
         }
         if (result.Length > maxLength) result = result.Substring(0, maxLength);
         return result;
+    }
+
+    public static string Cap(this string original, int maxLength)
+    {
+        if (string.IsNullOrWhiteSpace(original))
+            return original;
+
+        return original.Length < maxLength ? original : original[..maxLength];
+    }
+
+    public static string ToTitleCase(this string original)
+    {
+        if (string.IsNullOrWhiteSpace(original))
+            return original;
+        return EnUs.ToTitleCase(original.ToLower());
+    }
+
+    public static string GetDigits(this string original)
+    {
+        if (string.IsNullOrWhiteSpace(original))
+            return original;
+
+        return string.Join("", original.Where(x => x >= '0' && x <= '9'));
+    }
+
+    public static bool IsAllDigits(this string original)
+    {
+        if (string.IsNullOrWhiteSpace(original))
+            return false;
+
+        return original.All(x => x >= '0' && x <= '9');
+    }
+
+    public static bool HasDigits(this string original)
+    {
+        if (string.IsNullOrWhiteSpace(original))
+            return false;
+
+        return original.Any(x => x >= '0' && x <= '9');
+    }
+
+    public static string ToMD5(this string input)
+    {
+        // Use input string to calculate MD5 hash
+        using System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+        byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+        byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+        // Convert the byte array to hexadecimal string
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < hashBytes.Length; i++)
+            sb.Append(hashBytes[i].ToString("X2"));
+        return sb.ToString();
+    }
+
+    public static string JoinIfNotEmpty(this string separator, params string[] elements)
+    {
+        if (elements == null)
+            return null;
+        if (separator == null)
+            separator = "";
+        return string.Join(separator, elements.Where(x => !string.IsNullOrWhiteSpace(x)));
     }
 }
