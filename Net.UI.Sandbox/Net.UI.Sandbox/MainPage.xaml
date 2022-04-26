@@ -3,18 +3,48 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ui="clr-namespace:Net.UI;assembly=Net.UI"
+    xmlns:vm="clr-namespace:Net.UI.Sandbox.ViewModels"
     x:Class="Net.UI.Sandbox.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
     <Grid>
         <ui:Panel>
             <ui:Panel.BottomBar>
-                <ui:TitleBar Title="Hello, World!!" />
+                <ui:TitleBar 
+                    BackCommand="{Binding ShowSideBarCommand}"
+                    Title="Hello, World!!" />
             </ui:Panel.BottomBar>
 
+            <ui:Panel.Overlay>
+                <ui:SideBar 
+                    Side="Left" 
+                    IsModal="True"
+                    ModalBackgroundColor="AliceBlue">
+                    <Frame>
+                        <StackLayout>
+                            <Label Text="SideBar" />
+                        </StackLayout>
+                    </Frame>
+                </ui:SideBar>
+            </ui:Panel.Overlay>
+            
             <Grid>
-                <StackLayout>
-                    <Label Text="Hi There!" />
-                    <ui:Code />
-                </StackLayout>
+                <ScrollView>
+                    <StackLayout>
+                        <Label
+                            x:Name="label"
+                            Text="Hi There!" />
+                        <ui:Code />
+                        <ui:AdvancedButton 
+                            x:Name="button"
+                            Text="My Button" 
+                            TextAlignment="End"
+                            Visual="Default"
+                            TextColor="White"
+                            />
+                    </StackLayout>
+                </ScrollView>
             </Grid>
         </ui:Panel>
     </Grid>

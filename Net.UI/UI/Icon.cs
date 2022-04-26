@@ -81,7 +81,7 @@ public class Icon : Grid
             label.SetBinding(Label.VerticalTextAlignmentProperty, nameof(VerticalTextAlignment));
         }
 
-        var button = new Button2
+        var button = new AdvancedButton
         {
             BindingContext = this,
             HorizontalOptions = LayoutOptions.Fill,

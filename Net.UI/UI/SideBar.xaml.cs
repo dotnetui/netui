@@ -128,6 +128,12 @@ public partial class SideBar
         set => SetValue(OutsideTapCommandParameterProperty, value);
     }
 
+    public Color ModalBackgroundColor
+    {
+        get => (Color)GetValue(ModalBackgroundColorProperty);
+        set => SetValue(ModalBackgroundColorProperty, value);
+    }
+
     public static readonly BindableProperty BodyProperty = BindableProperty.Create(
         propertyName: nameof(Body),
         returnType: typeof(View),
@@ -265,6 +271,12 @@ public partial class SideBar
         returnType: typeof(bool),
         declaringType: typeof(SideBar),
         defaultValue: true);
+    
+    public static readonly BindableProperty ModalBackgroundColorProperty = BindableProperty.Create(
+        propertyName: nameof(ModalBackgroundColor),
+        returnType: typeof(Color),
+        declaringType: typeof(SideBar),
+        defaultValue: Palette.Transparent);
     
     public static readonly BindableProperty OverrideOutsideTapCommandProperty = BindableProperty.Create(
         propertyName: nameof(OverrideOutsideTapCommand),
