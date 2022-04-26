@@ -8,25 +8,12 @@
     VerticalOptions="Fill"
     IsVisible="{Binding IsSideBarOpen, Mode=TwoWay}">
     <ui:Widget.Content>
-        <Grid x:Name="mainGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="colLeft" />
-                <ColumnDefinition x:Name="colRight" />
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition x:Name="rowTop" />
-                <RowDefinition x:Name="rowBottom" />
-            </Grid.RowDefinitions>
+        <Grid>
             <Grid 
                 x:Name="btnDismiss" 
                 HorizontalOptions="Fill" 
                 VerticalOptions="Fill" 
-                BackgroundColor="Transparent"
-                Grid.Column="0" 
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Grid.RowSpan="2"
+                BackgroundColor="{Binding ModalBackgroundColor, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                 IsVisible="{Binding IsModal, Source={RelativeSource AncestorType={Type ui:SideBar}}}">
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer
@@ -34,10 +21,21 @@
                         Tapped="BtnDismiss_Clicked" />
                 </Grid.GestureRecognizers>
             </Grid>
-            <ui:Widget
-                x:Name="content"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill" />
+            <Grid x:Name="mainGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="colLeft" />
+                    <ColumnDefinition x:Name="colRight" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="rowTop" />
+                    <RowDefinition x:Name="rowBottom" />
+                </Grid.RowDefinitions>
+                <ui:Widget
+                    x:Name="content"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+            </Grid>
         </Grid>
     </ui:Widget.Content>
 </ui:Widget>

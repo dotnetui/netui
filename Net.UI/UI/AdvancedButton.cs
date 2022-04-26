@@ -3,11 +3,11 @@ using UIKit;
 #elif __ANDROID__
 using Android.Views;
 using Google.Android.Material.Button;
-
-using Microsoft.Maui.Handlers;
-
 using TextAlignment = Microsoft.Maui.TextAlignment;
 #endif
+
+using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
 
 namespace Net.UI;
 
@@ -66,7 +66,7 @@ public class AdvancedButton : Button
         uiButton.TouchUpOutside += UiButton_TouchUpOutside;
         uiButton.TouchCancel += UiButton_TouchCancel;
         uiButton.TouchUpInside += UiButton_TouchUpInside;
-#elif __ANDROID__
+#elif ANDROID
         if (Handler is ViewHandler vh)
         {
             if (vh.PlatformView is MaterialButton mButton)
@@ -95,6 +95,16 @@ public class AdvancedButton : Button
                     args.Handled = false;
                 };
             }
+        }
+#elif WINDOWS
+        if (Handler is ButtonHandler bh && bh.PlatformView is MauiButton button)
+        {
+            button.PointerPressed += (s, e) => 
+            OnPressed();
+            button.PointerReleased += (s, e) => 
+            OnReleased();
+            button.PointerCanceled += (s, e) => 
+            OnReleased();
         }
 #endif
         UpdateAlignment();

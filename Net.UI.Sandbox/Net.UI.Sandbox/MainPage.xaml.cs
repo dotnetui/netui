@@ -24,5 +24,10 @@ public partial class MainPage : ContentPage
     {
         label.Text += "\nPressed";
     }
+
+    private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+    {
+        label.Text += "\nGrid Tapped";
+    }
 }
 

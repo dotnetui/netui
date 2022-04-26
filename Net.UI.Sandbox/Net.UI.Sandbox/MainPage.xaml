@@ -47,5 +47,9 @@
                 </ScrollView>
             </Grid>
         </ui:Panel>
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+        </Grid.GestureRecognizers>
     </Grid>
 </ContentPage>

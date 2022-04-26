@@ -305,8 +305,6 @@ public partial class SideBar
         InitializeComponent();
         SetVisibility(false);
         UpdateLayout();
-
-        btnDismiss.BindingContext = this;
     }
 
     void SetVisibility(bool value)
@@ -458,6 +456,7 @@ public partial class SideBar
 
     protected override void InvalidateLayout()
     {
+        if (mainGrid == null) return;
         mainGrid.Children.Remove(content);
         UpdateLayout();
         mainGrid.Children.Add(content);
