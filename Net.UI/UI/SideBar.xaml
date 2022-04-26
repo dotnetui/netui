@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:Widget 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ui="clr-namespace:Net.UI"
+    x:Class="Net.UI.SideBar"
+    HorizontalOptions="Fill"
+    VerticalOptions="Fill"
+    IsVisible="{Binding IsSideBarOpen, Mode=TwoWay}">
+    <ui:Widget.Content>
+        <Grid x:Name="mainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="colLeft" />
+                <ColumnDefinition x:Name="colRight" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="rowTop" />
+                <RowDefinition x:Name="rowBottom" />
+            </Grid.RowDefinitions>
+            <Grid 
+                x:Name="btnDismiss" 
+                HorizontalOptions="Fill" 
+                VerticalOptions="Fill" 
+                BackgroundColor="Transparent"
+                Grid.Column="0" 
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                IsVisible="{Binding IsModal}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        x:Name="tap"
+                        Tapped="BtnDismiss_Clicked" />
+                </Grid.GestureRecognizers>
+            </Grid>
+            <ui:Widget
+                x:Name="content"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ui:Widget.Content>
+</ui:Widget>

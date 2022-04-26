@@ -1,4 +1,4 @@
-﻿namespace Net.Services;
+﻿namespace Net.Essentials.Services;
 
 public abstract class SettingsServiceBase<T> where T : class, new()
 {

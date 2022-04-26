@@ -14,6 +14,8 @@
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>Net</RootNamespace>
 		<Nullable>disable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -28,14 +30,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="gradienth.png" />
-	  <EmbeddedResource Include="gradienth2.png" />
-	  <EmbeddedResource Include="gradientv.png" />
-	  <EmbeddedResource Include="gradientv2.png" />
-	  <EmbeddedResource Include="leftarrow.png" />
-	  <EmbeddedResource Include="leftarrowb.png" />
-	  <EmbeddedResource Include="menu.png" />
-	  <EmbeddedResource Include="menub.png" />
+	  <EmbeddedResource Include="UI\gradienth.png" />
+	  <EmbeddedResource Include="UI\gradienth2.png" />
+	  <EmbeddedResource Include="UI\gradientv.png" />
+	  <EmbeddedResource Include="UI\gradientv2.png" />
+	  <EmbeddedResource Include="UI\leftarrow.png" />
+	  <EmbeddedResource Include="UI\leftarrowb.png" />
+	  <EmbeddedResource Include="UI\menu.png" />
+	  <EmbeddedResource Include="UI\menub.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -44,6 +46,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Net.Essentials\Net.Essentials.csproj" />
+	  <Compile Update="UI\Panel.xaml.cs">
+	    <DependentUpon>Panel.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="UI\Panel.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\SideBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\TitleBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 </Project>

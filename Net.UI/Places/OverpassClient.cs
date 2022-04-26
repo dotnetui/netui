@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Net.Places;
+namespace Net.Essentials.Places;
 
 public class OverpassClient
 {

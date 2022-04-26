@@ -2,7 +2,7 @@
 using CoreLocation;
 using MapKit;
 
-namespace Net.Places;
+namespace Net.Essentials.Places;
 
 public partial class MapKitPlaces : IPlaces
 {

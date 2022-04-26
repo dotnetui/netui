@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Net.DeviceContacts
+namespace Net.Essentials.DeviceContacts
 {
     public class AndroidContact
     {

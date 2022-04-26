@@ -4,7 +4,7 @@ using Foundation;
 
 using MapKit;
 
-namespace Net.Places;
+namespace Net.Essentials.Places;
 
 public class MapKitLocalSearchPlaces : NSObject, IPlaces, IMKLocalSearchCompleterDelegate
 {

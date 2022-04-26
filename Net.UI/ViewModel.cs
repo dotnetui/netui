@@ -46,11 +46,11 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
 
     public virtual bool IsBusy
     {
-        get => Status == ActivityState.Busy;
+        get => Status == WorkerStatus.Busy;
         set
         {
-            if (value) Status = ActivityState.Busy;
-            else Status = ActivityState.Success;
+            if (value) Status = WorkerStatus.Busy;
+            else Status = WorkerStatus.Success;
         }
     }
 
@@ -68,16 +68,16 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
     public virtual Command ShowSideBarCommand => new Command(() => IsSideBarOpen = true);
     public virtual Command HideSideBarCommand => new Command(() => IsSideBarOpen = false);
 
-    [ManualUpdateAttribute] public bool IsFailed => Status == ActivityState.Fail;
-    [ManualUpdateAttribute] public bool IsFinished => Status == ActivityState.Success;
-    [ManualUpdateAttribute] public bool IsFirstTime => _isFirstTime;
-    [ManualUpdateAttribute] public bool IsIdle => !IsBusy;
-    [ManualUpdateAttribute] public bool IsNotFailed => !IsFailed;
-    [ManualUpdateAttribute] public bool IsNotFinished => !IsFinished;
+    [ManualUpdate] public bool IsFailed => Status == WorkerStatus.Fail;
+    [ManualUpdate] public bool IsFinished => Status == WorkerStatus.Success;
+    [ManualUpdate] public bool IsFirstTime => _isFirstTime;
+    [ManualUpdate] public bool IsIdle => !IsBusy;
+    [ManualUpdate] public bool IsNotFailed => !IsFailed;
+    [ManualUpdate] public bool IsNotFinished => !IsFinished;
 
-    ActivityState _status = ActivityState.Busy;
+    WorkerStatus _status = WorkerStatus.Busy;
     bool _isFirstTime = true;
-    public ActivityState Status
+    public WorkerStatus Status
     {
         get => _status;
         set
@@ -85,7 +85,7 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
             var hasChanged = _status != value;
             if (hasChanged)
                 _status = value;
-            if (_status == ActivityState.Success)
+            if (_status == WorkerStatus.Success)
                 _isFirstTime = false;
             if (hasChanged)
                 UpdateProperties(true);
@@ -128,7 +128,7 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
         if (properties == null)
             properties = GetType().GetProperties();
 
-        Device.BeginInvokeOnMainThread(() =>
+        Dispatcher.Dispatch(() =>
         {
             foreach (var item in properties)
             {
@@ -146,7 +146,7 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
 
     public void UpdateProperties(IEnumerable<string> names)
     {
-        Device.BeginInvokeOnMainThread(() =>
+        Dispatcher.Dispatch(() =>
         {
             foreach (var item in names)
                 RaisePropertyChanged(onUI: false, item);
@@ -235,9 +235,24 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
 
     }
 
-    public bool IsIOS => Device.RuntimePlatform == Device.iOS;
-    public bool IsAndroid => Device.RuntimePlatform == Device.Android;
+    static readonly DeviceFlags _device = new DeviceFlags();
+    public DeviceFlags Device => _device;
 
-    public bool IsTablet => Device.Idiom == TargetIdiom.Tablet;
-    public bool IsPhone => Device.Idiom == TargetIdiom.Phone;
+    public class DeviceFlags
+    {
+        public bool IsIOS { get; } = DeviceInfo.Platform == DevicePlatform.iOS;
+        public bool IsAndroid { get; } = DeviceInfo.Platform == DevicePlatform.Android;
+        public bool IsMacCatalyst { get; } = DeviceInfo.Platform == DevicePlatform.MacCatalyst;
+        public bool IsTvOS { get; } = DeviceInfo.Platform == DevicePlatform.tvOS;
+        public bool IsMacOS { get; } = DeviceInfo.Platform == DevicePlatform.macOS;
+        public bool IsTizen { get; } = DeviceInfo.Platform == DevicePlatform.Tizen;
+        public bool IsWinUI { get; } = DeviceInfo.Platform == DevicePlatform.WinUI;
+        public bool IsWatchOS { get; } = DeviceInfo.Platform == DevicePlatform.watchOS;
+
+        public bool IsDesktop { get; } = DeviceInfo.Idiom == DeviceIdiom.Desktop;
+        public bool IsWatch { get; } = DeviceInfo.Idiom == DeviceIdiom.Watch;
+        public bool IsPhone { get; } = DeviceInfo.Idiom == DeviceIdiom.Phone;
+        public bool IsTablet { get; } = DeviceInfo.Idiom == DeviceIdiom.Tablet;
+        public bool IsTV { get; } = DeviceInfo.Idiom == DeviceIdiom.TV;
+    }
 }

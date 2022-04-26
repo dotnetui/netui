@@ -1,4 +1,4 @@
-﻿namespace Net;
+﻿namespace Net.Essentials;
 
 using System.Net;
 using System.Diagnostics;

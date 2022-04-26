@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-using static Net.Places.OpenTripMapClient;
+using static Net.Essentials.Places.OpenTripMapClient;
 
-namespace Net.Places;
+namespace Net.Essentials.Places;
 
 public class OpenTripMapSimpleFeature
 {

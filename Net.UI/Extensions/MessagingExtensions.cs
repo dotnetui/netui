@@ -1,6 +1,6 @@
-﻿using Net.Systems;
+﻿using Net.Essentials.Systems;
 
-namespace Net;
+namespace Net.Essentials;
 
 public static class MessagingExtensions
 {

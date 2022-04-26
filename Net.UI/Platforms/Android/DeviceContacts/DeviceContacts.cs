@@ -7,7 +7,7 @@ using Android.Provider;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
 
-namespace Net.DeviceContacts;
+namespace Net.Essentials.DeviceContacts;
 using Activity = Android.App.Activity;
 
 public partial class DeviceContacts : IDeviceContacts

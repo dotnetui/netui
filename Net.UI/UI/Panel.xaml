@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:Widget 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Net.UI.Panel"
+    xmlns:ui="clr-namespace:Net.UI">
+    <ui:Widget.Content>
+        <Grid RowDefinitions="Auto, *, Auto" RowSpacing="0">
+            <ui:Widget 
+                Grid.Row="1" 
+                Content="{Binding Body, Source={RelativeSource AncestorType={Type ui:Panel}}}" />
+            <ui:Widget 
+                Grid.Row="0" 
+                Content="{Binding TopBar, Source={RelativeSource AncestorType={Type ui:Panel}}}" 
+                IsVisible="{Binding TopBar, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                />
+            <ui:Widget 
+                Grid.Row="2" 
+                IsVisible="{Binding BottomBar, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                Content="{Binding BottomBar, Source={RelativeSource AncestorType={Type ui:Panel}}}" />
+
+            <ui:Shadow 
+                Grid.Row="1"
+                Orientation="Vertical"
+                IsFlipped="False">
+                <!--<ui:Shadow.IsVisible>
+                    <MultiBinding Converter="{Static ui:AndMultiConverter.Instance}">
+                        <Binding Path="TopBar" Source="{RelativeSource AncestorType={Type ui:Panel}}" Converter="{Static ui:IsNotNullConverter.Instance}" />
+                        <Binding Path="DropShadows" Source="{RelativeSource AncestorType={Type ui:Panel}}" />
+                    </MultiBinding>
+                </ui:Shadow.IsVisible>-->
+            </ui:Shadow>
+            <ui:Shadow 
+                Grid.Row="1"
+                Orientation="Vertical"
+                VerticalOptions="End"
+                IsFlipped="True">
+                <!--<ui:Shadow.IsVisible>
+                    <MultiBinding Converter="{Static ui:AndMultiConverter.Instance}">
+                        <Binding Path="BottomBar" Source="{RelativeSource AncestorType={Type ui:Panel}}" Converter="{Static ui:IsNotNullConverter.Instance}" />
+                        <Binding Path="DropShadows" Source="{RelativeSource AncestorType={Type ui:Panel}}" />
+                    </MultiBinding>
+                </ui:Shadow.IsVisible>-->
+            </ui:Shadow>
+            
+            <ui:Widget
+                Grid.RowSpan="3"
+                InputTransparent="True"
+                CascadeInputTransparent="False"
+                IsVisible="{Binding Overlay, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                Content="{Binding Overlay, Source={RelativeSource AncestorType={Type ui:Panel}}}" />
+        </Grid>
+    </ui:Widget.Content>
+</ui:Widget>

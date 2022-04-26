@@ -1,4 +1,6 @@
-﻿public class Persistent<T> where T : class, new()
+﻿namespace Net.Essentials;
+
+public class Persistent<T> where T : class, new()
 {
     public static Func<string> DefaultBasePath = () => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     public static Action<string> DefaultLogAction = (message) => Debug.WriteLine(message);

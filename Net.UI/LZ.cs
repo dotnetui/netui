@@ -1,10 +1,12 @@
-﻿public static class LZ
+﻿namespace Net.Essentials;
+
+public static class L
 {
     public static string CurrentLanguage { get; private set; } = "En";
 
     public static string LDayOfWeek(this DateTime dt)
     {
-        return L(dt.DayOfWeek.ToString());
+        return T(dt.DayOfWeek.ToString());
     }
 
     static Dictionary<string, Dictionary<string, string?>> keys = new();
@@ -115,7 +117,7 @@
     /// </summary>
     /// <param name="key">The key to return translation for</param>
     /// <returns></returns>
-    public static string L(string key, params string[] args)
+    public static string T(string key, params string[] args)
     {
         if (string.IsNullOrWhiteSpace(key)) return key;
         var value = GetValue(CurrentLanguage, key, args);
@@ -128,11 +130,11 @@
         return key;
     }
 
-    public static string Ln(string key0, string key1, string keyx, int count)
+    public static string Tn(string key0, string key1, string keyx, int count)
     {
-        if (count == 0) return L(key0, count.ToString());
-        if (count == 1) return L(key1, count.ToString());
-        return L(keyx, count.ToString());
+        if (count == 0) return T(key0, count.ToString());
+        if (count == 1) return T(key1, count.ToString());
+        return T(keyx, count.ToString());
     }
 
     static string? GetValue(string lang, string key, params string[] args)
@@ -169,21 +171,21 @@
 
 
 [ContentProperty("Key")]
-public class LZExtension : IMarkupExtension
+public class LExtension : IMarkupExtension
 {
     public string Key { get; set; }
     public object ProvideValue(IServiceProvider serviceProvider)
     {
-        return LZ.L(Key);
+        return L.T(Key);
     }
 }
 
 [ContentProperty("Key")]
-public class RLuExtension : IMarkupExtension
+public class LuExtension : IMarkupExtension
 {
     public string Key { get; set; }
     public object ProvideValue(IServiceProvider serviceProvider)
     {
-        return LZ.L(Key)?.ToUpper();
+        return L.T(Key)?.ToUpper();
     }
 }

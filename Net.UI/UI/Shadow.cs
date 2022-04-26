@@ -1,66 +1,110 @@
 ﻿namespace Net.UI;
 
-public class HorizontalShadow : Image
+public class Shadow : Image
 {
-    public HorizontalShadow()
+    public bool IsFlipped
     {
-        Source = ImageSource.FromResource("Net.UI.gradienth.png", typeof(HorizontalShadow).GetTypeInfo().Assembly);
+        get => (bool)GetValue(IsFlippedProperty);
+        set => SetValue(IsFlippedProperty, value);
+    }
+
+    public StackOrientation Orientation
+    {
+        get => (StackOrientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
+    }
+
+    public static readonly BindableProperty IsFlippedProperty = BindableProperty.Create(
+        nameof(IsFlipped),
+        typeof(bool),
+        typeof(Shadow),
+        propertyChanged: (bindable, oldVal, newVal) =>
+        {
+            if (bindable is Shadow shadow) shadow.Update();
+        });
+
+    public static readonly BindableProperty OrientationProperty = BindableProperty.Create(
+        nameof(Orientation),
+        typeof(StackOrientation),
+        typeof(Shadow),
+        propertyChanged: (bindable, oldVal, newVal) =>
+        {
+            if (bindable is Shadow shadow) shadow.Update();
+        });
+
+    const double Size = 10;
+
+    public Shadow()
+    {
+        BackgroundColor = Color.FromArgb("#F00");
         Aspect = Aspect.Fill;
-        HorizontalOptions = LayoutOptions.Fill;
-        HeightRequest = 10;
         Opacity = 0.2f;
         Margin = new Thickness(0);
-        VerticalOptions = LayoutOptions.Start;
         InputTransparent = true;
+        Update();
     }
-}
 
-public class HorizontalShadow2 : HorizontalShadow
-{
-    public HorizontalShadow2()
+    void Update()
     {
-        VerticalOptions = LayoutOptions.End;
-        Source = ImageSource.FromResource("Net.UI.gradienth2.png", typeof(HorizontalShadow2).GetTypeInfo().Assembly);
+        string source = "gradienth";
+        if (Orientation == StackOrientation.Horizontal)
+        {
+            HorizontalOptions = LayoutOptions.Fill;
+            WidthRequest = -1;
+            HeightRequest = Size;
+            VerticalOptions = LayoutOptions.Start;
+            if (IsFlipped) source += "2";
+        }
+        else
+        {
+            HeightRequest = -1;
+            WidthRequest = Size;
+            HorizontalOptions = LayoutOptions.Start;
+            VerticalOptions = LayoutOptions.Fill;
+            source = IsFlipped ? "gradientv2" : "gradientv";
+        }
+
+        Source = ImageSource.FromResource($"Net.UI.{source}.png", typeof(Shadow).GetTypeInfo().Assembly);
     }
 }
 
-public class VerticalShadow : HorizontalShadow
+public class Line : BoxView
 {
-    public VerticalShadow()
+    public StackOrientation Orientation
     {
-        VerticalOptions = LayoutOptions.Fill;
-        WidthRequest = 10;
-        HeightRequest = -1;
-        HorizontalOptions = LayoutOptions.Start;
-        Source = ImageSource.FromResource("Net.UI.gradientv.png", typeof(VerticalShadow).GetTypeInfo().Assembly);
+        get => (StackOrientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
     }
-}
 
-public class VerticalShadow2 : VerticalShadow
-{
-    public VerticalShadow2()
-    {
-        HorizontalOptions = LayoutOptions.End;
-        Source = ImageSource.FromResource("Net.UI.gradientv2.png", typeof(VerticalShadow2).GetTypeInfo().Assembly);
-    }
-}
+    public static readonly BindableProperty OrientationProperty = BindableProperty.Create(
+        nameof(Orientation),
+        typeof(StackOrientation),
+        typeof(Line),
+        propertyChanged: (bindable, oldVal, newVal) =>
+        {
+            if (bindable is Line line) line.Update();
+        });
 
-public class HorizontalLine : BoxView
-{
-    public HorizontalLine()
+    public Line()
     {
         HorizontalOptions = LayoutOptions.Fill;
         HeightRequest = 1;
-        BackgroundColor = Color.FromArgb("#FFF");
-    }
-}
-
-public class VerticalLine : BoxView
-{
-    public VerticalLine()
-    {
-        VerticalOptions = LayoutOptions.Fill;
         WidthRequest = 1;
         BackgroundColor = Color.FromArgb("#FFF");
+        Update();
+    }
+
+    void Update()
+    {
+        if (Orientation == StackOrientation.Horizontal)
+        {
+            HorizontalOptions = LayoutOptions.Fill;
+            VerticalOptions = LayoutOptions.Start;
+        }
+        else
+        {
+            HorizontalOptions = LayoutOptions.Start;
+            VerticalOptions = LayoutOptions.Fill;
+        }
     }
 }

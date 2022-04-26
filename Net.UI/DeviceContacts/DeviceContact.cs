@@ -1,4 +1,4 @@
-﻿namespace Net.DeviceContacts;
+﻿namespace Net.Essentials.DeviceContacts;
 
 public class DeviceContact
 {

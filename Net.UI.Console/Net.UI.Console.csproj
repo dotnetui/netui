@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Net.Essentials\Net.Essentials.csproj" />
     <ProjectReference Include="..\Net.UI\Net.UI.csproj" />
   </ItemGroup>
 

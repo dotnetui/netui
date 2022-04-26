@@ -3,7 +3,7 @@ using Contacts;
 using Foundation;
 #endif
 
-namespace Net.DeviceContacts;
+namespace Net.Essentials.DeviceContacts;
 
 public partial class DeviceContacts
 {

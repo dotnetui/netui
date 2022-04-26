@@ -1,4 +1,5 @@
-﻿global using Net;
+﻿global using Net.Essentials;
+global using Net.UI;
 
 global using Newtonsoft.Json;
 

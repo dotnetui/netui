@@ -2,7 +2,7 @@
 
 using RestSharp;
 
-namespace Net.Places;
+namespace Net.Essentials.Places;
 
 public class GooglePlaces : IPlaces
 {

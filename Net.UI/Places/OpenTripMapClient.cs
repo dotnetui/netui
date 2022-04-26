@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 
-namespace Net.Places;
+namespace Net.Essentials.Places;
 
 public class OpenTripMapClient
 {

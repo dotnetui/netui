@@ -1,4 +1,4 @@
-﻿namespace Net.Systems;
+﻿namespace Net.Essentials.Systems;
 
 internal class MessagingSystem
 {

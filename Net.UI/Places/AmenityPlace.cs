@@ -1,4 +1,4 @@
-﻿namespace Net.Places;
+﻿namespace Net.Essentials.Places;
 
 public class AmenityPlace
 {

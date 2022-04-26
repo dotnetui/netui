@@ -1,4 +1,4 @@
-﻿namespace Net;
+﻿namespace Net.Essentials;
 
 public enum ActivityState
 {
