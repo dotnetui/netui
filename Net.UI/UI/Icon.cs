@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace Net.UI;
 
 [Flags]
-public enum ImageButtonStyles
+public enum IconAppearances
 {
     Image = 1,
     Text = 2,
@@ -12,7 +12,7 @@ public enum ImageButtonStyles
     ImageTextStack = Image | Text | 4
 }
 
-public enum ImageButtonOrientations
+public enum IconOrientation
 {
     Up = 0,
     Down = 180,
@@ -20,12 +20,12 @@ public enum ImageButtonOrientations
     Left = 90
 }
 
-public class ImageButton2 : Grid
+public class Icon : Grid
 {
     Image image;
     Label label;
 
-    public ImageButton2()
+    public Icon()
     {
         Build();
     }
@@ -37,7 +37,7 @@ public class ImageButton2 : Grid
         image = null;
         label = null;
 
-        if (ImageButtonStyle.HasFlag(ImageButtonStyles.Image))
+        if (Appearance.HasFlag(IconAppearances.Image))
         {
             image = new Image
             {
@@ -58,7 +58,7 @@ public class ImageButton2 : Grid
             image.SetBinding(Image.WidthRequestProperty, nameof(ImageWidthRequest));
         }
 
-        if (ImageButtonStyle.HasFlag(ImageButtonStyles.Text))
+        if (Appearance.HasFlag(IconAppearances.Text))
         {
             label = new Label
             {
@@ -94,7 +94,7 @@ public class ImageButton2 : Grid
 
         Children.Add(button);
 
-        if (ImageButtonStyle == ImageButtonStyles.ImageText)
+        if (Appearance == IconAppearances.ImageText)
         {
             RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             RowDefinitions.Add(new RowDefinition { Height = TextHeight });
@@ -107,7 +107,7 @@ public class ImageButton2 : Grid
 
             //image.VerticalOptions = LayoutOptions.EndAndExpand;
         }
-        else if (ImageButtonStyle == ImageButtonStyles.ImageTextStack)
+        else if (Appearance == IconAppearances.ImageTextStack)
         {
             RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -190,10 +190,10 @@ public class ImageButton2 : Grid
         set => SetValue(ImageMarginProperty, value);
     }
 
-    public ImageButtonStyles ImageButtonStyle
+    public IconAppearances Appearance
     {
-        get => (ImageButtonStyles)GetValue(ImageButtonStyleProperty);
-        set => SetValue(ImageButtonStyleProperty, value);
+        get => (IconAppearances)GetValue(AppearanceProperty);
+        set => SetValue(AppearanceProperty, value);
     }
 
     public string Text
@@ -257,116 +257,116 @@ public class ImageButton2 : Grid
         set => SetValue(HorizontalTextAlignmentProperty, value);
     }
 
-    public ImageButtonOrientations Orientation
+    public IconOrientation Orientation
     {
-        get => (ImageButtonOrientations)GetValue(OrientationProperty);
+        get => (IconOrientation)GetValue(OrientationProperty);
         set => SetValue(OrientationProperty, value);
     }
 
     public static readonly BindableProperty OrientationProperty = BindableProperty.Create(
         propertyName: nameof(Orientation),
-        returnType: typeof(ImageButtonOrientations),
-        declaringType: typeof(ImageButton2),
-        defaultValue: ImageButtonOrientations.Up,
+        returnType: typeof(IconOrientation),
+        declaringType: typeof(Icon),
+        defaultValue: IconOrientation.Up,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is ImageButton2 butt)
+            if (bindable is Icon butt)
                 butt.AdjustOrientation();
         });
 
     public static readonly BindableProperty VerticalTextAlignmentProperty = BindableProperty.Create(
         propertyName: nameof(VerticalTextAlignment),
         returnType: typeof(TextAlignment),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: TextAlignment.Start);
 
     public static readonly BindableProperty HorizontalTextAlignmentProperty = BindableProperty.Create(
         propertyName: nameof(HorizontalTextAlignment),
         returnType: typeof(TextAlignment),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: TextAlignment.Center);
 
     public static readonly BindableProperty SourceProperty = BindableProperty.Create(
         propertyName: nameof(Source),
         returnType: typeof(ImageSource),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: null);
 
     public static readonly BindableProperty CommandProperty = BindableProperty.Create(
         nameof(Command),
         typeof(ICommand),
-        typeof(ImageButton2),
+        typeof(Icon),
         null,
         BindingMode.OneWay);
 
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
         nameof(CommandParameter),
         typeof(object),
-        typeof(ImageButton2),
+        typeof(Icon),
         null,
         BindingMode.OneWay);
 
     public static readonly BindableProperty PressedCommandProperty = BindableProperty.Create(
         nameof(PressedCommand),
         typeof(ICommand),
-        typeof(ImageButton2),
+        typeof(Icon),
         null,
         BindingMode.OneWay);
 
     public static readonly BindableProperty PressedCommandParameterProperty = BindableProperty.Create(
         nameof(PressedCommandParameter),
         typeof(object),
-        typeof(ImageButton2),
+        typeof(Icon),
         null,
         BindingMode.OneWay);
 
     public static readonly BindableProperty ReleasedCommandProperty = BindableProperty.Create(
         nameof(ReleasedCommand),
         typeof(ICommand),
-        typeof(ImageButton2),
+        typeof(Icon),
         null,
         BindingMode.OneWay);
 
     public static readonly BindableProperty ReleasedCommandParameterProperty = BindableProperty.Create(
         nameof(ReleasedCommandParameter),
         typeof(object),
-        typeof(ImageButton2),
+        typeof(Icon),
         null,
         BindingMode.OneWay);
 
     public static readonly BindableProperty ImageMarginProperty = BindableProperty.Create(
         nameof(ImageMargin),
         typeof(Thickness),
-        typeof(ImageButton2),
+        typeof(Icon),
         new Thickness(0, 0),
         BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is ImageButton2 butt && butt.image != null)
+            if (bindable is Icon butt && butt.image != null)
                 butt.image.Margin = (Thickness)newVal;
         });
 
-    public static readonly BindableProperty ImageButtonStyleProperty = BindableProperty.Create(
-        nameof(ImageButtonStyle),
-        typeof(ImageButtonStyles),
-        typeof(ImageButton2),
-        ImageButtonStyles.Image,
+    public static readonly BindableProperty AppearanceProperty = BindableProperty.Create(
+        nameof(Appearance),
+        typeof(IconAppearances),
+        typeof(Icon),
+        IconAppearances.Image,
         BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is ImageButton2 butt)
+            if (bindable is Icon butt)
                 butt.Build();
         });
 
     public static readonly BindableProperty TextHeightProperty = BindableProperty.Create(
         nameof(TextHeight),
         typeof(GridLength),
-        typeof(ImageButton2),
+        typeof(Icon),
         GridLength.Auto,
         BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is ImageButton2 butt)
+            if (bindable is Icon butt)
             {
                 butt.Build();
             }
@@ -375,12 +375,12 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty ImageHeightRequestProperty = BindableProperty.Create(
         nameof(ImageHeightRequest),
         typeof(double),
-        typeof(ImageButton2),
+        typeof(Icon),
         -1.0,
         BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is ImageButton2 butt)
+            if (bindable is Icon butt)
             {
                 butt.Build();
             }
@@ -389,12 +389,12 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty ImageWidthRequestProperty = BindableProperty.Create(
         nameof(ImageWidthRequest),
         typeof(double),
-        typeof(ImageButton2),
+        typeof(Icon),
         -1.0,
         BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is ImageButton2 butt)
+            if (bindable is Icon butt)
             {
                 butt.Build();
             }
@@ -403,7 +403,7 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty TextProperty = BindableProperty.Create(
         propertyName: nameof(Text),
         returnType: typeof(string),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: "",
         defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -414,7 +414,7 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
         propertyName: nameof(TextColor),
         returnType: typeof(Color),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: Color.FromArgb("#FFF"),
         defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -425,7 +425,7 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
         propertyName: nameof(FontSize),
         returnType: typeof(double),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: 16.0,
         defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -436,7 +436,7 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(
         propertyName: nameof(FontFamily),
         returnType: typeof(string),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: null,
         defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -447,7 +447,7 @@ public class ImageButton2 : Grid
     public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(
         propertyName: nameof(FontAttributes),
         returnType: typeof(FontAttributes),
-        declaringType: typeof(ImageButton2),
+        declaringType: typeof(Icon),
         defaultValue: FontAttributes.Bold,
         defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -457,7 +457,7 @@ public class ImageButton2 : Grid
 
     void AdjustOrientation()
     {
-        if (ImageButtonStyle == ImageButtonStyles.ImageTextStack || ImageButtonStyle == ImageButtonStyles.ImageText)
+        if (Appearance == IconAppearances.ImageTextStack || Appearance == IconAppearances.ImageText)
         {
             Rotation = (double)Orientation;
             image.Rotation = 0;

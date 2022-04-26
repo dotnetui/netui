@@ -2,6 +2,9 @@
 
 public static class Palette
 {
+    public static Color Black { get; } = Color.FromArgb("#000");
+    public static Color White { get; } = Color.FromArgb("#FFF");
+
     public static Color Color0 => Colors[0];
     public static Color Color1 => Colors[1];
     public static Color Color2 => Colors[2];

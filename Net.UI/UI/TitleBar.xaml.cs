@@ -1,4 +1,5 @@
 using Net.Essentials.Services;
+using Net.Internals;
 
 using System.ComponentModel;
 using System.Windows.Input;
@@ -414,13 +415,6 @@ public partial class TitleBar
     public static ImageSource MenuButtonImageOverride = null;
     public static Size? BackButtonSizeOverride = null;
 
-    static readonly Assembly assembly = typeof(TitleBar).GetTypeInfo().Assembly;
-    static readonly ResourceService resourceService = new ResourceService();
-
-    static ImageSource LoadImage(string name)
-    {
-        return ImageSource.FromResource(resourceService.FindResourceName(name, assembly), assembly);
-    }
 
     void UpdateButton()
     {
@@ -444,9 +438,9 @@ public partial class TitleBar
             var darkSuffix = IsDark ? "b" : "";
 
             if (showBack)
-                backImage.Source = BackButtonImageOverride ?? LoadImage($"leftarrow{darkSuffix}.png");
+                backImage.Source = BackButtonImageOverride ?? EmbeddedResourceManager.Instance.LoadImage($"leftarrow{darkSuffix}.png");
             else
-                backImage.Source = MenuButtonImageOverride ?? LoadImage($"menu{darkSuffix}.png");
+                backImage.Source = MenuButtonImageOverride ?? EmbeddedResourceManager.Instance.LoadImage($"menu{darkSuffix}.png");
         });
     }
 

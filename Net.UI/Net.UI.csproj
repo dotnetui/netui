@@ -52,6 +52,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="UI\Code.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\Panel.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

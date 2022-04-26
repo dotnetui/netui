@@ -2,30 +2,30 @@
 
 namespace Net.UI;
 
-public class SearchBar2 : SearchBar
+public class Search : SearchBar
 {
     public static readonly BindableProperty CancelCommandProperty = BindableProperty.Create(
         nameof(CancelCommand),
         typeof(ICommand),
-        typeof(SearchBar2),
+        typeof(Search),
         null);
 
     public static readonly BindableProperty CancelCommandParameterProperty = BindableProperty.Create(
         nameof(CancelCommandParameter),
         typeof(object),
-        typeof(SearchBar2),
+        typeof(Search),
         null);
 
     public static readonly BindableProperty IsCancelVisibleProperty = BindableProperty.Create(
         nameof(IsCancelVisible),
         typeof(bool),
-        typeof(SearchBar2),
+        typeof(Search),
         true);
 
     public static readonly BindableProperty TextChangeActionProperty = BindableProperty.Create(
         nameof(TextChangeAction),
         typeof(Action<string>),
-        typeof(SearchBar2),
+        typeof(Search),
         null);
 
     public ICommand CancelCommand
@@ -52,12 +52,12 @@ public class SearchBar2 : SearchBar
         set => SetValue(TextChangeActionProperty, value);
     }
 
-    public SearchBar2()
+    public Search()
     {
-        TextChanged += SearchBar2_TextChanged;
+        TextChanged += TextChanged2;
     }
 
-    private void SearchBar2_TextChanged(object sender, TextChangedEventArgs e)
+    private void TextChanged2(object sender, TextChangedEventArgs e)
     {
         TextChangeAction?.Invoke(e.NewTextValue);
     }

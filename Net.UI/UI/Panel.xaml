@@ -19,29 +19,32 @@
                 IsVisible="{Binding BottomBar, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                 Content="{Binding BottomBar, Source={RelativeSource AncestorType={Type ui:Panel}}}" />
 
-            <ui:Shadow 
+            <ui:HorizontalShadow 
                 Grid.Row="1"
-                Orientation="Vertical"
-                IsFlipped="False">
-                <!--<ui:Shadow.IsVisible>
-                    <MultiBinding Converter="{Static ui:AndMultiConverter.Instance}">
-                        <Binding Path="TopBar" Source="{RelativeSource AncestorType={Type ui:Panel}}" Converter="{Static ui:IsNotNullConverter.Instance}" />
-                        <Binding Path="DropShadows" Source="{RelativeSource AncestorType={Type ui:Panel}}" />
-                    </MultiBinding>
-                </ui:Shadow.IsVisible>-->
-            </ui:Shadow>
-            <ui:Shadow 
+                IsVisible="{Binding DropShadows, Source={RelativeSource AncestorType={Type ui:Panel}}}">
+                <Image.Triggers>
+                    <DataTrigger
+                        Binding="{Binding TopBar, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                        Value="False"
+                        TargetType="Image">
+                        <Setter Property="Opacity" Value="0" />
+                    </DataTrigger>
+                </Image.Triggers>
+            </ui:HorizontalShadow>
+            <ui:HorizontalShadow 
                 Grid.Row="1"
-                Orientation="Vertical"
                 VerticalOptions="End"
-                IsFlipped="True">
-                <!--<ui:Shadow.IsVisible>
-                    <MultiBinding Converter="{Static ui:AndMultiConverter.Instance}">
-                        <Binding Path="BottomBar" Source="{RelativeSource AncestorType={Type ui:Panel}}" Converter="{Static ui:IsNotNullConverter.Instance}" />
-                        <Binding Path="DropShadows" Source="{RelativeSource AncestorType={Type ui:Panel}}" />
-                    </MultiBinding>
-                </ui:Shadow.IsVisible>-->
-            </ui:Shadow>
+                IsFlipped="True"
+                IsVisible="{Binding DropShadows, Source={RelativeSource AncestorType={Type ui:Panel}}}">
+                <Image.Triggers>
+                    <DataTrigger
+                        Binding="{Binding BottomBar, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                        Value="False"
+                        TargetType="Image">
+                        <Setter Property="Opacity" Value="0" />
+                    </DataTrigger>
+                </Image.Triggers>
+            </ui:HorizontalShadow>
             
             <ui:Widget
                 Grid.RowSpan="3"

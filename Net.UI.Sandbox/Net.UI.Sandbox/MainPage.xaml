@@ -5,15 +5,17 @@
     xmlns:ui="clr-namespace:Net.UI;assembly=Net.UI"
     x:Class="Net.UI.Sandbox.MainPage">
     <Grid>
-        <ui:Panel DropShadows="True">
-            <ui:Panel.TopBar>
-                <ui:TitleBar
-                    HasButton="False"
-                    Title="Hello, World!!"
-                    />
-            </ui:Panel.TopBar>
+        <ui:Panel>
+            <ui:Panel.BottomBar>
+                <ui:TitleBar Title="Hello, World!!" />
+            </ui:Panel.BottomBar>
 
-            <Label Text="Hi There!" />
+            <Grid>
+                <StackLayout>
+                    <Label Text="Hi There!" />
+                    <ui:Code />
+                </StackLayout>
+            </Grid>
         </ui:Panel>
     </Grid>
 </ContentPage>
