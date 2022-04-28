@@ -2,7 +2,7 @@
 
 namespace Net.UI;
 
-public class HorizontalShadow : Image
+public class ShadowBar : Image
 {
     public bool IsFlipped
     {
@@ -13,15 +13,15 @@ public class HorizontalShadow : Image
     public static readonly BindableProperty IsFlippedProperty = BindableProperty.Create(
         nameof(IsFlipped),
         typeof(bool),
-        typeof(HorizontalShadow),
+        typeof(ShadowBar),
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            if (bindable is HorizontalShadow shadow) shadow.UpdateSource();
+            if (bindable is ShadowBar shadow) shadow.UpdateSource();
         });
 
     protected string FileBase = "gradienth";
 
-    public HorizontalShadow()
+    public ShadowBar()
     {
         Aspect = Aspect.Fill;
         HorizontalOptions = LayoutOptions.Fill;
@@ -37,13 +37,13 @@ public class HorizontalShadow : Image
     {
         var file = FileBase;
         if (IsFlipped) file += "2";
-        Source = ImageSource.FromResource($"Net.UI.{file}.png", typeof(HorizontalShadow).GetTypeInfo().Assembly);
+        Source = ImageSource.FromResource($"Net.UI.{file}.png", typeof(ShadowBar).GetTypeInfo().Assembly);
     }
 }
 
-public class VerticalShadow : HorizontalShadow
+public class VerticalShadowBar : ShadowBar
 {
-    public VerticalShadow()
+    public VerticalShadowBar()
     {
         FileBase = "gradientv";
         VerticalOptions = LayoutOptions.Fill;

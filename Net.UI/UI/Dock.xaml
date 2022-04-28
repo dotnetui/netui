@@ -26,7 +26,7 @@
                         IsVisible="{Binding Right, Source={RelativeSource AncestorType={Type ui:Dock}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                         Content="{Binding Right, Source={RelativeSource AncestorType={Type ui:Dock}}}" />
 
-                    <ui:HorizontalShadow 
+                    <ui:VerticalShadowBar 
                         Grid.Column="1"
                         IsVisible="{Binding DropShadows, Source={RelativeSource AncestorType={Type ui:Dock}}}">
                         <Image.Triggers>
@@ -37,10 +37,10 @@
                                 <Setter Property="Opacity" Value="0" />
                             </DataTrigger>
                         </Image.Triggers>
-                    </ui:HorizontalShadow>
-                    <ui:HorizontalShadow 
+                    </ui:VerticalShadowBar>
+                    <ui:VerticalShadowBar 
                         Grid.Column="1"
-                        VerticalOptions="End"
+                        HorizontalOptions="End"
                         IsFlipped="True"
                         IsVisible="{Binding DropShadows, Source={RelativeSource AncestorType={Type ui:Dock}}}">
                         <Image.Triggers>
@@ -51,7 +51,7 @@
                                 <Setter Property="Opacity" Value="0" />
                             </DataTrigger>
                         </Image.Triggers>
-                    </ui:HorizontalShadow>
+                    </ui:VerticalShadowBar>
                 </Grid>
                 <ui:Widget 
                     Grid.Row="0" 
@@ -63,7 +63,7 @@
                     IsVisible="{Binding Bottom, Source={RelativeSource AncestorType={Type ui:Dock}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                     Content="{Binding Bottom, Source={RelativeSource AncestorType={Type ui:Dock}}}" />
 
-                <ui:HorizontalShadow 
+                <ui:ShadowBar 
                     Grid.Row="1"
                     IsVisible="{Binding DropShadows, Source={RelativeSource AncestorType={Type ui:Dock}}}">
                     <Image.Triggers>
@@ -74,8 +74,8 @@
                             <Setter Property="Opacity" Value="0" />
                         </DataTrigger>
                     </Image.Triggers>
-                </ui:HorizontalShadow>
-                <ui:HorizontalShadow 
+                </ui:ShadowBar>
+                <ui:ShadowBar 
                     Grid.Row="1"
                     VerticalOptions="End"
                     IsFlipped="True"
@@ -88,7 +88,7 @@
                             <Setter Property="Opacity" Value="0" />
                         </DataTrigger>
                     </Image.Triggers>
-                </ui:HorizontalShadow>
+                </ui:ShadowBar>
             </Grid>
 
             <Grid 
