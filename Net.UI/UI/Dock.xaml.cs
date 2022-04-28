@@ -1,7 +1,7 @@
 namespace Net.UI;
 
 [ContentProperty(nameof(Body))]
-public partial class Panel
+public partial class Dock
 {
 	public IView Body
     {
@@ -9,16 +9,28 @@ public partial class Panel
 		set => SetValue(BodyProperty, value);
     }
 
-	public IView TopBar
+	public IView Top
     {
-		get => (IView)GetValue(TopBarProperty);
-		set => SetValue(TopBarProperty, value);
+		get => (IView)GetValue(TopProperty);
+		set => SetValue(TopProperty, value);
     }
 	
-	public IView BottomBar
+	public IView Bottom
     {
-		get => (IView)GetValue(BottomBarProperty);
-		set => SetValue(BottomBarProperty, value);
+		get => (IView)GetValue(BottomProperty);
+		set => SetValue(BottomProperty, value);
+    }
+	
+	public IView Left
+    {
+		get => (IView)GetValue(LeftProperty);
+		set => SetValue(LeftProperty, value);
+    }
+	
+	public IView Right
+    {
+		get => (IView)GetValue(RightProperty);
+		set => SetValue(RightProperty, value);
     }
 	
 	public IView Overlay
@@ -36,34 +48,44 @@ public partial class Panel
 	public static readonly BindableProperty DropShadowsProperty = BindableProperty.Create(
 		nameof(DropShadows),
 		typeof(bool),
-		typeof(Panel));
+		typeof(Dock));
 
 	public static readonly BindableProperty BodyProperty = BindableProperty.Create(
 		nameof(Body),
 		typeof(IView),
-		typeof(Panel));
+		typeof(Dock));
 	
-	public static readonly BindableProperty TopBarProperty = BindableProperty.Create(
-		nameof(TopBar),
+	public static readonly BindableProperty TopProperty = BindableProperty.Create(
+		nameof(Top),
 		typeof(IView),
-		typeof(Panel));
+		typeof(Dock));
 	
-	public static readonly BindableProperty BottomBarProperty = BindableProperty.Create(
-		nameof(BottomBar),
+	public static readonly BindableProperty BottomProperty = BindableProperty.Create(
+		nameof(Bottom),
 		typeof(IView),
-		typeof(Panel));
+		typeof(Dock));
+	
+	public static readonly BindableProperty LeftProperty = BindableProperty.Create(
+		nameof(Left),
+		typeof(IView),
+		typeof(Dock));
+	
+	public static readonly BindableProperty RightProperty = BindableProperty.Create(
+		nameof(Right),
+		typeof(IView),
+		typeof(Dock));
 	
 	public static readonly BindableProperty OverlayProperty = BindableProperty.Create(
 		nameof(Overlay),
 		typeof(IView),
-		typeof(Panel),
+		typeof(Dock),
 		propertyChanged: (bindable, oldVal, newVal) =>
         {
-			if (bindable is Panel panel)
-				panel.UpdateOverlay();
+			if (bindable is Dock Dock)
+				Dock.UpdateOverlay();
         });
 	
-	public Panel()
+	public Dock()
 	{
 		InitializeComponent();
 		UpdateOverlay();

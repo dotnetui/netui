@@ -48,8 +48,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="UI\Panel.xaml.cs">
-	    <DependentUpon>Panel.xaml</DependentUpon>
+	  <Compile Update="UI\Dock.xaml.cs">
+	    <DependentUpon>Dock.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -57,7 +57,7 @@
 	  <MauiXaml Update="UI\Code.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\Panel.xaml">
+	  <MauiXaml Update="UI\Dock.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\SideBar.xaml">

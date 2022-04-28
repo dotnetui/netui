@@ -9,15 +9,15 @@
         <vm:MainViewModel />
     </ContentPage.BindingContext>
     <Grid>
-        <ui:Panel>
-            <ui:Panel.BottomBar>
+        <ui:Dock>
+            <ui:Dock.Bottom>
                 <ui:TitleBar 
                     Button="Back"
                     Command="{Binding SideBar.ToggleCommand}"
                     Title="Hello, World!!" />
-            </ui:Panel.BottomBar>
+            </ui:Dock.Bottom>
 
-            <ui:Panel.Overlay>
+            <ui:Dock.Overlay>
                 <ui:SideBar 
                     x:Name="sb"
                     Side="Left"
@@ -32,7 +32,7 @@
                         </StackLayout>
                     </Frame>
                 </ui:SideBar>
-            </ui:Panel.Overlay>
+            </ui:Dock.Overlay>
 
             <Grid>
                 <ScrollView>
@@ -51,6 +51,6 @@
                     </StackLayout>
                 </ScrollView>
             </Grid>
-        </ui:Panel>
+        </ui:Dock>
     </Grid>
 </ContentPage>
