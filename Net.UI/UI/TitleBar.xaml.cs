@@ -11,7 +11,7 @@ public enum TitleBarMainButton
     Hide,
     Menu,
     Back,
-    Custom
+    Image
 }
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -21,12 +21,8 @@ public partial class TitleBar
     public TitleBar()
     {
         InitializeComponent();
+        controlButtons.BindingContext = this;
         UpdateButton();
-        backImage.InputTransparent = true;
-
-        var tap = new TapGestureRecognizer();
-        tap.Tapped += Tap_Tapped;
-        controlButtons.GestureRecognizers.Add(tap);
 
         UpdateToolBar();
         UpdateLeftToolBar();
@@ -85,10 +81,10 @@ public partial class TitleBar
         set => SetValue(ButtonProperty, value);
     }
 
-    public ImageSource CustomButtonImage
+    public ImageSource ButtonImage
     {
-        get => (ImageSource)GetValue(CustomButtonImageProperty);
-        set => SetValue(CustomButtonImageProperty, value);
+        get => (ImageSource)GetValue(ButtonImageProperty);
+        set => SetValue(ButtonImageProperty, value);
     }
 
     public ImageSource BackgroundImage
@@ -168,6 +164,36 @@ public partial class TitleBar
     {
         get => (ControlTemplate)GetValue(TitleViewTemplateProperty);
         set => SetValue(TitleViewTemplateProperty, value);
+    }
+
+    public double ButtonHeightRequest
+    {
+        get => (double)GetValue(ButtonHeightRequestProperty);
+        set => SetValue(ButtonHeightRequestProperty, value);
+    }
+
+    public double ButtonWidthRequest
+    {
+        get => (double)GetValue(ButtonWidthRequestProperty);
+        set => SetValue(ButtonWidthRequestProperty, value);
+    }
+
+    public double ButtonContainerWidthRequest
+    {
+        get => (double)GetValue(ButtonContainerWidthRequestProperty);
+        set => SetValue(ButtonContainerWidthRequestProperty, value);
+    }
+
+    public Thickness ButtonMargin
+    {
+        get => (Thickness)GetValue(ButtonMarginProperty);
+        set => SetValue(ButtonMarginProperty, value);
+    }
+
+    public Aspect ButtonAspect
+    {
+        get => (Aspect)GetValue(ButtonAspectProperty);
+        set => SetValue(ButtonAspectProperty, value);
     }
 
     public static readonly BindableProperty IsDarkProperty = BindableProperty.Create(
@@ -284,8 +310,8 @@ public partial class TitleBar
             (bindable as TitleBar)?.UpdateButton();
         });
 
-    public static readonly BindableProperty CustomButtonImageProperty = BindableProperty.Create(
-        propertyName: nameof(CustomButtonImage),
+    public static readonly BindableProperty ButtonImageProperty = BindableProperty.Create(
+        propertyName: nameof(ButtonImage),
         returnType: typeof(ImageSource),
         declaringType: typeof(TitleBar),
         defaultValue: default(ImageSource),
@@ -381,10 +407,38 @@ public partial class TitleBar
                 titlebar.contentContainer.FixBottomPadding = (bool)newVal;
         });
 
+    public static readonly BindableProperty ButtonHeightRequestProperty = BindableProperty.Create(
+        nameof(ButtonHeightRequest),
+        typeof(double),
+        typeof(TitleBar),
+        24.0);
+
+    public static readonly BindableProperty ButtonWidthRequestProperty = BindableProperty.Create(
+        nameof(ButtonWidthRequest),
+        typeof(double),
+        typeof(TitleBar),
+        24.0);
+    
+    public static readonly BindableProperty ButtonContainerWidthRequestProperty = BindableProperty.Create(
+        nameof(ButtonContainerWidthRequest),
+        typeof(double),
+        typeof(TitleBar),
+        42.0);
+    
+    public static readonly BindableProperty ButtonMarginProperty = BindableProperty.Create(
+        nameof(ButtonMargin),
+        typeof(Thickness),
+        typeof(TitleBar),
+        new Thickness(12, 0, 6, 0));
+    
+    public static readonly BindableProperty ButtonAspectProperty = BindableProperty.Create(
+        nameof(ButtonAspect),
+        typeof(Aspect),
+        typeof(TitleBar),
+        Aspect.AspectFit);
 
     public static ImageSource BackButtonImageOverride = null;
     public static ImageSource MenuButtonImageOverride = null;
-    public static Size? MainButtonSizeOverride = null;
 
     void UpdateButton()
     {
@@ -395,15 +449,9 @@ public partial class TitleBar
             if (Button == TitleBarMainButton.Hide)
                 return;
 
-            if (MainButtonSizeOverride != null)
+            if (Button == TitleBarMainButton.Image)
             {
-                backImage.WidthRequest = MainButtonSizeOverride.Value.Width;
-                backImage.HeightRequest = MainButtonSizeOverride.Value.Height;
-            }
-
-            if (Button == TitleBarMainButton.Custom)
-            {
-                backImage.Source = CustomButtonImage;
+                backImage.Source = ButtonImage;
                 return;
             }
 

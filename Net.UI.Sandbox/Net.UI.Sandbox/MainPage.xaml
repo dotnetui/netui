@@ -12,6 +12,7 @@
         <ui:Panel>
             <ui:Panel.BottomBar>
                 <ui:TitleBar 
+                    Button="Back"
                     Command="{Binding SideBar.ToggleCommand}"
                     Title="Hello, World!!" />
             </ui:Panel.BottomBar>
