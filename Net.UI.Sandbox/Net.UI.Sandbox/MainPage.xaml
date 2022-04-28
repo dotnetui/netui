@@ -12,23 +12,27 @@
         <ui:Panel>
             <ui:Panel.BottomBar>
                 <ui:TitleBar 
-                    BackCommand="{Binding ShowSideBarCommand}"
+                    Command="{Binding SideBar.ToggleCommand}"
                     Title="Hello, World!!" />
             </ui:Panel.BottomBar>
 
             <ui:Panel.Overlay>
                 <ui:SideBar 
-                    Side="Left" 
+                    x:Name="sb"
+                    Side="Left"
                     IsModal="True"
-                    ModalBackgroundColor="AliceBlue">
+                    IsFullSize="False"
+                    ModalBackgroundColor="#3000">
                     <Frame>
                         <StackLayout>
-                            <Label Text="SideBar" />
+                            <Label Text="{Binding InputTransparent, Source={Reference sb}}" />
+                            <Label Text="{Binding CascadeInputTransparent, Source={Reference sb}}" />
+                            <Button Text="B" Command="{Binding SideBar.CloseCommand}" />
                         </StackLayout>
                     </Frame>
                 </ui:SideBar>
             </ui:Panel.Overlay>
-            
+
             <Grid>
                 <ScrollView>
                     <StackLayout>
@@ -42,14 +46,10 @@
                             TextAlignment="End"
                             Visual="Default"
                             TextColor="White"
-                            />
+                            /> 
                     </StackLayout>
                 </ScrollView>
             </Grid>
         </ui:Panel>
-
-        <Grid.GestureRecognizers>
-            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-        </Grid.GestureRecognizers>
     </Grid>
 </ContentPage>

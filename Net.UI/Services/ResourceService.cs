@@ -1,10 +1,5 @@
-﻿using Net.Essentials.Services;
-
-using System.Reflection;
-
-[assembly: Dependency(typeof(ResourceService))]
-namespace Net.Essentials.Services;
-
+﻿[assembly: Dependency(typeof(ResourceService))]
+namespace Net.Essentials;
 public class ResourceService
 {
     readonly Dictionary<(Assembly, string), string> resourceNames = new Dictionary<(Assembly, string), string>();

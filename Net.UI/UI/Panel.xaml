@@ -6,7 +6,6 @@
     xmlns:ui="clr-namespace:Net.UI">
     <ui:Widget.Content>
         <Grid>
-            
             <Grid RowDefinitions="Auto, *, Auto" RowSpacing="0">
                 <ui:Widget 
                     Grid.Row="1" 
@@ -48,12 +47,11 @@
                     </Image.Triggers>
                 </ui:HorizontalShadow>
             </Grid>
-            
-            <ui:Widget
+
+            <Grid 
+                x:Name="overlayContainer"
                 InputTransparent="True"
-                CascadeInputTransparent="False"
-                IsVisible="{Binding Overlay, Source={RelativeSource AncestorType={Type ui:Panel}}, Converter={Static ui:IsNotNullConverter.Instance}}"
-                Content="{Binding Overlay, Source={RelativeSource AncestorType={Type ui:Panel}}}" />
+                CascadeInputTransparent="False" />
         </Grid>
     </ui:Widget.Content>
 </ui:Widget>

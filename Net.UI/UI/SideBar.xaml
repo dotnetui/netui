@@ -6,7 +6,7 @@
     x:Class="Net.UI.SideBar"
     HorizontalOptions="Fill"
     VerticalOptions="Fill"
-    IsVisible="{Binding IsSideBarOpen, Mode=TwoWay}">
+    IsVisible="{Binding SideBar.IsOpen, Mode=TwoWay}">
     <ui:Widget.Content>
         <Grid>
             <Grid 
@@ -16,12 +16,13 @@
                 BackgroundColor="{Binding ModalBackgroundColor, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                 IsVisible="{Binding IsModal, Source={RelativeSource AncestorType={Type ui:SideBar}}}">
                 <Grid.GestureRecognizers>
-                    <TapGestureRecognizer
-                        x:Name="tap"
-                        Tapped="BtnDismiss_Clicked" />
+                    <TapGestureRecognizer Tapped="BtnDismiss_Clicked" />
                 </Grid.GestureRecognizers>
             </Grid>
-            <Grid x:Name="mainGrid">
+            <Grid 
+                x:Name="mainGrid"
+                InputTransparent="True"
+                CascadeInputTransparent="False">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition x:Name="colLeft" />
                     <ColumnDefinition x:Name="colRight" />
@@ -31,6 +32,7 @@
                     <RowDefinition x:Name="rowTop" />
                     <RowDefinition x:Name="rowBottom" />
                 </Grid.RowDefinitions>
+                
                 <ui:Widget
                     x:Name="content"
                     HorizontalOptions="Fill"

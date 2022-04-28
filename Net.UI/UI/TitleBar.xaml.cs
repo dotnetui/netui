@@ -6,6 +6,14 @@ using System.Windows.Input;
 
 namespace Net.UI;
 
+public enum TitleBarMainButton
+{
+    Hide,
+    Menu,
+    Back,
+    Custom
+}
+
 [XamlCompilation(XamlCompilationOptions.Compile)]
 [ContentProperty("ToolBar")]
 public partial class TitleBar
@@ -31,8 +39,8 @@ public partial class TitleBar
 
     private void Tap_Tapped(object sender, EventArgs e)
     {
-        if (BackCommand?.CanExecute(BackCommandParameter) ?? false)
-            BackCommand.Execute(BackCommandParameter);
+        if (Command?.CanExecute(CommandParameter) ?? false)
+            Command.Execute(CommandParameter);
     }
 
     public View BackgroundView
@@ -71,22 +79,16 @@ public partial class TitleBar
         set => SetValue(ContentMarginProperty, value);
     }
 
-    public bool? IsBackButtonVisible
+    public TitleBarMainButton Button
     {
-        get => (bool?)GetValue(IsBackButtonVisibleProperty);
-        set => SetValue(IsBackButtonVisibleProperty, value);
+        get => (TitleBarMainButton)GetValue(ButtonProperty);
+        set => SetValue(ButtonProperty, value);
     }
 
-    public bool HasButton
+    public ImageSource CustomButtonImage
     {
-        get => (bool)GetValue(HasButtonProperty);
-        set => SetValue(HasButtonProperty, value);
-    }
-
-    public ImageSource CustomBackImage
-    {
-        get => (ImageSource)GetValue(CustomBackImageProperty);
-        set => SetValue(CustomBackImageProperty, value);
+        get => (ImageSource)GetValue(CustomButtonImageProperty);
+        set => SetValue(CustomButtonImageProperty, value);
     }
 
     public ImageSource BackgroundImage
@@ -101,16 +103,16 @@ public partial class TitleBar
         set => SetValue(BackgroundImageOpacityProperty, value);
     }
 
-    public ICommand BackCommand
+    public ICommand Command
     {
-        get => (ICommand)GetValue(BackCommandProperty);
-        set => SetValue(BackCommandProperty, value);
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
     }
 
-    public object BackCommandParameter
+    public object CommandParameter
     {
-        get => GetValue(BackCommandParameterProperty);
-        set => SetValue(BackCommandParameterProperty, value);
+        get => GetValue(CommandParameterProperty);
+        set => SetValue(CommandParameterProperty, value);
     }
 
     public Color TextColor
@@ -173,7 +175,6 @@ public partial class TitleBar
         returnType: typeof(bool),
         declaringType: typeof(TitleBar),
         defaultValue: false,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titlebar)
@@ -185,7 +186,6 @@ public partial class TitleBar
         returnType: typeof(TextAlignment),
         declaringType: typeof(TitleBar),
         defaultValue: TextAlignment.Start,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titlebar)
@@ -197,7 +197,6 @@ public partial class TitleBar
         returnType: typeof(View),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
         });
@@ -207,7 +206,6 @@ public partial class TitleBar
         returnType: typeof(ImageSource),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -218,7 +216,6 @@ public partial class TitleBar
         returnType: typeof(View),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titlebar)
@@ -230,7 +227,6 @@ public partial class TitleBar
         returnType: typeof(View),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titlebar)
@@ -242,7 +238,6 @@ public partial class TitleBar
         returnType: typeof(View),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titlebar)
@@ -254,7 +249,6 @@ public partial class TitleBar
         returnType: typeof(double),
         declaringType: typeof(TitleBar),
         defaultValue: 60.0,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -265,7 +259,6 @@ public partial class TitleBar
         returnType: typeof(double),
         declaringType: typeof(TitleBar),
         defaultValue: 1.0,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -276,62 +269,46 @@ public partial class TitleBar
         returnType: typeof(Thickness),
         declaringType: typeof(TitleBar),
         defaultValue: default(Thickness),
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
         });
 
-    public static readonly BindableProperty IsBackButtonVisibleProperty = BindableProperty.Create(
-        propertyName: nameof(IsBackButtonVisible),
-        returnType: typeof(bool?),
+    public static readonly BindableProperty ButtonProperty = BindableProperty.Create(
+        propertyName: nameof(Button),
+        returnType: typeof(TitleBarMainButton),
         declaringType: typeof(TitleBar),
-        defaultValue: default(bool?),
-        defaultBindingMode: BindingMode.OneWay,
+        defaultValue: TitleBarMainButton.Back,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             (bindable as TitleBar)?.UpdateButton();
         });
 
-    public static readonly BindableProperty HasButtonProperty = BindableProperty.Create(
-        propertyName: nameof(HasButton),
-        returnType: typeof(bool),
-        declaringType: typeof(TitleBar),
-        defaultValue: true,
-        defaultBindingMode: BindingMode.OneWay,
-        propertyChanged: (bindable, oldVal, newVal) =>
-        {
-            (bindable as TitleBar)?.UpdateButton();
-        });
-
-    public static readonly BindableProperty CustomBackImageProperty = BindableProperty.Create(
-        propertyName: nameof(CustomBackImage),
+    public static readonly BindableProperty CustomButtonImageProperty = BindableProperty.Create(
+        propertyName: nameof(CustomButtonImage),
         returnType: typeof(ImageSource),
         declaringType: typeof(TitleBar),
         defaultValue: default(ImageSource),
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             (bindable as TitleBar)?.UpdateButton();
         });
 
-    public static readonly BindableProperty BackCommandProperty = BindableProperty.Create(
-        propertyName: nameof(BackCommand),
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+        propertyName: nameof(Command),
         returnType: typeof(ICommand),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
         });
 
-    public static readonly BindableProperty BackCommandParameterProperty = BindableProperty.Create(
-        propertyName: nameof(BackCommandParameter),
+    public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
+        propertyName: nameof(CommandParameter),
         returnType: typeof(object),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -342,7 +319,6 @@ public partial class TitleBar
         returnType: typeof(Color),
         declaringType: typeof(TitleBar),
         defaultValue: Color.FromArgb("#FFF"),
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -353,7 +329,6 @@ public partial class TitleBar
         returnType: typeof(double),
         declaringType: typeof(TitleBar),
         defaultValue: 16.0,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -364,7 +339,6 @@ public partial class TitleBar
         returnType: typeof(string),
         declaringType: typeof(TitleBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -380,7 +354,6 @@ public partial class TitleBar
         returnType: typeof(FontAttributes),
         declaringType: typeof(TitleBar),
         defaultValue: FontAttributes.Bold,
-        defaultBindingMode: BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
 
@@ -391,7 +364,6 @@ public partial class TitleBar
        typeof(bool),
        typeof(TitleBar),
        true,
-       BindingMode.OneWay,
        propertyChanged: (bindable, oldVal, newVal) =>
        {
            if (bindable is TitleBar titlebar && titlebar.contentContainer != null)
@@ -403,7 +375,6 @@ public partial class TitleBar
         typeof(bool),
         typeof(TitleBar),
         false,
-        BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titlebar && titlebar.contentContainer != null)
@@ -413,28 +384,30 @@ public partial class TitleBar
 
     public static ImageSource BackButtonImageOverride = null;
     public static ImageSource MenuButtonImageOverride = null;
-    public static Size? BackButtonSizeOverride = null;
-
+    public static Size? MainButtonSizeOverride = null;
 
     void UpdateButton()
     {
         Dispatcher.Dispatch(() =>
         {
-            controlButtons.IsVisible = HasButton && LeftToolBar == null;
+            controlButtons.IsVisible = Button != TitleBarMainButton.Hide && LeftToolBar == null;
 
-            if (BackButtonSizeOverride != null)
+            if (Button == TitleBarMainButton.Hide)
+                return;
+
+            if (MainButtonSizeOverride != null)
             {
-                backImage.WidthRequest = BackButtonSizeOverride.Value.Width;
-                backImage.HeightRequest = BackButtonSizeOverride.Value.Height;
+                backImage.WidthRequest = MainButtonSizeOverride.Value.Width;
+                backImage.HeightRequest = MainButtonSizeOverride.Value.Height;
             }
 
-            if (CustomBackImage != null)
+            if (Button == TitleBarMainButton.Custom)
             {
-                backImage.Source = CustomBackImage;
+                backImage.Source = CustomButtonImage;
                 return;
             }
 
-            var showBack = IsBackButtonVisible ?? (BindingContext is not ViewModel vm || vm.IsModal);
+            var showBack = Button == TitleBarMainButton.Back;
             var darkSuffix = IsDark ? "b" : "";
 
             if (showBack)

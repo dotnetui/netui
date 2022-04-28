@@ -33,6 +33,11 @@ public partial class Panel
 		set => SetValue(DropShadowsProperty, value);
     }
 
+	public static readonly BindableProperty DropShadowsProperty = BindableProperty.Create(
+		nameof(DropShadows),
+		typeof(bool),
+		typeof(Panel));
+
 	public static readonly BindableProperty BodyProperty = BindableProperty.Create(
 		nameof(Body),
 		typeof(IView),
@@ -51,15 +56,31 @@ public partial class Panel
 	public static readonly BindableProperty OverlayProperty = BindableProperty.Create(
 		nameof(Overlay),
 		typeof(IView),
-		typeof(Panel));
+		typeof(Panel),
+		propertyChanged: (bindable, oldVal, newVal) =>
+        {
+			if (bindable is Panel panel)
+				panel.UpdateOverlay();
+        });
 	
-	public static readonly BindableProperty DropShadowsProperty = BindableProperty.Create(
-		nameof(DropShadows),
-		typeof(bool),
-		typeof(Panel));
-
 	public Panel()
 	{
 		InitializeComponent();
+		UpdateOverlay();
 	}
+
+	void UpdateOverlay()
+    {
+		if (overlayContainer == null) return;
+		if (Overlay == null && overlayContainer.Children.Count > 0)
+			Dispatcher.Dispatch(overlayContainer.Children.Clear);
+		else if (Overlay != null)
+        {
+			if (overlayContainer.Children.Count > 0 &&
+				!overlayContainer.Children.Contains(Overlay))
+				Dispatcher.Dispatch(overlayContainer.Children.Clear);
+			if (!overlayContainer.Children.Contains(Overlay))
+				Dispatcher.Dispatch(() => overlayContainer.Children.Add(Overlay));
+        }
+    }
 }

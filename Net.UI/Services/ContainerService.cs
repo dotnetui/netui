@@ -1,7 +1,5 @@
-﻿using Net.Essentials.Services;
-
-[assembly: Dependency(typeof(ContainerService))]
-namespace Net.Essentials.Services;
+﻿[assembly: Dependency(typeof(ContainerService))]
+namespace Net.Essentials;
 
 public class ContainerService
 {

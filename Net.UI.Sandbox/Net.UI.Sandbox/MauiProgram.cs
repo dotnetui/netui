@@ -1,5 +1,6 @@
-﻿namespace Net.UI.Sandbox;
+﻿using Net.Essentials;
 
+namespace Net.UI.Sandbox;
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
@@ -7,6 +8,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.ConfigureNetEssentials()
+			.ConfigureNetUI()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

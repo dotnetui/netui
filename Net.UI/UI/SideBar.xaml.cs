@@ -1,8 +1,9 @@
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Net.UI;
 
-public enum SideBarSides
+public enum Side
 {
     Left,
     Right,
@@ -20,12 +21,13 @@ public partial class SideBar
         set => SetValue(BodyProperty, value);
     }
 
-    public SideBarSides Side
+    public Side Side
     {
-        get => (SideBarSides)GetValue(SideProperty);
+        get => (Side)GetValue(SideProperty);
         set => SetValue(SideProperty, value);
     }
 
+    [TypeConverter(typeof(GridLengthTypeConverter))]
     public GridLength ContentSize
     {
         get => (GridLength)GetValue(ContentSizeProperty);
@@ -146,9 +148,9 @@ public partial class SideBar
 
     public static readonly BindableProperty SideProperty = BindableProperty.Create(
         propertyName: nameof(Side),
-        returnType: typeof(SideBarSides),
+        returnType: typeof(Side),
         declaringType: typeof(SideBar),
-        defaultValue: SideBarSides.Left,
+        defaultValue: Side.Left,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             (bindable as SideBar)?.UpdateLayout();
@@ -160,7 +162,7 @@ public partial class SideBar
         declaringType: typeof(SideBar),
         defaultValue: new GridLength(3, GridUnitType.Star),
         propertyChanged: (bindable, oldVal, newVal) =>
-        {
+        { 
             (bindable as SideBar)?.UpdateLayout();
         });
 
@@ -374,10 +376,10 @@ public partial class SideBar
         if (!IsSwipeEnabled) return;
         if (IsVisible) return;
 
-        if ((Side == SideBarSides.Right && e.Direction == SwipeDirection.Left) ||
-            (Side == SideBarSides.Left && e.Direction == SwipeDirection.Right) ||
-            (Side == SideBarSides.Top && e.Direction == SwipeDirection.Down) ||
-            (Side == SideBarSides.Bottom && e.Direction == SwipeDirection.Up))
+        if ((Side == Side.Right && e.Direction == SwipeDirection.Left) ||
+            (Side == Side.Left && e.Direction == SwipeDirection.Right) ||
+            (Side == Side.Top && e.Direction == SwipeDirection.Down) ||
+            (Side == Side.Bottom && e.Direction == SwipeDirection.Up))
             IsVisible = true;
     }
 
@@ -386,10 +388,10 @@ public partial class SideBar
         if (!IsSwipeEnabled) return;
         if (!IsVisible) return;
 
-        if ((Side == SideBarSides.Right && e.Direction == SwipeDirection.Right) ||
-            (Side == SideBarSides.Left && e.Direction == SwipeDirection.Left) ||
-            (Side == SideBarSides.Top && e.Direction == SwipeDirection.Up) ||
-            (Side == SideBarSides.Bottom && e.Direction == SwipeDirection.Down))
+        if ((Side == Side.Right && e.Direction == SwipeDirection.Right) ||
+            (Side == Side.Left && e.Direction == SwipeDirection.Left) ||
+            (Side == Side.Top && e.Direction == SwipeDirection.Up) ||
+            (Side == Side.Bottom && e.Direction == SwipeDirection.Down))
             SetValue(IsVisibleProperty, false);
     }
 
@@ -408,13 +410,13 @@ public partial class SideBar
         var contentSide = IsFullSize ? GridLength.Star : ContentSize;
         var otherSide = IsFullSize ? new GridLength(0) : GridLength.Star;
 
-        if (Side == SideBarSides.Right || Side == SideBarSides.Left)
+        if (Side == Side.Right || Side == Side.Left)
         {
             Grid.SetRow(content, 0);
             Grid.SetRowSpan(content, 2);
             Grid.SetColumnSpan(content, 1);
 
-            if (Side == SideBarSides.Left)
+            if (Side == Side.Left)
             {
                 colLeft.Width = contentSide;
                 colRight.Width = otherSide;
@@ -435,7 +437,7 @@ public partial class SideBar
             Grid.SetColumnSpan(content, 2);
             Grid.SetRowSpan(content, 1);
 
-            if (Side == SideBarSides.Top)
+            if (Side == Side.Top)
             {
                 rowTop.Height = contentSide;
                 rowBottom.Height = otherSide;
@@ -522,7 +524,7 @@ public partial class SideBar
     (double x, double y) GetSlideTranslations()
     {
         var baseView = (Parent as View) ?? this;
-        var h = (Side == SideBarSides.Left || Side == SideBarSides.Right);
+        var h = (Side == Side.Left || Side == Side.Right);
         var baseSize = h ? baseView.Width : baseView.Height;
         if (Width > 0) baseSize = h ? Width : Height;
         double translation;
@@ -532,7 +534,7 @@ public partial class SideBar
             else if (ContentSize.IsAuto) translation = content.Width;
             else if (ContentSize.IsStar) translation = baseSize / ContentSize.Value;
             else translation = ContentSize.Value;
-            if (Side == SideBarSides.Left) translation *= -1;
+            if (Side == Side.Left) translation *= -1;
             return (translation, 0);
         }
         else
@@ -541,7 +543,7 @@ public partial class SideBar
             else if (ContentSize.IsAuto) translation = content.Height;
             else if (ContentSize.IsStar) translation = baseSize / ContentSize.Value;
             else translation = ContentSize.Value;
-            if (Side == SideBarSides.Top) translation *= -1;
+            if (Side == Side.Top) translation *= -1;
             return (0, translation);
         }
     }

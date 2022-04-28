@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -19,12 +20,11 @@ public class ManualUpdateAttribute : Attribute
 {
 }
 
-public partial class ViewModel : BindableObject, INotifyPropertyChanged
+public class BindableModel : BindableObject, INotifyPropertyChanged
 {
+    PropertyInfo[] properties = null;
+
     protected readonly static Random Random = new Random();
-
-    public virtual bool IsModal { get; set; } = true;
-
     public bool RaisePropertyChangeOnUI { get; set; }
 
     protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -42,87 +42,12 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
         else Raise();
     }
 
-    public event EventHandler<string> OnLog;
-
-    public virtual bool IsBusy
-    {
-        get => Status == WorkerStatus.Busy;
-        set
-        {
-            if (value) Status = WorkerStatus.Busy;
-            else Status = WorkerStatus.Success;
-        }
-    }
-
-    bool _isSideBarOpen = false;
-    public virtual bool IsSideBarOpen
-    {
-        get => _isSideBarOpen;
-        set
-        {
-            _isSideBarOpen = value;
-            UpdateProperties();
-        }
-    }
-
-    public virtual Command ShowSideBarCommand => new Command(() => IsSideBarOpen = true);
-    public virtual Command HideSideBarCommand => new Command(() => IsSideBarOpen = false);
-
-    [ManualUpdate] public bool IsFailed => Status == WorkerStatus.Fail;
-    [ManualUpdate] public bool IsFinished => Status == WorkerStatus.Success;
-    [ManualUpdate] public bool IsFirstTime => _isFirstTime;
-    [ManualUpdate] public bool IsIdle => !IsBusy;
-    [ManualUpdate] public bool IsNotFailed => !IsFailed;
-    [ManualUpdate] public bool IsNotFinished => !IsFinished;
-
-    WorkerStatus _status = WorkerStatus.Busy;
-    bool _isFirstTime = true;
-    public WorkerStatus Status
-    {
-        get => _status;
-        set
-        {
-            var hasChanged = _status != value;
-            if (hasChanged)
-                _status = value;
-            if (_status == WorkerStatus.Success)
-                _isFirstTime = false;
-            if (hasChanged)
-                UpdateProperties(true);
-        }
-    }
-
-
-    public void ResetFirstTime()
-    {
-        _isFirstTime = true;
-        UpdateProperties();
-    }
-
-    public virtual void Refresh()
-    {
-        Task.Run(RefreshAsync);
-    }
-
-    public virtual Task RefreshAsync()
-    {
-        return Task.CompletedTask;
-    }
-
-    public void Log(string message = null, [CallerMemberName] string method = null)
-    {
-        OnLog?.Invoke(this, $"[{method}] {message ?? "(null)"}");
-    }
-
-    public ViewModel() { }
-
     protected virtual void SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
     {
         storage = value;
         RaisePropertyChanged(propertyName);
     }
 
-    PropertyInfo[] properties = null;
     public void UpdateProperties(bool forceAll = false)
     {
         if (properties == null)
@@ -152,39 +77,41 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
                 RaisePropertyChanged(onUI: false, item);
         });
     }
+}
 
-    public const string DefaultLoadingText = "Loading...";
+public partial class ViewModel : BindableModel
+{
+    public ViewModel() { }
 
-    string _loadingText = DefaultLoadingText;
+    [NoUpdate] public virtual WorkerViewModelPool Workers { get; set; } = new WorkerViewModelPool();
 
-    public virtual string LoadingText
+    public virtual void Refresh()
     {
-        get => _loadingText;
-        set
-        {
-            SetProperty(ref _loadingText, value);
-        }
+        Task.Run(RefreshAsync);
     }
 
-    public const string DefaultErrorText = "Something went wrong";
-    string _errorText = DefaultErrorText;
-    [ManualUpdateAttribute]
-    public virtual string ErrorText
+    public virtual Task RefreshAsync()
     {
-        get => _errorText;
-        set
-        {
-            _errorText = value;
-            RaisePropertyChanged();
-        }
+        return Task.CompletedTask;
     }
 
     public virtual Command RefreshCommand => new Command(Refresh);
 
-    public virtual Command GoBackCommand => new Command(() =>
+    public virtual void GoBack()
     {
-        Signals.RunOnUI.Signal<Action>(() => OnBack());
-    });
+        Task.Run(GoBackAsync);
+    }
+
+    public virtual Task GoBackAsync()
+    {
+        Dispatcher.Dispatch(() =>
+        {
+            Signals.RunOnUI.Signal<Action>(() => OnBack());
+        });
+        return Task.CompletedTask;
+    }
+
+    public virtual Command GoBackCommand => new Command(GoBack);
 
     protected bool backed = false;
     public virtual bool OnBack()
@@ -196,11 +123,7 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
 
     public virtual bool OnBackSuccessful()
     {
-        if (IsModal)
-        {
-            Signals.PopModal.Signal();
-        }
-        else Signals.ShowFirstPage.Signal();
+        Signals.PopModal.Signal();
         return true;
     }
 
@@ -237,6 +160,7 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
 
     static readonly DeviceFlags _device = new DeviceFlags();
     public DeviceFlags Device => _device;
+    public virtual ISideBarViewModel SideBar { get; protected set; } = new SideBarViewModel();
 
     public class DeviceFlags
     {
@@ -254,5 +178,175 @@ public partial class ViewModel : BindableObject, INotifyPropertyChanged
         public bool IsPhone { get; } = DeviceInfo.Idiom == DeviceIdiom.Phone;
         public bool IsTablet { get; } = DeviceInfo.Idiom == DeviceIdiom.Tablet;
         public bool IsTV { get; } = DeviceInfo.Idiom == DeviceIdiom.TV;
+    }
+}
+
+public interface ISideBarViewModel : INotifyPropertyChanged
+{
+    bool IsOpen { get; set; }
+    ICommand OpenCommand { get; }
+    ICommand CloseCommand { get; }
+    ICommand ToggleCommand { get; }
+}
+
+public class SideBarViewModel : BindableObject, ISideBarViewModel
+{
+    bool _isOpen = false;
+    public virtual bool IsOpen
+    {
+        get => _isOpen;
+        set
+        {
+            _isOpen = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public virtual ICommand OpenCommand => new Command(() => IsOpen = true);
+    public virtual ICommand CloseCommand => new Command(() => IsOpen = false);
+    public virtual ICommand ToggleCommand => new Command(() => IsOpen = !IsOpen);
+}
+
+public class WorkerViewModel : BindableModel
+{
+    public event EventHandler<string> OnLog;
+    [NoUpdate] public string Tag { get; }
+
+    public virtual bool IsBusy
+    {
+        get => Status == WorkerStatus.Busy;
+        set
+        {
+            if (value) Status = WorkerStatus.Busy;
+            else Status = WorkerStatus.Success;
+        }
+    }
+
+    [ManualUpdate] public bool IsFailed => Status == WorkerStatus.Fail;
+    [ManualUpdate] public bool IsFinished => Status == WorkerStatus.Success;
+    [ManualUpdate] public bool IsFirstTime => _isFirstTime;
+    [ManualUpdate] public bool IsIdle => !IsBusy;
+    [ManualUpdate] public bool IsNotFailed => !IsFailed;
+    [ManualUpdate] public bool IsNotFinished => !IsFinished;
+
+    protected WorkerStatus _status = WorkerStatus.Busy;
+    protected bool _isFirstTime = true;
+    public virtual WorkerStatus Status
+    {
+        get => _status;
+        set
+        {
+            var hasChanged = _status != value;
+            if (hasChanged)
+                _status = value;
+            if (_status == WorkerStatus.Success)
+                _isFirstTime = false;
+            if (hasChanged)
+                UpdateProperties(true);
+        }
+    }
+
+    public void ResetFirstTime()
+    {
+        _isFirstTime = true;
+        UpdateProperties();
+    }
+
+    public void Log(string message = null, [CallerMemberName] string method = null)
+    {
+        OnLog?.Invoke(this, $"[{method}] {message ?? "(null)"}");
+    }
+
+    public const string DefaultLoadingText = "Loading...";
+
+    protected string _loadingText = DefaultLoadingText;
+
+    public virtual string LoadingText
+    {
+        get => _loadingText;
+        set
+        {
+            SetProperty(ref _loadingText, value);
+        }
+    }
+
+    public const string DefaultErrorText = "Something went wrong";
+    protected string _errorText = DefaultErrorText;
+    [ManualUpdate]
+    public virtual string ErrorText
+    {
+        get => _errorText;
+        set
+        {
+            _errorText = value;
+            RaisePropertyChanged();
+        }
+    }
+
+    public WorkerViewModel()
+    {
+    }
+
+    public WorkerViewModel(string tag)
+    {
+        Tag = tag;
+    }
+}
+
+public class WorkerViewModelPool : BindableModel
+{
+    public ObservableCollection<WorkerViewModel> Items { get; } = new ObservableCollection<WorkerViewModel>();
+
+    public bool IsBusy { get; private set; } = false;
+
+    public WorkerViewModel Add(string tag = null)
+    {
+        var item = new WorkerViewModel(tag);
+        Items.Add(item);
+        item.PropertyChanged += Item_PropertyChanged;
+        Refresh();
+        return item;
+    }
+
+
+    public void Remove(string tag = null)
+    {
+        var item = Find(tag);
+        Remove(item);
+    }
+
+    public void RemoveLast(string tag = null)
+    {
+        var item = FindLast(tag);
+        Remove(item);
+    }
+
+    void Remove(WorkerViewModel item)
+    {
+        if (item == null) return;
+        item.PropertyChanged -= Item_PropertyChanged;
+        Items.Remove(item);
+        Refresh();
+    }
+
+    void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        Refresh();
+    }
+
+    void Refresh()
+    {
+        IsBusy = Items.Any(x => x.IsBusy);
+        RaisePropertyChanged(nameof(IsBusy));
+    }
+
+    public WorkerViewModel Find(string tag = null)
+    {
+        return Items.FirstOrDefault(x => x.Tag == tag);
+    }
+
+    public WorkerViewModel FindLast(string tag = null)
+    {
+        return Items.LastOrDefault(x => x.Tag == tag);
     }
 }

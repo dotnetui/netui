@@ -227,6 +227,7 @@ public class Icon : Grid
         set => SetValue(FontAttributesProperty, value);
     }
 
+    [TypeConverter(typeof(GridLengthTypeConverter))]
     public GridLength TextHeight
     {
         get => (GridLength)GetValue(TextHeightProperty);

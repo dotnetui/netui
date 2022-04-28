@@ -16,6 +16,8 @@
 		<Nullable>disable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>1.0.0-alpha</Version>
+		<AssemblyVersion></AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

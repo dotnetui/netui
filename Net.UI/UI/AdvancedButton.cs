@@ -100,11 +100,11 @@ public class AdvancedButton : Button
         if (Handler is ButtonHandler bh && bh.PlatformView is MauiButton button)
         {
             button.PointerPressed += (s, e) => 
-            OnPressed();
+                OnPressed();
             button.PointerReleased += (s, e) => 
-            OnReleased();
+                OnReleased();
             button.PointerCanceled += (s, e) => 
-            OnReleased();
+                OnReleased();
         }
 #endif
         UpdateAlignment();
