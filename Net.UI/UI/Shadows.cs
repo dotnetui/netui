@@ -24,13 +24,18 @@ public class ShadowBar : Image
     public ShadowBar()
     {
         Aspect = Aspect.Fill;
-        HorizontalOptions = LayoutOptions.Fill;
-        HeightRequest = 10;
         Opacity = 0.2f;
         Margin = new Thickness(0);
-        VerticalOptions = LayoutOptions.Start;
         InputTransparent = true;
+        Setup();
         UpdateSource();
+    }
+
+    protected virtual void Setup()
+    {
+        HorizontalOptions = LayoutOptions.Fill;
+        VerticalOptions = LayoutOptions.Start;
+        HeightRequest = 10;
     }
 
     protected void UpdateSource()
@@ -43,13 +48,11 @@ public class ShadowBar : Image
 
 public class VerticalShadowBar : ShadowBar
 {
-    public VerticalShadowBar()
+    protected override void Setup()
     {
         FileBase = "gradientv";
         VerticalOptions = LayoutOptions.Fill;
-        WidthRequest = 10;
-        HeightRequest = -1;
         HorizontalOptions = LayoutOptions.Start;
-        UpdateSource();
+        WidthRequest = 10;
     }
 }

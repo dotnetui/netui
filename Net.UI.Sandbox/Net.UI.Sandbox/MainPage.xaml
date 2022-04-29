@@ -8,8 +8,8 @@
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
-    <Grid>
-        <ui:Dock>
+    <Grid BackgroundColor="White">
+        <ui:Dock DropShadows="True">
             <ui:Dock.Bottom>
                 <ui:TitleBar 
                     Button="Back"
