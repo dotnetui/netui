@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ui:Widget 
+<ui:TitleBarBase 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ui="clr-namespace:Net.UI"
@@ -48,6 +48,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
                         CascadeInputTransparent="False"
+                        Content="{Binding TitleView, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                         ControlTemplate="{Binding TitleViewTemplate, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                         HorizontalOptions="Fill"
                         InputTransparent="True"
@@ -58,6 +59,8 @@
                         Grid.Column="0"
                         Margin="8,0,0,0"
                         HorizontalOptions="FillAndExpand"
+                        Content="{Binding LeftToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        IsVisible="{Binding LeftToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                         VerticalOptions="Fill" />
 
                     <Grid
@@ -66,6 +69,19 @@
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="Fill"
                         WidthRequest="{Binding ButtonContainerWidthRequest}">
+                        <Grid.IsVisible>
+                            <MultiBinding Converter="{Static ui:AndMultiConverter.Instance}">
+                                <Binding 
+                                    Path="Button" 
+                                    Converter="{Static ui:NotEqualsConverter.Instance}"
+                                    ConverterParameter="Hide"
+                                    Source="{RelativeSource AncestorType={Type ui:TitleBar}}" />
+                                <Binding
+                                    Path="LeftToolBar"
+                                    Converter="{Static ui:IsNullConverter.Instance}"
+                                    Source="{RelativeSource AncestorType={Type ui:TitleBar}}" />
+                            </MultiBinding>
+                        </Grid.IsVisible>
                         <Image
                             x:Name="backImage"
                             Margin="{Binding ButtonMargin}"
@@ -73,8 +89,11 @@
                             HeightRequest="{Binding ButtonHeightRequest}"
                             HorizontalOptions="Start"
                             VerticalOptions="Center"
-                            InputTransparent="True"
-                            WidthRequest="{Binding ButtonWidthRequest}" />
+                            WidthRequest="{Binding ButtonWidthRequest}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Tap_Tapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="Tap_Tapped" />
                         </Grid.GestureRecognizers>
@@ -91,16 +110,18 @@
                         LineBreakMode="TailTruncation"
                         Text="{Binding Title, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                         TextColor="{Binding TextColor, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        IsVisible="{Binding TitleView, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNullConverter.Instance}}"
                         VerticalOptions="Center" />
 
                     <ui:Widget
-                        x:Name="buttons"
                         Grid.Column="2"
                         Margin="0,0,8,0"
+                        Content="{Binding ToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        IsVisible="{Binding ToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                         HorizontalOptions="EndAndExpand"
                         VerticalOptions="Fill" />
                 </Grid>
             </ui:Widget>
         </Grid>
     </ui:Widget.Content>
-</ui:Widget>
+</ui:TitleBarBase>
