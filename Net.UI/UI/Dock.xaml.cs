@@ -78,31 +78,10 @@ public partial class Dock
 	public static readonly BindableProperty OverlayProperty = BindableProperty.Create(
 		nameof(Overlay),
 		typeof(IView),
-		typeof(Dock),
-		propertyChanged: (bindable, oldVal, newVal) =>
-        {
-			if (bindable is Dock Dock)
-				Dock.UpdateOverlay();
-        });
+		typeof(Dock));
 	
 	public Dock()
 	{
 		InitializeComponent();
-		UpdateOverlay();
 	}
-
-	void UpdateOverlay()
-    {
-		if (overlayContainer == null) return;
-		if (Overlay == null && overlayContainer.Children.Count > 0)
-			Dispatcher.Dispatch(overlayContainer.Children.Clear);
-		else if (Overlay != null)
-        {
-			if (overlayContainer.Children.Count > 0 &&
-				!overlayContainer.Children.Contains(Overlay))
-				Dispatcher.Dispatch(overlayContainer.Children.Clear);
-			if (!overlayContainer.Children.Contains(Overlay))
-				Dispatcher.Dispatch(() => overlayContainer.Children.Add(Overlay));
-        }
-    }
 }

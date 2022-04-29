@@ -91,10 +91,12 @@
                 </ui:ShadowBar>
             </Grid>
 
-            <Grid 
-                x:Name="overlayContainer"
+            <ui:Panel 
                 InputTransparent="True"
-                CascadeInputTransparent="False" />
+                CascadeInputTransparent="False" 
+                Content="{Binding Overlay, Source={RelativeSource AncestorType={Type ui:Dock}}}"
+                IsVisible="{Binding Overlay, Source={RelativeSource AncestorType={Type ui:Dock}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                />
         </Grid>
     </ui:Widget.Content>
 </ui:Widget>

@@ -17,6 +17,14 @@
                     Title="Hello, World!!" />
             </ui:Dock.Bottom>
 
+            <ui:Dock.Left>
+                <Grid BackgroundColor="Gray" WidthRequest="50" />
+            </ui:Dock.Left>
+
+            <ui:Dock.Right>
+                <Grid BackgroundColor="Beige" WidthRequest="50" />
+            </ui:Dock.Right>
+            
             <ui:Dock.Overlay>
                 <ui:SideBar 
                     x:Name="sb"
