@@ -54,6 +54,9 @@
 	  <Compile Update="UI\Drawer.xaml.cs">
 	    <DependentUpon>Drawer.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\SideBar.xaml.cs">
+	    <DependentUpon>SideBar.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,6 +67,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\DrawerDrawer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\SideBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\TitleBar.xaml">

@@ -5,8 +5,16 @@ using System.Windows.Input;
 
 namespace Net.UI;
 
+public enum TitleBarMainButton
+{
+    Hide,
+    Menu,
+    Back,
+    Image
+}
+
 [ContentProperty(nameof(Body))]
-public class TitleBarBase : Widget
+public abstract class TitleBarBase : Widget
 {
     public static ImageSource BackButtonImageOverride = null;
     public static ImageSource MenuButtonImageOverride = null;

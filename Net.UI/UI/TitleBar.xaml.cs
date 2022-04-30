@@ -6,14 +6,6 @@ using System.Windows.Input;
 
 namespace Net.UI;
 
-public enum TitleBarMainButton
-{
-    Hide,
-    Menu,
-    Back,
-    Image
-}
-
 [XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class TitleBar
 {
@@ -54,13 +46,13 @@ public partial class TitleBar
     public static readonly BindableProperty ButtonContainerWidthRequestProperty = BindableProperty.Create(
         nameof(ButtonContainerWidthRequest),
         typeof(double),
-        typeof(TitleBarBase),
+        typeof(TitleBar),
         42.0);
 
     public static new readonly BindableProperty PadTopProperty = BindableProperty.Create(
        nameof(PadTop),
        typeof(bool),
-       typeof(TitleBarBase),
+       typeof(TitleBar),
        true,
        propertyChanged: (bindable, oldVal, newVal) =>
        {
@@ -71,7 +63,7 @@ public partial class TitleBar
     public static new readonly BindableProperty PadBottomProperty = BindableProperty.Create(
         nameof(PadBottom),
         typeof(bool),
-        typeof(TitleBarBase),
+        typeof(TitleBar),
         false,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
