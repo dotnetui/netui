@@ -15,7 +15,6 @@ public enum TitleBarMainButton
 }
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-[ContentProperty("ToolBar")]
 public partial class TitleBar
 {
     public TitleBar()
@@ -46,6 +45,12 @@ public partial class TitleBar
         set => SetValue(FixBottomPaddingProperty, value);
     }
 
+    public double ContentHeightRequest
+    {
+        get => (double)GetValue(ContentHeightRequestProperty);
+        set => SetValue(ContentHeightRequestProperty, value);
+    }
+
     public static readonly BindableProperty ButtonContainerWidthRequestProperty = BindableProperty.Create(
         nameof(ButtonContainerWidthRequest),
         typeof(double),
@@ -73,6 +78,12 @@ public partial class TitleBar
             if (bindable is TitleBar titleBar && titleBar.contentContainer != null)
                 titleBar.contentContainer.FixBottomPadding = (bool)newVal;
         });
+
+    public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create(
+        propertyName: nameof(ContentHeightRequest),
+        returnType: typeof(double),
+        declaringType: typeof(TitleBarBase),
+        defaultValue: 60.0);
 
     protected override void UpdateButton()
     {

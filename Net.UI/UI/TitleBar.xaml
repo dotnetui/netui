@@ -23,44 +23,39 @@
                 Opacity="{Binding BackgroundImageOpacity, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                 Source="{Binding BackgroundImage, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                 VerticalOptions="Fill" />
-            <ui:Widget x:Name="body" Content="{Binding BackgroundView, Source={RelativeSource AncestorType={Type ui:TitleBar}}}" />
+            
+            <ui:Widget Content="{Binding Behind, Source={RelativeSource AncestorType={Type ui:TitleBar}}}" />
+            
             <ui:Widget
                 x:Name="contentContainer"
                 FixTopPadding="True"
                 HorizontalOptions="Fill"
                 VerticalOptions="FillAndExpand">
                 <Grid
-                    x:Name="content"
                     Margin="{Binding ContentMargin, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                     Padding="5,0"
                     ColumnSpacing="10"
                     HeightRequest="{Binding ContentHeightRequest, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                     HorizontalOptions="Fill"
-                    VerticalOptions="Fill">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
+                    VerticalOptions="Fill"
+                    ColumnDefinitions="Auto, *, Auto">
                     <ui:Widget
                         x:Name="titleView"
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
                         CascadeInputTransparent="False"
-                        Content="{Binding TitleView, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
-                        ControlTemplate="{Binding TitleViewTemplate, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        Content="{Binding Body, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        ControlTemplate="{Binding BodyTemplate, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                         HorizontalOptions="Fill"
                         InputTransparent="True"
                         VerticalOptions="Fill" />
 
                     <ui:Widget
-                        x:Name="leftbuttons"
                         Grid.Column="0"
                         Margin="8,0,0,0"
                         HorizontalOptions="FillAndExpand"
-                        Content="{Binding LeftToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
-                        IsVisible="{Binding LeftToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                        Content="{Binding Lead, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        IsVisible="{Binding Lead, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                         VerticalOptions="Fill" />
 
                     <Grid
@@ -77,7 +72,7 @@
                                     ConverterParameter="Hide"
                                     Source="{RelativeSource AncestorType={Type ui:TitleBar}}" />
                                 <Binding
-                                    Path="LeftToolBar"
+                                    Path="Lead"
                                     Converter="{Static ui:IsNullConverter.Instance}"
                                     Source="{RelativeSource AncestorType={Type ui:TitleBar}}" />
                             </MultiBinding>
@@ -110,14 +105,14 @@
                         LineBreakMode="TailTruncation"
                         Text="{Binding Title, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
                         TextColor="{Binding TextColor, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
-                        IsVisible="{Binding TitleView, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNullConverter.Instance}}"
+                        IsVisible="{Binding Body, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNullConverter.Instance}}"
                         VerticalOptions="Center" />
 
                     <ui:Widget
                         Grid.Column="2"
                         Margin="0,0,8,0"
-                        Content="{Binding ToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
-                        IsVisible="{Binding ToolBar, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                        Content="{Binding Trail, Source={RelativeSource AncestorType={Type ui:TitleBar}}}"
+                        IsVisible="{Binding Trail, Source={RelativeSource AncestorType={Type ui:TitleBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
                         HorizontalOptions="EndAndExpand"
                         VerticalOptions="Fill" />
                 </Grid>

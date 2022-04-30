@@ -5,39 +5,34 @@ using System.Windows.Input;
 
 namespace Net.UI;
 
+[ContentProperty(nameof(Body))]
 public class TitleBarBase : Widget
 {
     public static ImageSource BackButtonImageOverride = null;
     public static ImageSource MenuButtonImageOverride = null;
 
-    public View BackgroundView
+    public IView Behind
     {
-        get => (View)GetValue(BackgroundViewProperty);
-        set => SetValue(BackgroundViewProperty, value);
+        get => (IView)GetValue(BehindProperty);
+        set => SetValue(BehindProperty, value);
     }
 
-    public View ToolBar
+    public IView Trail
     {
-        get => (View)GetValue(ToolBarProperty);
-        set => SetValue(ToolBarProperty, value);
+        get => (IView)GetValue(TrailProperty);
+        set => SetValue(TrailProperty, value);
     }
 
-    public View LeftToolBar
+    public IView Lead
     {
-        get => (View)GetValue(LeftToolBarProperty);
-        set => SetValue(LeftToolBarProperty, value);
+        get => (IView)GetValue(LeadProperty);
+        set => SetValue(LeadProperty, value);
     }
 
-    public View TitleView
+    public IView Body
     {
-        get => (View)GetValue(TitleViewProperty);
-        set => SetValue(TitleViewProperty, value);
-    }
-
-    public double ContentHeightRequest
-    {
-        get => (double)GetValue(ContentHeightRequestProperty);
-        set => SetValue(ContentHeightRequestProperty, value);
+        get => (IView)GetValue(BodyProperty);
+        set => SetValue(BodyProperty, value);
     }
 
     public Thickness ContentMargin
@@ -119,10 +114,10 @@ public class TitleBarBase : Widget
         set => SetValue(IsDarkProperty, value);
     }
 
-    public ControlTemplate TitleViewTemplate
+    public ControlTemplate BodyTemplate
     {
-        get => (ControlTemplate)GetValue(TitleViewTemplateProperty);
-        set => SetValue(TitleViewTemplateProperty, value);
+        get => (ControlTemplate)GetValue(BodyTemplateProperty);
+        set => SetValue(BodyTemplateProperty, value);
     }
 
     public double ButtonHeightRequest
@@ -171,9 +166,9 @@ public class TitleBarBase : Widget
                 titlebar.UpdateTitleAlignment();
         });
 
-    public static readonly BindableProperty BackgroundViewProperty = BindableProperty.Create(
-        propertyName: nameof(BackgroundView),
-        returnType: typeof(View),
+    public static readonly BindableProperty BehindProperty = BindableProperty.Create(
+        propertyName: nameof(Behind),
+        returnType: typeof(IView),
         declaringType: typeof(TitleBarBase),
         defaultValue: null,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -190,15 +185,15 @@ public class TitleBarBase : Widget
 
         });
 
-    public static readonly BindableProperty ToolBarProperty = BindableProperty.Create(
-        propertyName: nameof(ToolBar),
-        returnType: typeof(View),
+    public static readonly BindableProperty TrailProperty = BindableProperty.Create(
+        propertyName: nameof(Trail),
+        returnType: typeof(IView),
         declaringType: typeof(TitleBarBase),
         defaultValue: null);
 
-    public static readonly BindableProperty LeftToolBarProperty = BindableProperty.Create(
-        propertyName: nameof(LeftToolBar),
-        returnType: typeof(View),
+    public static readonly BindableProperty LeadProperty = BindableProperty.Create(
+        propertyName: nameof(Lead),
+        returnType: typeof(IView),
         declaringType: typeof(TitleBarBase),
         defaultValue: null,
         propertyChanged: (bindable, oldVal, newVal) =>
@@ -207,17 +202,11 @@ public class TitleBarBase : Widget
                 titlebar.UpdateButton();
         });
 
-    public static readonly BindableProperty TitleViewProperty = BindableProperty.Create(
-        propertyName: nameof(TitleView),
-        returnType: typeof(View),
+    public static readonly BindableProperty BodyProperty = BindableProperty.Create(
+        propertyName: nameof(Body),
+        returnType: typeof(IView),
         declaringType: typeof(TitleBarBase),
         defaultValue: null);
-
-    public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create(
-        propertyName: nameof(ContentHeightRequest),
-        returnType: typeof(double),
-        declaringType: typeof(TitleBarBase),
-        defaultValue: 60.0);
 
     public static readonly BindableProperty BackgroundImageOpacityProperty = BindableProperty.Create(
         propertyName: nameof(BackgroundImageOpacity),
@@ -301,8 +290,8 @@ public class TitleBarBase : Widget
 
         });
 
-    public static readonly BindableProperty TitleViewTemplateProperty = BindableProperty.Create(
-        propertyName: nameof(TitleViewTemplate),
+    public static readonly BindableProperty BodyTemplateProperty = BindableProperty.Create(
+        propertyName: nameof(BodyTemplate),
         returnType: typeof(ControlTemplate),
         declaringType: typeof(TitleBarBase));
 
