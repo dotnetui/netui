@@ -13,7 +13,7 @@ public enum Side
 
 [ContentProperty("Body")]
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class SideBar
+public partial class Drawer
 {
     public View Body
     {
@@ -139,37 +139,37 @@ public partial class SideBar
     public static readonly BindableProperty BodyProperty = BindableProperty.Create(
         propertyName: nameof(Body),
         returnType: typeof(View),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: new Grid(),
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            (bindable as SideBar)?.UpdateLayout();
+            (bindable as Drawer)?.UpdateLayout();
         });
 
     public static readonly BindableProperty SideProperty = BindableProperty.Create(
         propertyName: nameof(Side),
         returnType: typeof(Side),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: Side.Left,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            (bindable as SideBar)?.UpdateLayout();
+            (bindable as Drawer)?.UpdateLayout();
         });
 
     public static readonly BindableProperty ContentSizeProperty = BindableProperty.Create(
         propertyName: nameof(ContentSize),
         returnType: typeof(GridLength),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: new GridLength(3, GridUnitType.Star),
         propertyChanged: (bindable, oldVal, newVal) =>
         { 
-            (bindable as SideBar)?.UpdateLayout();
+            (bindable as Drawer)?.UpdateLayout();
         });
 
     public static readonly BindableProperty FadeInDurationProperty = BindableProperty.Create(
         propertyName: nameof(FadeInDuration),
         returnType: typeof(uint),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: (uint)150,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -178,7 +178,7 @@ public partial class SideBar
     public static readonly BindableProperty DoesFadeInProperty = BindableProperty.Create(
         propertyName: nameof(DoesFadeIn),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: true,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -187,7 +187,7 @@ public partial class SideBar
     public static readonly BindableProperty SlideInDurationProperty = BindableProperty.Create(
         propertyName: nameof(SlideInDuration),
         returnType: typeof(uint),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: (uint)350,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -196,7 +196,7 @@ public partial class SideBar
     public static readonly BindableProperty DoesSlideInProperty = BindableProperty.Create(
         propertyName: nameof(DoesSlideIn),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: true,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -205,7 +205,7 @@ public partial class SideBar
     public static readonly BindableProperty FadeOutDurationProperty = BindableProperty.Create(
         propertyName: nameof(FadeOutDuration),
         returnType: typeof(uint),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: (uint)150,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -214,7 +214,7 @@ public partial class SideBar
     public static readonly BindableProperty DoesFadeOutProperty = BindableProperty.Create(
         propertyName: nameof(DoesFadeOut),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: true,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -223,7 +223,7 @@ public partial class SideBar
     public static readonly BindableProperty SlideOutDurationProperty = BindableProperty.Create(
         propertyName: nameof(SlideInDuration),
         returnType: typeof(uint),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: (uint)300,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -232,7 +232,7 @@ public partial class SideBar
     public static readonly BindableProperty DoesSlideOutProperty = BindableProperty.Create(
         propertyName: nameof(DoesSlideIn),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: true,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -241,7 +241,7 @@ public partial class SideBar
     public static readonly BindableProperty IsSwipeEnabledProperty = BindableProperty.Create(
         propertyName: nameof(IsSwipeEnabled),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: true,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
@@ -250,57 +250,57 @@ public partial class SideBar
     public static new readonly BindableProperty IsVisibleProperty = BindableProperty.Create(
         propertyName: nameof(IsVisible),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: false,
         defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            (bindable as SideBar)?.UpdateVisibility((bool)oldVal, (bool)newVal);
+            (bindable as Drawer)?.UpdateVisibility((bool)oldVal, (bool)newVal);
         });
 
     public static readonly BindableProperty IsFullSizeProperty = BindableProperty.Create(
         propertyName: nameof(IsFullSize),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: false,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            (bindable as SideBar)?.UpdateLayout();
+            (bindable as Drawer)?.UpdateLayout();
         });
     
     public static readonly BindableProperty IsModalProperty = BindableProperty.Create(
         propertyName: nameof(IsModal),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: true);
     
     public static readonly BindableProperty ModalBackgroundColorProperty = BindableProperty.Create(
         propertyName: nameof(ModalBackgroundColor),
         returnType: typeof(Color),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: Palette.Transparent);
     
     public static readonly BindableProperty OverrideOutsideTapCommandProperty = BindableProperty.Create(
         propertyName: nameof(OverrideOutsideTapCommand),
         returnType: typeof(bool),
-        declaringType: typeof(SideBar),
+        declaringType: typeof(Drawer),
         defaultValue: false);
     
     public static readonly BindableProperty OutsideTapCommandProperty = BindableProperty.Create(
         propertyName: nameof(OutsideTapCommand),
         returnType: typeof(ICommand),
-        declaringType: typeof(SideBar));
+        declaringType: typeof(Drawer));
 
     public static readonly BindableProperty OutsideTapCommandParameterProperty = BindableProperty.Create(
         propertyName: nameof(OutsideTapCommandParameter),
         returnType: typeof(object),
-        declaringType: typeof(SideBar));
+        declaringType: typeof(Drawer));
 
 
     SwipeGestureRecognizer swipeRight = null, swipeLeft = null, swipeUp = null, swipeDown = null;
     SwipeGestureRecognizer swipeRightIn = null, swipeLeftIn = null, swipeUpIn = null, swipeDownIn = null;
 
-    public SideBar()
+    public Drawer()
     {
         CascadeInputTransparent = true;
 

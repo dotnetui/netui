@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
@@ -51,6 +51,9 @@
 	  <Compile Update="UI\Dock.xaml.cs">
 	    <DependentUpon>Dock.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="UI\Drawer.xaml.cs">
+	    <DependentUpon>Drawer.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -60,7 +63,7 @@
 	  <MauiXaml Update="UI\Dock.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="UI\SideBar.xaml">
+	  <MauiXaml Update="UI\DrawerDrawer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="UI\TitleBar.xaml">

@@ -2,16 +2,16 @@
 
 public class Widget : ContentView
 {
-    public bool FixTopPadding
+    public bool PadTop
     {
-        get => (bool)GetValue(FixTopPaddingProperty);
-        set => SetValue(FixTopPaddingProperty, value);
+        get => (bool)GetValue(PadTopProperty);
+        set => SetValue(PadTopProperty, value);
     }
 
-    public bool FixBottomPadding
+    public bool PadBottom
     {
-        get => (bool)GetValue(FixBottomPaddingProperty);
-        set => SetValue(FixBottomPaddingProperty, value);
+        get => (bool)GetValue(PadBottomProperty);
+        set => SetValue(PadBottomProperty, value);
     }
 
     public string Title
@@ -20,16 +20,16 @@ public class Widget : ContentView
         set => SetValue(TitleProperty, value);
     }
 
-    public static readonly BindableProperty FixTopPaddingProperty =
+    public static readonly BindableProperty PadTopProperty =
         BindableProperty.Create(
-            nameof(FixTopPadding),
+            nameof(PadTop),
             typeof(bool),
             typeof(Widget),
             defaultValue: false);
 
-    public static readonly BindableProperty FixBottomPaddingProperty =
+    public static readonly BindableProperty PadBottomProperty =
         BindableProperty.Create(
-            nameof(FixBottomPadding),
+            nameof(PadBottom),
             typeof(bool),
             typeof(Widget),
             defaultValue: false);

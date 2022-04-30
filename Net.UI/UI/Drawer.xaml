@@ -3,18 +3,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ui="clr-namespace:Net.UI"
-    x:Class="Net.UI.SideBar"
+    x:Class="Net.UI.Drawer"
     HorizontalOptions="Fill"
     VerticalOptions="Fill"
-    IsVisible="{Binding SideBar.IsOpen, Mode=TwoWay}">
+    IsVisible="{Binding Drawer.IsOpen, Mode=TwoWay}">
     <ui:Widget.Content>
         <Grid>
             <Grid 
                 x:Name="btnDismiss" 
                 HorizontalOptions="Fill" 
                 VerticalOptions="Fill" 
-                BackgroundColor="{Binding ModalBackgroundColor, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
-                IsVisible="{Binding IsModal, Source={RelativeSource AncestorType={Type ui:SideBar}}}">
+                BackgroundColor="{Binding ModalBackgroundColor, Source={RelativeSource AncestorType={Type ui:Drawer}}}"
+                IsVisible="{Binding IsModal, Source={RelativeSource AncestorType={Type ui:Drawer}}}">
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="BtnDismiss_Clicked" />
                 </Grid.GestureRecognizers>

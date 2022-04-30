@@ -160,7 +160,7 @@ public partial class ViewModel : BindableModel
 
     static readonly DeviceFlags _device = new DeviceFlags();
     public DeviceFlags Device => _device;
-    public virtual ISideBarViewModel SideBar { get; protected set; } = new SideBarViewModel();
+    public virtual IDrawerViewModel Drawer { get; protected set; } = new DrawerViewModel();
 
     public class DeviceFlags
     {
@@ -181,7 +181,7 @@ public partial class ViewModel : BindableModel
     }
 }
 
-public interface ISideBarViewModel : INotifyPropertyChanged
+public interface IDrawerViewModel : INotifyPropertyChanged
 {
     bool IsOpen { get; set; }
     ICommand OpenCommand { get; }
@@ -189,7 +189,7 @@ public interface ISideBarViewModel : INotifyPropertyChanged
     ICommand ToggleCommand { get; }
 }
 
-public class SideBarViewModel : BindableObject, ISideBarViewModel
+public class DrawerViewModel : BindableObject, IDrawerViewModel
 {
     bool _isOpen = false;
     public virtual bool IsOpen

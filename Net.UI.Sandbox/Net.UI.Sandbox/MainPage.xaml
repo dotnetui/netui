@@ -13,7 +13,7 @@
             <ui:Dock.Bottom>
                 <ui:TitleBar 
                     Button="Back"
-                    Command="{Binding SideBar.ToggleCommand}"
+                    Command="{Binding Drawer.ToggleCommand}"
                     Title="Hello, World!!" />
             </ui:Dock.Bottom>
 
@@ -26,7 +26,7 @@
             </ui:Dock.Right>
             
             <ui:Dock.Overlay>
-                <ui:SideBar 
+                <ui:Drawer 
                     x:Name="sb"
                     Side="Left"
                     IsModal="True"
@@ -36,10 +36,10 @@
                         <StackLayout>
                             <Label Text="{Binding InputTransparent, Source={Reference sb}}" />
                             <Label Text="{Binding CascadeInputTransparent, Source={Reference sb}}" />
-                            <Button Text="B" Command="{Binding SideBar.CloseCommand}" />
+                            <Button Text="B" Command="{Binding Drawer.CloseCommand}" />
                         </StackLayout>
                     </Frame>
-                </ui:SideBar>
+                </ui:Drawer>
             </ui:Dock.Overlay>
 
             <Grid>

@@ -28,7 +28,7 @@
             
             <ui:Widget
                 x:Name="contentContainer"
-                FixTopPadding="True"
+                PadTop="True"
                 HorizontalOptions="Fill"
                 VerticalOptions="FillAndExpand">
                 <Grid

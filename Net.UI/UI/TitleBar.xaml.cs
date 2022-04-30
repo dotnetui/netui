@@ -21,8 +21,8 @@ public partial class TitleBar
     {
         InitializeComponent();
         controlButtons.BindingContext = this;
-        contentContainer.FixTopPadding = FixTopPadding;
-        contentContainer.FixBottomPadding = FixBottomPadding;
+        contentContainer.PadTop = PadTop;
+        contentContainer.PadBottom = PadBottom;
         UpdateButton();
         UpdateTitleAlignment();
     }
@@ -33,16 +33,16 @@ public partial class TitleBar
         set => SetValue(ButtonContainerWidthRequestProperty, value);
     }
 
-    public new bool FixTopPadding
+    public new bool PadTop
     {
-        get => (bool)GetValue(FixTopPaddingProperty);
-        set => SetValue(FixTopPaddingProperty, value);
+        get => (bool)GetValue(PadTopProperty);
+        set => SetValue(PadTopProperty, value);
     }
 
-    public new bool FixBottomPadding
+    public new bool PadBottom
     {
-        get => (bool)GetValue(FixBottomPaddingProperty);
-        set => SetValue(FixBottomPaddingProperty, value);
+        get => (bool)GetValue(PadBottomProperty);
+        set => SetValue(PadBottomProperty, value);
     }
 
     public double ContentHeightRequest
@@ -57,26 +57,26 @@ public partial class TitleBar
         typeof(TitleBarBase),
         42.0);
 
-    public static new readonly BindableProperty FixTopPaddingProperty = BindableProperty.Create(
-       nameof(FixTopPadding),
+    public static new readonly BindableProperty PadTopProperty = BindableProperty.Create(
+       nameof(PadTop),
        typeof(bool),
        typeof(TitleBarBase),
        true,
        propertyChanged: (bindable, oldVal, newVal) =>
        {
            if (bindable is TitleBar titleBar && titleBar.contentContainer != null)
-               titleBar.contentContainer.FixTopPadding = (bool)newVal;
+               titleBar.contentContainer.PadTop = (bool)newVal;
        });
 
-    public static new readonly BindableProperty FixBottomPaddingProperty = BindableProperty.Create(
-        nameof(FixBottomPadding),
+    public static new readonly BindableProperty PadBottomProperty = BindableProperty.Create(
+        nameof(PadBottom),
         typeof(bool),
         typeof(TitleBarBase),
         false,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TitleBar titleBar && titleBar.contentContainer != null)
-                titleBar.contentContainer.FixBottomPadding = (bool)newVal;
+                titleBar.contentContainer.PadBottom = (bool)newVal;
         });
 
     public static readonly BindableProperty ContentHeightRequestProperty = BindableProperty.Create(
