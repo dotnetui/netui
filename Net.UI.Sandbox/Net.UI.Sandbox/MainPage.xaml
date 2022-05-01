@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
-    <Grid BackgroundColor="White">
+    <Grid BackgroundColor="#333">
         <ui:Dock DropShadows="True">
             <ui:Dock.Bottom>
                 <ui:TitleBar 
@@ -17,13 +17,34 @@
                     Title="Hello, World!!" />
             </ui:Dock.Bottom>
 
-            <ui:Dock.Left>
-                <Grid BackgroundColor="Gray" WidthRequest="50" />
+            <!--<ui:Dock.Left>
+                <ui:SideBar
+                    Button="Back"
+                    Command="{Binding Drawer.ToggleCommand}"
+                    Title="Hello, World!" />
             </ui:Dock.Left>
 
             <ui:Dock.Right>
-                <Grid BackgroundColor="Beige" WidthRequest="50" />
-            </ui:Dock.Right>
+                <Grid x:Name="g" BackgroundColor="Beige" WidthRequest="50">
+                    <Label
+                        TextColor="Blue"
+                        Text="This is a long vertical text" 
+                        HorizontalOptions="StartAndExpand"
+                        Rotation="90" />
+
+                    <AbsoluteLayout 
+                        Rotation="90" 
+                        HorizontalOptions="Start" 
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            x:Name="lblInner"
+                            TextColor="Red"
+                            Text="This is a long vertical text" 
+                            HorizontalOptions="StartAndExpand" />
+
+                    </AbsoluteLayout>
+                </Grid>
+            </ui:Dock.Right>-->
             
             <ui:Dock.Overlay>
                 <ui:Drawer 
@@ -55,7 +76,11 @@
                             TextAlignment="End"
                             Visual="Default"
                             TextColor="White"
-                            /> 
+                            />
+                        <ui:MaterialPicker
+                            x:Name="mp"
+                            ItemsSource="{Binding Items}"
+                            />
                     </StackLayout>
                 </ScrollView>
             </Grid>

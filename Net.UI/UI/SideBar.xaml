@@ -51,7 +51,7 @@
 
                     <ui:Widget
                         Grid.Row="0"
-                        Margin="0,0,0,0"
+                        Margin="0,8,0,0"
                         HorizontalOptions="FillAndExpand"
                         Content="{Binding Lead, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                         IsVisible="{Binding Lead, Source={RelativeSource AncestorType={Type ui:SideBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
@@ -60,6 +60,7 @@
                     <Grid
                         x:Name="controlButtons"
                         Grid.Row="0"
+                        Margin="0,8,0,0"
                         HorizontalOptions="Fill"
                         VerticalOptions="FillAndExpand"
                         WidthRequest="{Binding ButtonContainerHeightRequest}">
@@ -97,17 +98,21 @@
                         x:Name="lblTitle"
                         Grid.Row="0"
                         Grid.RowSpan="3"
+                        Margin="0,8,0,0"
                         FontAttributes="{Binding FontAttributes, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                         FontSize="{Binding FontSize, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="StartAndExpand"
                         InputTransparent="True"
                         LineBreakMode="TailTruncation"
+                        BackgroundColor="Red"
+                        Rotation="90"
                         Text="{Binding Title, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                         TextColor="{Binding TextColor, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                         IsVisible="{Binding Body, Source={RelativeSource AncestorType={Type ui:SideBar}}, Converter={Static ui:IsNullConverter.Instance}}"
                         VerticalOptions="Fill" />
 
                     <ui:Widget
+                        Margin="0,0,0,8"
                         Grid.Row="2"
                         Content="{Binding Trail, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
                         IsVisible="{Binding Trail, Source={RelativeSource AncestorType={Type ui:SideBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
