@@ -5,6 +5,11 @@ public static class Palette
     public static Color Black { get; } = Color.FromArgb("#000");
     public static Color White { get; } = Color.FromArgb("#FFF");
     public static Color Transparent { get; } = Color.FromArgb("#00000000");
+    public static Color LightGray { get; } = Color.FromArgb("#D3D3D3");
+    public static Color Silver { get; } = Color.FromArgb("#C0C0C0");
+    public static Color DarkGray { get; } = Color.FromArgb("#A9A9A9");
+    public static Color Gray { get; } = Color.FromArgb("#808080");
+    public static Color DimGray { get; } = Color.FromArgb("#696969");
 
     public static Color Color0 => Colors[0];
     public static Color Color1 => Colors[1];

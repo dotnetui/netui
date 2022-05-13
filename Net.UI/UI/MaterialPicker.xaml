@@ -12,6 +12,7 @@
             Placeholder="{Binding Placeholder}"
             />
         <Picker
+            Opacity="0"
             x:Name="picker"
             InputTransparent="True"
             ItemsSource="{Binding ItemsSource}"

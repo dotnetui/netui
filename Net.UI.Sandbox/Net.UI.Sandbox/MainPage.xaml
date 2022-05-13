@@ -81,6 +81,10 @@
                             x:Name="mp"
                             ItemsSource="{Binding Items}"
                             />
+                        <Grid HeightRequest="100" />
+                        <Picker
+                            ItemsSource="{Binding Items}" />
+                        <ui:MaterialishEntry />
                     </StackLayout>
                 </ScrollView>
             </Grid>
