@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Realm" Version="10.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Net.UI\Net.UI.csproj" />
   </ItemGroup>
 

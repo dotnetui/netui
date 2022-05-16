@@ -1,7 +1,7 @@
-﻿namespace Net.Converters;
-using System.Collections;
+﻿using System.Collections;
 using System.Globalization;
 
+namespace Net.UI;
 public class CountIsConverter : IValueConverter
 {
     public static CountIsConverter Instance { get; } = new CountIsConverter();

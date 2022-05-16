@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 
+[assembly: Dependency(typeof(BenchmarkService))]
 namespace Net.Essentials;
-
 public class BenchmarkService
 {
     private bool isEnabled = true;

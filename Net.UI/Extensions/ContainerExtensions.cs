@@ -1,6 +1,4 @@
-﻿using Net.Essentials.Services;
-
-namespace Net.Essentials;
+﻿namespace Net.UI;
 
 [ContentProperty("Type")]
 public class ContainerExtensions : IMarkupExtension

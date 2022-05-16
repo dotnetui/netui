@@ -1,9 +1,3 @@
-using Net.Essentials.Services;
-using Net.Internals;
-
-using System.ComponentModel;
-using System.Windows.Input;
-
 namespace Net.UI;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -11,6 +5,8 @@ public partial class TitleBar
 {
     public TitleBar()
     {
+        BackgroundColor = Color.FromArgb("#333");
+        HeightRequest = 60;
         InitializeComponent();
         controlButtons.BindingContext = this;
         contentContainer.PadTop = PadTop;

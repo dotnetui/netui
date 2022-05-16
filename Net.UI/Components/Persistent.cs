@@ -56,7 +56,7 @@ public class Persistent<T> where T : class, new()
             if (Data == null)
             {
                 Data = new T();
-                Save();
+                QueueSave();
             }
         }
     }
@@ -64,31 +64,33 @@ public class Persistent<T> where T : class, new()
     readonly object saveLock = new object();
 
     volatile bool isSaving = false;
-    public void SaveAsync()
+    public async Task SaveAsync()
     {
-        Task.Run(async () =>
+        if (isSaving) return;
+        isSaving = true;
+        try
         {
-            if (isSaving) return;
-            isSaving = true;
-            try
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1)); //Buffer writes
-                Save();
-            }
-            finally
-            {
-                isSaving = false;
-            }
-        });
+            await Task.Delay(TimeSpan.FromSeconds(1)); //Buffer writes
+            SaveWithLock();
+        }
+        finally
+        {
+            isSaving = false;
+        }
     }
 
-    public void Save()
+    public void SaveWithLock()
     {
         lock (saveLock)
         {
             var json = JsonConvert.SerializeObject(Data, SerializerSettings);
             File.WriteAllText(FilePath, json);
         }
+    }
+
+    public void QueueSave()
+    {
+        Task.Run(SaveAsync);
     }
 
     public JsonSerializerSettings SerializerSettings { get; set; } = new JsonSerializerSettings();

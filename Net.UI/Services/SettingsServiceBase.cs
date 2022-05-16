@@ -1,25 +1,23 @@
-﻿namespace Net.Essentials.Services;
+﻿namespace Net.Essentials;
 
 public abstract class SettingsServiceBase<T> where T : class, new()
 {
-    volatile bool isSaving = false;
     Persistent<T> settings = new();
 
-    public T Settings => settings.Data;
+    public T Data => settings.Data;
 
     public async Task SaveAsync()
     {
-        if (isSaving) return;
-
-        isSaving = true;
-        await Task.Run(() => Save());
-        isSaving = false;
+        await settings.SaveAsync();
     }
 
-    public void Save()
+    public void SaveWithLock()
     {
-        if (settings == null)
-            settings = new();
-        settings.Save();
+        settings.SaveWithLock();
+    }
+
+    public void QueueSave()
+    {
+        settings.QueueSave();
     }
 }

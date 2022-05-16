@@ -207,9 +207,11 @@ public class DrawerViewModel : BindableObject, IDrawerViewModel
     public virtual ICommand ToggleCommand => new Command(() => IsOpen = !IsOpen);
 }
 
-public class WorkerViewModel : BindableModel
+public class WorkerViewModel : BindableModel, IDisposable
 {
     public event EventHandler<string> OnLog;
+    public WorkerViewModelPool Pool;
+
     [NoUpdate] public string Tag { get; }
 
     public virtual bool IsBusy
@@ -257,6 +259,12 @@ public class WorkerViewModel : BindableModel
         OnLog?.Invoke(this, $"[{method}] {message ?? "(null)"}");
     }
 
+    public void Dispose()
+    {
+        if (Pool != null)
+            Pool.Remove(this);
+    }
+
     public const string DefaultLoadingText = "Loading...";
 
     protected string _loadingText = DefaultLoadingText;
@@ -295,11 +303,13 @@ public class WorkerViewModel : BindableModel
 
 public class WorkerViewModelPool : BindableModel
 {
+    public event EventHandler OnUpdate;
+
     public ObservableCollection<WorkerViewModel> Items { get; } = new ObservableCollection<WorkerViewModel>();
 
     public bool IsBusy { get; private set; } = false;
 
-    public WorkerViewModel Add(string tag = null)
+    public WorkerViewModel Add([CallerMemberName] string tag = null)
     {
         var item = new WorkerViewModel(tag);
         Items.Add(item);
@@ -321,9 +331,9 @@ public class WorkerViewModelPool : BindableModel
         Remove(item);
     }
 
-    void Remove(WorkerViewModel item)
+    public void Remove(WorkerViewModel item)
     {
-        if (item == null) return;
+        if (item == null || !Items.Contains(item)) return;
         item.PropertyChanged -= Item_PropertyChanged;
         Items.Remove(item);
         Refresh();
@@ -338,6 +348,7 @@ public class WorkerViewModelPool : BindableModel
     {
         IsBusy = Items.Any(x => x.IsBusy);
         RaisePropertyChanged(nameof(IsBusy));
+        OnUpdate?.Invoke(this, null);
     }
 
     public WorkerViewModel Find(string tag = null)

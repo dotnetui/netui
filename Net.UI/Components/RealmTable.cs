@@ -11,7 +11,7 @@ public abstract class RealmTable<TRecord, TModel, TUpdate>
     where TModel : class, new ()
     where TUpdate : class, new ()
 {
-    readonly Func<Realm> GetRealm;
+    protected readonly Func<Realm> GetRealm;
 
     public RealmTable(Func<Realm> getRealm)
     {
@@ -28,7 +28,7 @@ public abstract class RealmTable<TRecord, TModel, TUpdate>
         return model?.ReturnAs<TRecord>();
     }
 
-    public virtual TRecord ToRecord(TUpdate update)
+    public virtual TRecord CreateRecord(TUpdate update)
     {
         var record = ToRecord(update?.ReturnAs<TModel>());
         if (record != null)
@@ -73,7 +73,7 @@ public abstract class RealmTable<TRecord, TModel, TUpdate>
             {
                 realm.Write(() =>
                 {
-                    var record = ToRecord(update);
+                    var record = CreateRecord(update);
                     realm.Add(record);
                     result = ToModel(record);
                 });
@@ -155,6 +155,54 @@ public abstract class RealmTable<TRecord, TModel, TUpdate>
         });
 
         return success;
+    }
+
+    public async Task<int> CountAsync(Func<TRecord, bool> predicate = null)
+    {
+        int count = 0;
+        await Task.Run(() =>
+        {
+            using (var realm = GetRealm())
+            {
+                var all = realm.All<TRecord>();
+                if (predicate == null)
+                    count = all.Count();
+                else
+                    count = all.Count(predicate);
+            }
+        });
+        return count;
+    }
+    
+    public async Task<long> LongCountAsync(Func<TRecord, bool> predicate = null)
+    {
+        long count = 0;
+        await Task.Run(() =>
+        {
+            using (var realm = GetRealm())
+            {
+                var all = realm.All<TRecord>();
+                if (predicate == null)
+                    count = all.LongCount();
+                else
+                    count = all.LongCount(predicate);
+            }
+        });
+        return count;
+    }
+
+    public async Task<List<TModel>> WhereAsync(Func<TRecord, bool> predicate)
+    {
+        List<TModel> results = null;
+        await Task.Run(() =>
+        {
+            using (var realm = GetRealm())
+            {
+                var all = realm.All<TRecord>().Where(predicate);
+                results = all.ToList().Select(x => ToModel(x)).ToList();
+            }
+        });
+        return results;
     }
 
     public class NotFoundException : Exception
