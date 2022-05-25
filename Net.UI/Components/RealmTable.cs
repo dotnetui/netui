@@ -64,6 +64,13 @@ public abstract class RealmTable<TRecord, TModel, TUpdate>
         return result;
     }
 
+    public async Task<TModel> AddOrUpdateAsync(string id, TUpdate update)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+            return await AddAsync(update);
+        return await UpdateAsync(id, update);
+    }
+
     public async Task<TModel> AddAsync(TUpdate update)
     {
         TModel result = null;

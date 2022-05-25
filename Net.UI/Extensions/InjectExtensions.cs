@@ -26,10 +26,10 @@ public enum ProjectMode
 public static class InjectExtensions
 {
     static readonly Dictionary<Type, PropertyInfo[]> properties = new();
-
+    public static bool CacheProperties = true;
     static PropertyInfo[] GetProperties(Type type)
     {
-        if (!properties.ContainsKey(type))
+        if (!CacheProperties || !properties.ContainsKey(type))
             return properties[type] = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         return properties[type];
     }

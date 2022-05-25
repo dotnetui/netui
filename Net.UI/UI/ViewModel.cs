@@ -318,6 +318,14 @@ public class WorkerViewModelPool : BindableModel
         return item;
     }
 
+    public WorkerViewModel Alloc([CallerMemberName] string tag = null)
+    {
+        var item = Items.FirstOrDefault(x => x.Tag == tag && !x.IsBusy);
+        if (item == null) return Add(tag);
+        item.Status = WorkerStatus.Busy;
+        Refresh();
+        return item;
+    }
 
     public void Remove(string tag = null)
     {
