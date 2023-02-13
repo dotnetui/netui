@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ui="clr-namespace:Net.UI;assembly=Net.UI"
+    xmlns:vm="clr-namespace:Net.UI.Sandbox.ViewModels"
+    x:Class="NetUI.Sandbox.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
+    <Grid BackgroundColor="#333">
+        <ui:Dock DropShadows="True">
+            <ui:Dock.Bottom>
+                <ui:TitleBar 
+                    Button="Back"
+                    Command="{Binding Drawer.ToggleCommand}"
+                    Title="Hello, World!!" />
+            </ui:Dock.Bottom>
+
+            <!--<ui:Dock.Left>
+                <ui:SideBar
+                    Button="Back"
+                    Command="{Binding Drawer.ToggleCommand}"
+                    Title="Hello, World!" />
+            </ui:Dock.Left>
+
+            <ui:Dock.Right>
+                <Grid x:Name="g" BackgroundColor="Beige" WidthRequest="50">
+                    <Label
+                        TextColor="Blue"
+                        Text="This is a long vertical text" 
+                        HorizontalOptions="StartAndExpand"
+                        Rotation="90" />
+
+                    <AbsoluteLayout 
+                        Rotation="90" 
+                        HorizontalOptions="Start" 
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            x:Name="lblInner"
+                            TextColor="Red"
+                            Text="This is a long vertical text" 
+                            HorizontalOptions="StartAndExpand" />
+
+                    </AbsoluteLayout>
+                </Grid>
+            </ui:Dock.Right>-->
+
+            <ui:Dock.Overlay>
+                <ui:Drawer 
+                    x:Name="sb"
+                    Side="Left"
+                    IsModal="True"
+                    IsFullSize="False"
+                    ModalBackgroundColor="#3000">
+                    <Frame>
+                        <StackLayout>
+                            <Label Text="{Binding InputTransparent, Source={Reference sb}}" />
+                            <Label Text="{Binding CascadeInputTransparent, Source={Reference sb}}" />
+                            <Button Text="B" Command="{Binding Drawer.CloseCommand}" />
+                        </StackLayout>
+                    </Frame>
+                </ui:Drawer>
+            </ui:Dock.Overlay>
+
+            <Grid>
+                <ScrollView>
+                    <StackLayout>
+                        <Label
+                            x:Name="label"
+                            Text="Hi There!" />
+                        <ui:Code />
+                        <ui:AdvancedButton 
+                            x:Name="button"
+                            Text="My Button" 
+                            TextAlignment="End"
+                            Visual="Default"
+                            TextColor="White"
+                            />
+                        <ui:MaterialPicker
+                            x:Name="mp"
+                            ItemsSource="{Binding Items}"
+                            />
+                        <Grid HeightRequest="100" />
+                        <Picker
+                            ItemsSource="{Binding Items}" />
+                        <ui:MaterialishEntry />
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </ui:Dock>
+    </Grid>
+</ContentPage>

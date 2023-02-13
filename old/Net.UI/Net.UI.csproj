@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>Net</RootNamespace>
+		<Nullable>disable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>1.0.0-alpha</Version>
+		<AssemblyVersion></AssemblyVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="gradienth.png" />
+	  <None Remove="gradienth2.png" />
+	  <None Remove="gradientv.png" />
+	  <None Remove="gradientv2.png" />
+	  <None Remove="leftarrow.png" />
+	  <None Remove="leftarrowb.png" />
+	  <None Remove="menu.png" />
+	  <None Remove="menub.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="UI\gradienth.png" />
+	  <EmbeddedResource Include="UI\gradienth2.png" />
+	  <EmbeddedResource Include="UI\gradientv.png" />
+	  <EmbeddedResource Include="UI\gradientv2.png" />
+	  <EmbeddedResource Include="UI\leftarrow.png" />
+	  <EmbeddedResource Include="UI\leftarrowb.png" />
+	  <EmbeddedResource Include="UI\menu.png" />
+	  <EmbeddedResource Include="UI\menub.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Realm" Version="10.12.0" />
+		<PackageReference Include="RestSharp" Version="107.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="UI\Dock.xaml.cs">
+	    <DependentUpon>Dock.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\Drawer.xaml.cs">
+	    <DependentUpon>Drawer.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\SideBar.xaml.cs">
+	    <DependentUpon>SideBar.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="UI\Code.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\Dock.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\DrawerDrawer.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\MaterialEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\MaterialPicker.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\SideBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="UI\TitleBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+</Project>
