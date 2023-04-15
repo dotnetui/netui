@@ -1,4 +1,12 @@
-﻿using System.Reflection;
+﻿using Net.Essentials;
+
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System;
+using System.Reflection;
+using Newtonsoft.Json;
+
 namespace Net.Essentials
 {
     public static class L
@@ -10,20 +18,20 @@ namespace Net.Essentials
             return T(dt.DayOfWeek.ToString());
         }
 
-        static Dictionary<string, Dictionary<string, string?>> keys = new();
+        static Dictionary<string, Dictionary<string, string>> keys = new Dictionary<string, Dictionary<string, string>>();
 
-        public static Dictionary<string, Dictionary<string, string?>> DynamicKeys = new();
+        public static Dictionary<string, Dictionary<string, string>> DynamicKeys = new Dictionary<string, Dictionary<string, string>>();
 
-        public static Dictionary<string, Dictionary<string, string?>> GetEmbeddedKeys() => keys;
+        public static Dictionary<string, Dictionary<string, string>> GetEmbeddedKeys() => keys;
 
-        public static Dictionary<string, Dictionary<string, string?>> GetEffectiveKeys()
+        public static Dictionary<string, Dictionary<string, string>> GetEffectiveKeys()
         {
-            var result = new Dictionary<string, Dictionary<string, string?>>();
+            var result = new Dictionary<string, Dictionary<string, string>>();
             if (DynamicKeys != null)
             {
                 foreach (var item in DynamicKeys)
                 {
-                    result[item.Key] = new();
+                    result[item.Key] = new Dictionary<string, string>();
                     foreach (var pair in item.Value)
                         result[item.Key][pair.Key] = pair.Value;
                 }
@@ -32,7 +40,7 @@ namespace Net.Essentials
             foreach (var item in keys)
             {
                 if (!result.ContainsKey(item.Key))
-                    result[item.Key] = new();
+                    result[item.Key] = new Dictionary<string, string>();
                 foreach (var pair in item.Value)
                 {
                     if (!result[item.Key].ContainsKey(item.Key))
@@ -43,9 +51,9 @@ namespace Net.Essentials
             return result;
         }
 
-        public static event EventHandler<string>? OnLanguageChange;
+        public static event EventHandler<string> OnLanguageChange;
 
-        static IEnumerable<string>? overrideKeys = null;
+        static IEnumerable<string> overrideKeys = null;
 
         public static void SetLanguageKeys(IEnumerable<string> keys)
         {
@@ -77,9 +85,9 @@ namespace Net.Essentials
             {
                 foreach (var resource in resourceNames.Where(x => x.ToLowerInvariant().EndsWith(extension)))
                 {
-                    var lang = resource[..^extension.Length];
-                    lang = lang[prefix.Length..];
-                    keys[lang] = new();
+                    var lang = resource.Substring(0, resource.Length - extension.Length);
+                    lang = lang.Substring(prefix.Length);
+                    keys[lang] = new Dictionary<string, string>();
 
                     var suffix = $"{lang}{extension}";
                     var r = resourceNames.FirstOrDefault(x => x.EndsWith(suffix));
@@ -89,11 +97,11 @@ namespace Net.Essentials
                     string text = "{}";
                     if (stream != null)
                     {
-                        using var reader = new StreamReader(stream);
-                        text = reader.ReadToEnd();
+                        using (var reader = new StreamReader(stream))
+                            text = reader.ReadToEnd();
                     }
 
-                    var dic = JsonConvert.DeserializeObject<Dictionary<string, string?>>(text);
+                    var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
                     if (dic != null) keys[lang] = dic;
                 }
             }
@@ -103,12 +111,12 @@ namespace Net.Essentials
             }
         }
 
-        public static void Load(string languageKey, Dictionary<string, string?> map)
+        public static void Load(string languageKey, Dictionary<string, string> map)
         {
             keys[languageKey] = map;
         }
 
-        public static void Load(Dictionary<string, Dictionary<string, string?>> map)
+        public static void Load(Dictionary<string, Dictionary<string, string>> map)
         {
             keys = map;
         }
@@ -138,7 +146,7 @@ namespace Net.Essentials
             return T(keyx, count.ToString());
         }
 
-        static string? GetValue(string lang, string key, params string[] args)
+        static string GetValue(string lang, string key, params string[] args)
         {
             try
             {
@@ -167,29 +175,6 @@ namespace Net.Essentials
                 Console.WriteLine($"Error in GetValue: {lang}, {key}, {ex}");
             }
             return null;
-        }
-    }
-}
-
-namespace Net.UI
-{
-    [ContentProperty("Key")]
-    public class LExtension : IMarkupExtension
-    {
-        public string Key { get; set; }
-        public object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return L.T(Key);
-        }
-    }
-
-    [ContentProperty("Key")]
-    public class LuExtension : IMarkupExtension
-    {
-        public string Key { get; set; }
-        public object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return L.T(Key)?.ToUpper();
         }
     }
 }

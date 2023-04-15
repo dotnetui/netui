@@ -6,9 +6,11 @@ public class RealmDriver
     public readonly string Path;
     public readonly ulong SchemaVersion;
 
-    public virtual RealmConfiguration Configuration => new RealmConfiguration(Path)
+    public Func<string, string> MapPathFunc = i => i;
+
+    public virtual RealmConfiguration Configuration => new RealmConfiguration(MapPathFunc(Path))
     {
-        SchemaVersion = SchemaVersion
+        SchemaVersion = SchemaVersion,
     };
 
     public RealmDriver(ulong schemaVersion, string path = null)
@@ -30,5 +32,26 @@ public class RealmDriver
     public async Task CompactAsync()
     {
         await Task.Run(() => Realm.Compact(Configuration));
+    }
+
+    public async Task ImportAsync(string path)
+    {
+        await Task.Run(() =>
+        {
+            if (!File.Exists(path))
+                throw new ApplicationException($"Cannot import {path}: File does not exist");
+
+            var config = Configuration;
+            using (var realm = Realm.GetInstance(config))
+            {
+                if (realm == null)
+                    throw new ApplicationException($"Cannot import {path}: Invalid database");
+                // Good.
+            }
+
+            if (File.Exists(Path))
+                File.Delete(Path);
+            File.Copy(path, Path);
+        });
     }
 }
