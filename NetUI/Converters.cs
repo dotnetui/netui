@@ -1,5 +1,5 @@
 ﻿using Net.Essentials.Converters;
-namespace Net.UI.Converters;
+namespace Net.UI;
 
 public class AndMultiConverter : AndPortableMultiConverter, IMultiValueConverter
 {
