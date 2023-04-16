@@ -2,6 +2,34 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <RootNamespace>Net.Essentials</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Net.Essentials.Realm</Title>
+    <Version>1.0.0</Version>
+    <Authors>netui.org</Authors>
+    <Description>High level CRUD wrappers for Realm</Description>
+    <PackageProjectUrl>https://netui.org</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/dotnetui/netui</RepositoryUrl>
+    <PackageTags>xamarin; realms; maui; avaloniaui; uno; database</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Net.Essentials" Version="1.0.0" />
+    <PackageReference Include="Realm" Version="10.21.0" />
+  </ItemGroup>
 
 </Project>
