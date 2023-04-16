@@ -12,7 +12,6 @@ namespace NetUI.Sandbox
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .ConfigureNetEssentials()
                 .ConfigureNetUI()
                 .ConfigureFonts(fonts =>
                 {

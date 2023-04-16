@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 
+using Net.Essentials;
 namespace Net.UI;
 
 public class HasValueConverter : IValueConverter

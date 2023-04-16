@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Net.UI.Sandbox.ViewModels
 {
-    public class MainViewModel : ViewModel
+    public class MainViewModel : MauiViewModel
     {
     }
 }

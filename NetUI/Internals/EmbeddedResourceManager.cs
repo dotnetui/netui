@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Net.Essentials;
+using System.Reflection;
 
 namespace Net.Internals;
 

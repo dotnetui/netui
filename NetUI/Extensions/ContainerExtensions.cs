@@ -1,4 +1,6 @@
-﻿namespace Net.UI;
+﻿using Net.Essentials;
+
+namespace Net.UI;
 
 [ContentProperty("Type")]
 public class ContainerExtensions : IMarkupExtension
@@ -9,7 +11,7 @@ public class ContainerExtensions : IMarkupExtension
 
     public ContainerExtensions()
     {
-        this.containerService = DependencyService.Get<ContainerService>();
+        this.containerService = ContainerService.Instance;
     }
 
     public object ProvideValue(IServiceProvider _)
