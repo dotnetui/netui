@@ -15,7 +15,7 @@ namespace Net.Essentials
             where TModel : class, TInterface, new()
             where TUpdate : class, new()
     {
-        readonly BenchmarkService benchmarkService;
+        protected BenchmarkService benchmarkService = BenchmarkService.Instance;
 
         public static DateTimeOffset DeletedDateThreshold = new DateTimeOffset(1000, 1, 1, 0, 0, 0, TimeSpan.Zero);
 

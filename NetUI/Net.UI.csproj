@@ -25,4 +25,8 @@
 	  <PackageReference Include="RestSharp" Version="108.0.3" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Net.Essentials\Net.Essentials.csproj" />
+	</ItemGroup>
+
 </Project>

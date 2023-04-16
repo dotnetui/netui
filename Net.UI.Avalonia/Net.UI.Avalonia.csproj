@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<AvaloniaVersion>11.0.0-preview4</AvaloniaVersion>
+	<RootNamespace>Net.UI</RootNamespace>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Net.Essentials\Net.Essentials.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Extensions\" />
+	</ItemGroup>
+</Project>

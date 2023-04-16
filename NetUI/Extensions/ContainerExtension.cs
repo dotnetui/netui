@@ -3,13 +3,13 @@
 namespace Net.UI;
 
 [ContentProperty("Type")]
-public class ContainerExtensions : IMarkupExtension
+public class ContainerExtension : IMarkupExtension
 {
     private readonly ContainerService containerService;
 
     public Type Type { get; set; }
 
-    public ContainerExtensions()
+    public ContainerExtension()
     {
         this.containerService = ContainerService.Instance;
     }

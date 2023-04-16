@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.UI", "NetUI\Net.UI.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUI.Sandbox", "NetUI.Sandbox\NetUI.Sandbox.csproj", "{7EC2433E-786D-4D04-9763-CA0BCC87098E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Essentials", "Net.Essentials\Net.Essentials.csproj", "{885B9A77-FB39-4E72-8B1C-16EB05485D99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.Essentials", "Net.Essentials\Net.Essentials.csproj", "{885B9A77-FB39-4E72-8B1C-16EB05485D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Essentials.Realm", "Net.Essentials.Realm\Net.Essentials.Realm.csproj", "{3A876BBB-6483-4D41-A387-2989D9D06237}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.Essentials.Realm", "Net.Essentials.Realm\Net.Essentials.Realm.csproj", "{3A876BBB-6483-4D41-A387-2989D9D06237}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.Essentials.Api", "Net.Essentials.Api\Net.Essentials.Api.csproj", "{ED856060-F642-438A-8198-92B898F73645}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.Essentials.Api", "Net.Essentials.Api\Net.Essentials.Api.csproj", "{ED856060-F642-438A-8198-92B898F73645}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.AvaloniaUI", "Net.AvaloniaUI\Net.AvaloniaUI.csproj", "{2BFEE332-1252-4616-9748-223C31D04328}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.UI.Avalonia", "Net.UI.Avalonia\Net.UI.Avalonia.csproj", "{09FC1B0E-1889-4827-9B88-0BF756438D65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,10 @@ Global
 		{ED856060-F642-438A-8198-92B898F73645}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED856060-F642-438A-8198-92B898F73645}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED856060-F642-438A-8198-92B898F73645}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2BFEE332-1252-4616-9748-223C31D04328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2BFEE332-1252-4616-9748-223C31D04328}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2BFEE332-1252-4616-9748-223C31D04328}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2BFEE332-1252-4616-9748-223C31D04328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FC1B0E-1889-4827-9B88-0BF756438D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FC1B0E-1889-4827-9B88-0BF756438D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FC1B0E-1889-4827-9B88-0BF756438D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FC1B0E-1889-4827-9B88-0BF756438D65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
