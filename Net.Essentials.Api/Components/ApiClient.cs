@@ -37,6 +37,9 @@ namespace Net.Essentials
         public event EventHandler<RestResponse> OnResponse;
         public event EventHandler<RestResponse> OnSuccess;
         public event EventHandler<RestResponse> OnGone;
+        public event EventHandler<Exception> OnException;
+        public bool LogResponse = true;
+        public bool ThrowExceptions = false;
 
         protected virtual void Log(string message, [CallerMemberName] string method = null)
         {
@@ -67,7 +70,7 @@ namespace Net.Essentials
         {
             try
             {
-                Log($"Request: [/{path}] {method} {path}");
+                if (LogResponse) Log($"Request: [/{path}] {method} {path}");
                 RestClient client = CreateClient(BaseUrl);
                 var request = CreateRequest(path, method);
                 buildRequest?.Invoke(request);
@@ -113,7 +116,7 @@ namespace Net.Essentials
                     var result = await client.ExecuteAsync(request);
                     OnResponse?.Invoke(this, result);
 
-                    Log($"[{watch.Elapsed.TotalSeconds}s/{BaseUrl}] {request.Method} {result?.ResponseUri?.ToString() ?? path} response ({result?.StatusCode}): {result?.Content?.Head(1024)}\n");
+                    if (LogResponse) Log($"[{watch.Elapsed.TotalSeconds}s/{BaseUrl}] {request.Method} {result?.ResponseUri?.ToString() ?? path} response ({result?.StatusCode}): {result?.Content?.Head(1024)}\n");
                     if (result != null && result.StatusCode == HttpStatusCode.Gone)
                     {
                         OnGone?.Invoke(this, result);
@@ -127,7 +130,9 @@ namespace Net.Essentials
                 }
                 catch (Exception ex)
                 {
-                    Log($"Exception while executing task: {ex}");
+                    OnException?.Invoke(this, ex);
+                    if (LogResponse) Log($"Exception while executing task: {ex}");
+                    if (ThrowExceptions) throw;
                 }
                 finally
                 {
@@ -136,7 +141,9 @@ namespace Net.Essentials
             }
             catch (Exception ex)
             {
-                Log($"Exception while executing task: {ex}");
+                OnException?.Invoke(this, ex);
+                if (LogResponse) Log($"Exception while executing task: {ex}");
+                if (ThrowExceptions) throw;
             }
             return null;
         }

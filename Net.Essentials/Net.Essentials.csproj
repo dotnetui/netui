@@ -13,13 +13,8 @@
     <RepositoryUrl>https://github.com/dotnetui/netui</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>False</IncludeSymbols>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="icon.ico" />
-    <Content Include="icon.png" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />

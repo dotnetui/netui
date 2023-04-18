@@ -9,7 +9,19 @@ namespace Net.Essentials
 {
     public static class StringExtensions
     {
-        static readonly TextInfo EnUs = new CultureInfo("en-US", false).TextInfo;
+        static TextInfo GetTextInfo()
+        {
+            try
+            {
+                return new CultureInfo("en-US", false).TextInfo;
+            }
+            catch
+            {
+                return CultureInfo.CurrentCulture?.TextInfo;
+            }
+        }
+
+        static readonly TextInfo EnUs = GetTextInfo();
 
         public static string Head(this string s, int take = 20)
         {
