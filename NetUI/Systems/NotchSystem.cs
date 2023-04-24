@@ -11,6 +11,12 @@ public class NotchSystem
 
     NotchSystem()
     {
+#if __ANDROID__
+            Signals.AndroidSafeInsetsUpdate.Subscribe<Thickness>(this, thickness =>
+            {
+                AndroidSafeInsets = thickness;
+            });
+#endif
     }
 
     public Thickness? OverridePadding { get; set; } = null;
