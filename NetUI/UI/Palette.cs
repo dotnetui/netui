@@ -2,6 +2,7 @@
 
 public static class Palette
 {
+    public static Color Default { get; } = new Color();
     public static Color Black { get; } = Color.FromArgb("#000");
     public static Color White { get; } = Color.FromArgb("#FFF");
     public static Color Transparent { get; } = Color.FromArgb("#00000000");

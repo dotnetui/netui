@@ -12,7 +12,7 @@ public enum UIStatusBarStyles
     DarkContent = 3
 }
 
-public class ContentPage2 : ContentPage
+public class WidgetPage : ContentPage
 {
     bool isStarted = false;
     WeakReference<ViewModel> lastContext = null;
@@ -22,16 +22,16 @@ public class ContentPage2 : ContentPage
 
     public Action PlatformUpdate;
 
-    public bool FixTopPadding
+    public bool PadTop
     {
-        get => (bool)GetValue(FixTopPaddingProperty);
-        set => SetValue(FixTopPaddingProperty, value);
+        get => (bool)GetValue(PadTopProperty);
+        set => SetValue(PadTopProperty, value);
     }
 
-    public bool FixBottomPadding
+    public bool PadBottom
     {
-        get => (bool)GetValue(FixBottomPaddingProperty);
-        set => SetValue(FixBottomPaddingProperty, value);
+        get => (bool)GetValue(PadBottomProperty);
+        set => SetValue(PadBottomProperty, value);
     }
 
     public UIStatusBarStyles UIStatusBarStyle
@@ -76,32 +76,32 @@ public class ContentPage2 : ContentPage
         set => SetValue(KeepScreenOnProperty, value);
     }
 
-    public static BindableProperty FixTopPaddingProperty = BindableProperty.Create(
-        nameof(FixTopPadding),
+    public static BindableProperty PadTopProperty = BindableProperty.Create(
+        nameof(PadTop),
         typeof(bool),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         false,
         BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            (bindable as ContentPage2).AdjustPadding();
+            (bindable as WidgetPage).AdjustPadding();
         });
 
-    public static BindableProperty FixBottomPaddingProperty = BindableProperty.Create(
-        nameof(FixBottomPadding),
+    public static BindableProperty PadBottomProperty = BindableProperty.Create(
+        nameof(PadBottom),
         typeof(bool),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         false,
         BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
-            (bindable as ContentPage2).AdjustPadding();
+            (bindable as WidgetPage).AdjustPadding();
         });
 
     public static BindableProperty UIStatusBarStyleProperty = BindableProperty.Create(
         nameof(UIStatusBarStyle),
         typeof(UIStatusBarStyles),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         UIStatusBarStyles.LightContent,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
@@ -109,7 +109,7 @@ public class ContentPage2 : ContentPage
     public static BindableProperty UIStatusBarHiddenProperty = BindableProperty.Create(
         nameof(UIStatusBarHidden),
         typeof(bool),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         false,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
@@ -117,7 +117,7 @@ public class ContentPage2 : ContentPage
     public static BindableProperty UIStatusBarAnimatedProperty = BindableProperty.Create(
         nameof(UIStatusBarAnimated),
         typeof(bool),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         true,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
@@ -125,7 +125,7 @@ public class ContentPage2 : ContentPage
     public static BindableProperty AndroidStatusBarColorProperty = BindableProperty.Create(
         nameof(AndroidStatusBarColor),
         typeof(Color),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         Palette.Black,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
@@ -133,7 +133,7 @@ public class ContentPage2 : ContentPage
     public static BindableProperty AndroidTranslucentStatusProperty = BindableProperty.Create(
         nameof(AndroidTranslucentStatus),
         typeof(bool),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         true,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
@@ -141,7 +141,7 @@ public class ContentPage2 : ContentPage
     public static BindableProperty AndroidLayoutInScreenProperty = BindableProperty.Create(
         nameof(AndroidLayoutInScreen),
         typeof(bool),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         true,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
@@ -149,17 +149,17 @@ public class ContentPage2 : ContentPage
     public static BindableProperty KeepScreenOnProperty = BindableProperty.Create(
         nameof(KeepScreenOn),
         typeof(bool?),
-        typeof(ContentPage2),
+        typeof(WidgetPage),
         (bool?)null,
         BindingMode.TwoWay,
         propertyChanged: UpdateSettings);
 
     static void UpdateSettings(BindableObject bindable, object oldVal, object newVal)
     {
-        (bindable as ContentPage2)?.PlatformUpdate?.Invoke();
+        (bindable as WidgetPage)?.PlatformUpdate?.Invoke();
     }
 
-    public ContentPage2()
+    public WidgetPage()
     {
 #if __IOS__
         
@@ -168,17 +168,17 @@ public class ContentPage2 : ContentPage
         AdjustPadding();
     }
 
-    IEnumerable<ContentView2> GetAliveChildren()
+    IEnumerable<Widget> GetAliveChildren()
     {
         if (Content is VisualElement ve)
         {
             return ve
                 .GetAllChildren()
-                .Where(x => x is ContentView2)
-                .Select(x => (ContentView2)x);
+                .Where(x => x is Widget)
+                .Select(x => (Widget)x);
         }
 
-        return new ContentView2[] { };
+        return new Widget[] { };
     }
 
     protected override void OnAppearing()
@@ -217,8 +217,8 @@ public class ContentPage2 : ContentPage
         }
 
         var pageMargin = NotchSystem.Instance.GetPageMargin();
-        var top = FixTopPadding ? pageMargin.Top : originalPadding.Value.Top;
-        var bottom = FixBottomPadding ? pageMargin.Bottom : originalPadding.Value.Bottom;
+        var top = PadTop ? pageMargin.Top : originalPadding.Value.Top;
+        var bottom = PadBottom ? pageMargin.Bottom : originalPadding.Value.Bottom;
         Padding = new Thickness(
             originalPadding.Value.Left,
             top,

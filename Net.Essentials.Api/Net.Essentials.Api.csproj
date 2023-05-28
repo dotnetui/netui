@@ -6,7 +6,7 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Net.Essentials.Api</Title>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Company>$(Authors)</Company>
     <Description>API wrappers for various services, such as Places APIs for Google, HERE, Nominatim, Overpass and more.</Description>
     <PackageProjectUrl>https://netui.org</PackageProjectUrl>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Net.Essentials" Version="1.0.3" />
+    <PackageReference Include="Net.Essentials" Version="1.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
   </ItemGroup>

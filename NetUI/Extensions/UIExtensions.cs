@@ -46,7 +46,7 @@ public static class UIExtensions
 
     public static Page WithPage(this View view)
     {
-        return new ContentPage2
+        return new WidgetPage
         {
             Content = view
         };
