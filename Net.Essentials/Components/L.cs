@@ -128,15 +128,7 @@ namespace Net.Essentials
         /// <returns></returns>
         public static string T(string key, params string[] args)
         {
-            if (string.IsNullOrWhiteSpace(key)) return key;
-            var value = GetValue(CurrentLanguage, key, args);
-            if (value != null) return value;
-            foreach (string lang in GetLanguageKeys())
-            {
-                value = GetValue(lang, key, args);
-                if (!string.IsNullOrWhiteSpace(value)) return value;
-            }
-            return key;
+            return Tin(CurrentLanguage, key, args);
         }
 
         public static string Tn(string key0, string key1, string keyx, int count)
@@ -144,6 +136,19 @@ namespace Net.Essentials
             if (count == 0) return T(key0, count.ToString());
             if (count == 1) return T(key1, count.ToString());
             return T(keyx, count.ToString());
+        }
+
+        public static string Tin(string language, string key, params string[] args)
+        {
+            if (string.IsNullOrWhiteSpace(key)) return key;
+            var value = GetValue(language, key, args);
+            if (value != null) return value;
+            foreach (string lang in GetLanguageKeys())
+            {
+                value = GetValue(lang, key, args);
+                if (!string.IsNullOrWhiteSpace(value)) return value;
+            }
+            return key;
         }
 
         static string GetValue(string lang, string key, params string[] args)
@@ -175,6 +180,20 @@ namespace Net.Essentials
                 Console.WriteLine($"Error in GetValue: {lang}, {key}, {ex}");
             }
             return null;
+        }
+    }
+
+    public class Localizer
+    {
+        public string Language { get; }
+        public Localizer(string language)
+        {
+            Language = language;
+        }
+
+        public void T(string key, params string[] args)
+        {
+            L.Tin(Language, key, args);
         }
     }
 }
