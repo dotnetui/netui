@@ -186,14 +186,25 @@ namespace Net.Essentials
     public class Localizer
     {
         public string Language { get; }
-        public Localizer(string language)
+        public Localizer(string language, bool force = false)
         {
-            Language = language;
+            if (force)
+                Language = language;
+            else
+            {
+                var availableLanguages = L.GetEffectiveKeys();
+                if (availableLanguages.ContainsKey(language))
+                    Language = language;
+                else if (availableLanguages.ContainsKey(L.CurrentLanguage))
+                    Language = L.CurrentLanguage;
+                else
+                    Language = availableLanguages.Keys.FirstOrDefault() ?? L.CurrentLanguage;
+            }
         }
 
-        public void T(string key, params string[] args)
+        public string T(string key, params string[] args)
         {
-            L.Tin(Language, key, args);
+            return L.Tin(Language, key, args);
         }
     }
 }
