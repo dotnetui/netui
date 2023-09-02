@@ -153,7 +153,7 @@ namespace Net.Essentials
             return await RequestAsync<T>(path, (Method)method, dto, buildRequest, onfail, contentType);
         }
 
-        public virtual async Task<T> RequestAsync<T>(string path, Method method = Method.Get, object dto = null, Action<RestRequest> buildRequest = null, Action onfail = null, string contentType = null)
+        public virtual async Task<T> RequestAsync<T>(string path, Method method, object dto = null, Action<RestRequest> buildRequest = null, Action onfail = null, string contentType = null)
         {
             var response = await RequestAsync(path, method, dto, buildRequest, contentType);
             if (response == null) return default;

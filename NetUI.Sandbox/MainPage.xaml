@@ -52,7 +52,7 @@
                     Side="Left"
                     IsModal="True"
                     IsFullSize="False"
-                    ModalBackgroundColor="#3000">
+                    ModalBackgroundColor="#30000000">
                     <Frame>
                         <StackLayout>
                             <Label Text="{Binding InputTransparent, Source={Reference sb}}" />

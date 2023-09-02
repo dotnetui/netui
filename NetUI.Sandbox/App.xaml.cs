@@ -16,7 +16,7 @@ namespace NetUI.Sandbox
 
         public override Page GetFirstPage()
         {
-            return new AppShell();
+            return new MainPage();
         }
     }
 }
