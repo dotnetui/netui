@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
-using CommunityToolkit.Mvvm.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Net.Essentials
 {
@@ -26,10 +26,10 @@ namespace Net.Essentials
     {
     }
 
-    public class BindableModel : ObservableObject, INotifyPropertyChanged
+    public class TinyViewModel : INotifyPropertyChanged
     {
-        public static Action GlobalBackSignalAction;
-        public static Action GlobalPopModalSignalAction;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public static Action<Action> RunOnUIAction = a => a();
 
         PropertyInfo[] properties = null;
@@ -42,9 +42,19 @@ namespace Net.Essentials
 
         public void RaisePropertyChanged(bool onUI, [CallerMemberName] string m = null)
         {
-            void Raise() => base.OnPropertyChanged(m);
+            void Raise() => OnPropertyChanged(m);
             if (onUI) RunOnUIAction(Raise);
             else Raise();
+        }
+
+        void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, e);
+        }
+
+        void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
         public void UpdateProperties(bool forceAll = false)
@@ -76,10 +86,19 @@ namespace Net.Essentials
                     RaisePropertyChanged(onUI: false, item);
             });
         }
+
+        protected virtual void SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        {
+            storage = value;
+            RaisePropertyChanged(propertyName);
+        }
     }
 
-    public partial class ViewModel : BindableModel
+    public partial class ViewModel : TinyViewModel
     {
+        public static Action GlobalBackSignalAction;
+        public static Action GlobalPopModalSignalAction;
+
         public ViewModel() { }
 
         [NoUpdate] public virtual WorkerViewModelPool Workers { get; set; } = new WorkerViewModelPool();
@@ -138,7 +157,7 @@ namespace Net.Essentials
         }
     }
 
-    public class WorkerViewModel : BindableModel, IDisposable
+    public class WorkerViewModel : TinyViewModel, IDisposable
     {
         public event EventHandler<string> OnLog;
         public WorkerViewModelPool Pool;
@@ -232,7 +251,7 @@ namespace Net.Essentials
         }
     }
 
-    public class WorkerViewModelPool : BindableModel
+    public class WorkerViewModelPool : TinyViewModel
     {
         public event EventHandler OnUpdate;
 

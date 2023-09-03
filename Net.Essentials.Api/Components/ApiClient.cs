@@ -63,7 +63,7 @@ namespace Net.Essentials
 
         public virtual async Task<RestResponse> RequestAsync(
             string path,
-            Method method = Method.Get,
+            Method method,
             object dto = null,
             Action<RestRequest> buildRequest = null,
             string contentType = null)

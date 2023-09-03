@@ -113,6 +113,13 @@ namespace Net.Essentials
             return EnUs.ToTitleCase(original.ToLower());
         }
 
+        public static string ToSnakeCase(this string original)
+        {
+            if (string.IsNullOrWhiteSpace(original))
+                return original;
+            return Regex.Replace(original, "([a-z])([A-Z])", "$1_$2").ToLower();
+        }
+
         public static string GetDigits(this string original)
         {
             if (string.IsNullOrWhiteSpace(original))

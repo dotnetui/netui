@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/dotnetui/netui</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>False</IncludeSymbols>
-    <Version>1.0.8</Version>
+    <Version>1.0.11</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>

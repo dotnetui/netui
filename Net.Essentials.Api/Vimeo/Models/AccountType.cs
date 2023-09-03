@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Net.Essentials.Vimeo.JsonConverters;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,5 +23,18 @@ namespace Net.Essentials.Vimeo.Models
         Producer,
         Standard,
         Starter
+    }
+
+    public class AccountTypeEnumBinding : StringEnumBinding<AccountType>
+    {
+        public static AccountTypeEnumBinding Instance { get; } = new AccountTypeEnumBinding();
+
+        protected override Dictionary<string, AccountType> Populate() => new Dictionary<string, AccountType>
+        {
+            { "live_business", AccountType.LiveBusiness },
+            { "live_premium", AccountType.LivePremium },
+            { "live_pro", AccountType.LivePro },
+            { "" }
+        };
     }
 }

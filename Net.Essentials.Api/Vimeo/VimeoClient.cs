@@ -1,4 +1,5 @@
-﻿using Net.Essentials.Vimeo.JsonConverters;
+﻿using Net.Essentials.Components;
+using Net.Essentials.Vimeo.JsonConverters;
 using Net.Essentials.Vimeo.Models;
 
 using Newtonsoft.Json;
@@ -7,6 +8,8 @@ using RestSharp;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +18,12 @@ namespace Net.Essentials.Vimeo
 {
     public partial class VimeoClient : ApiClient
     {
+        static bool IsOk(RestResponse response) => response != null &&
+            response.StatusCode == HttpStatusCode.OK ||
+            response.StatusCode == HttpStatusCode.Created ||
+            response.StatusCode == HttpStatusCode.PartialContent ||
+            response.StatusCode == HttpStatusCode.Accepted;
+
         public VimeoApp App { get; set; }
         public ApiToken Token { get; set; }
 
@@ -199,7 +208,7 @@ namespace Net.Essentials.Vimeo
         public override T DeserializeResponse<T>(RestResponse response, Action onfail = null)
         {
             if (response == null) return default;
-            if (response.IsOk())
+            if (IsOk(response))
             {
                 try
                 {
@@ -217,6 +226,11 @@ namespace Net.Essentials.Vimeo
             return default;
         }
 
+        public async Task<RestResponse> GetOpenApiSpecsAsync()
+        {
+            return await RequestAsync("/");
+        }
+
         public async Task<User> GetUserByIdAsync(string id)
         {
             return await RequestAsync<User>($"users/{id}");
@@ -226,6 +240,56 @@ namespace Net.Essentials.Vimeo
         {
             var result = await RequestAsync<User>("me");
             return result;
+        }
+
+        public async Task<UploadTicket> CreateVideoAsync(long size, UploadApproach approach = UploadApproach.Tus, string url = default, Dictionary<string, object> metadata = default)
+        {
+            var upload = new Dictionary<string, object>
+            {
+                { "approach", approach.ToString().ToLower() },
+                { "size", size.ToString() }
+            };
+            if (url != null)
+                upload.Add(approach == UploadApproach.Post ? "redirect_url" : "link", WebUtility.UrlEncode(url));
+
+            Dictionary<string, object> payload = metadata == null ? new Dictionary<string, object>() : new Dictionary<string, object>(metadata);
+            payload["upload"] = upload;
+
+            var result = await RequestAsync<UploadTicket>("/me/videos", HttpMethod.Post, payload);
+            return result;
+        }
+
+        public async Task<bool> UploadTusChunkAsync(string uploadLink, string path, long offset, long take = -1)
+        {
+            var tcpUploader = new TcpUploader();
+            tcpUploader.OnProgress += (object s, EventArgs e) => Console.WriteLine($"Progress: {tcpUploader.Position}/{tcpUploader.Total} {tcpUploader.IsActive}");
+            tcpUploader.Headers.Add("Tus-Resumable", "1.0.0");
+            tcpUploader.Headers.Add("Upload-Offset", offset.ToString());
+            tcpUploader.ContentType = "application/offset+octet-stream";
+            tcpUploader.Method = "PATCH";
+            tcpUploader.Url = uploadLink;
+            tcpUploader.StreamBytes = await LoadFileChunkAsync(path, offset, take);
+            var result = await tcpUploader.ExecuteAsync();
+            return result != null;
+        }
+
+        async Task<byte[]> LoadFileChunkAsync(string path, long offset, long take = -1)
+        {
+            byte[] buffer = null;
+            await Task.Run(() =>
+            {
+                using (var fi = File.OpenRead(path))
+                {
+                    fi.Seek(offset, SeekOrigin.Begin);
+                    if (take < 0 || fi.Length - offset < take) take = fi.Length - offset;
+                    if (take > 0)
+                    {
+                        buffer = new byte[take];
+                        fi.Read(buffer, 0, buffer.Length);
+                    }
+                }
+            });
+            return buffer;
         }
     }
 }
