@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Net.Essentials.Vimeo.Models
 {
-    public enum EmbedPrivacy
+    public enum ContentRatingClass
     {
         Unspecified,
-        Private,
-        Public,
-        Whitelist
+        Explicit,
+        Safe,
+        Unrated
     }
 }

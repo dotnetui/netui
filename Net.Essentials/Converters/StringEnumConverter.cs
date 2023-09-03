@@ -57,7 +57,7 @@ namespace Net.Essentials.Converters
         {
             if (ParseStringFirst && Enum.TryParse<T>(s, true, out var result))
                 return result;
-            if (StringToEnum.TryGetValue(s, out result))
+            if (s != default && StringToEnum.TryGetValue(s, out result))
                 return result;
             return DefaultValue;
         }

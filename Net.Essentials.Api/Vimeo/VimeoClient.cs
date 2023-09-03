@@ -242,6 +242,16 @@ namespace Net.Essentials.Vimeo
             return result;
         }
 
+        public async Task<Video> GetVideoByIdAsync(string id)
+        {
+            return await RequestAsync<Video>($"videos/{id}");
+        }
+
+        public async Task<Project> GetFolderByIdAsync(string userId, string folderId)
+        {
+            return await RequestAsync<Project>($"users/{userId}/projects/{folderId}");
+        }
+
         public async Task<UploadTicket> CreateVideoAsync(long size, UploadApproach approach = UploadApproach.Tus, string url = default, Dictionary<string, object> metadata = default)
         {
             var upload = new Dictionary<string, object>

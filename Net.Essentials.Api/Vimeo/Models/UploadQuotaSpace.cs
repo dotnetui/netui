@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Net.Essentials.Converters;
+
+using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace Net.Essentials.Vimeo.Models
         [JsonProperty("showing")] public string RawShowing { get; set; }
         [JsonProperty("unit")] public string RawUnit { get; set; }
 
-        [JsonIgnore] public UploadQuotaType Showing => UploadQuotaExtensions.ToUploadQuotaType(RawShowing);
-        [JsonIgnore] public UploadQuotaUnit Unit => UploadQuotaExtensions.ToUploadQuotaUnit(RawUnit);
+        [JsonIgnore] public UploadQuotaType Showing => StringEnumConverterRepository.Default.GetValue<UploadQuotaType>(RawShowing);
+        [JsonIgnore] public UploadQuotaUnit Unit => StringEnumConverterRepository.Default.GetValue<UploadQuotaUnit>(RawUnit);
     }
 }

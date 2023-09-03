@@ -6,13 +6,17 @@ namespace Net.Essentials.Vimeo.Models
 {
     public enum ViewPrivacy
     {
-        Unknown,
+        Unspecified,
         Anybody,
         Contacts,
         Disable,
         Nobody,
         Password,
         Unlisted,
-        Users
+        Users,
+        Ptv,
+        Ptvhide,
+        StockPurchased,
+        Team
     }
 }

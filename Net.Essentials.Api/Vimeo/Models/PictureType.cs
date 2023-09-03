@@ -6,7 +6,7 @@ namespace Net.Essentials.Vimeo.Models
 {
     public enum PictureType
     {
-        Unknown,
+        Unspecified,
         Caution,
         Custom,
         Default

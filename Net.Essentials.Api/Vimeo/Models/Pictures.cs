@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Net.Essentials.Converters;
+
+using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,6 @@ namespace Net.Essentials.Vimeo.Models
         [JsonProperty("resource_key")] public string ResourceKey { get; set; }
         [JsonProperty("default_picture")] public bool DefaultPicture { get; set; }
 
-        public PictureType Type => PictureTypeExtensions.ToPictureType(RawType);
+        public PictureType Type => StringEnumConverterRepository.Default.GetValue<PictureType>(RawType);
     }
 }

@@ -4,11 +4,10 @@ using System.Text;
 
 namespace Net.Essentials.Vimeo.Models
 {
-    public enum EmbedPrivacy
+    public enum EditingSessionStatus
     {
         Unspecified,
-        Private,
-        Public,
-        Whitelist
+        Processing,
+        Done
     }
 }

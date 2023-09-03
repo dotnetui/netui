@@ -9,13 +9,13 @@ using System.Text;
 
 namespace Net.Essentials.Vimeo.JsonConverters
 {
-    internal class PrivacyPreferencesJsonConverter : JsonConverter<PrivacyPreferences>
+    internal class PrivacyPreferencesJsonConverter : JsonConverter<Privacy>
     {
-        public override PrivacyPreferences ReadJson(JsonReader reader, Type objectType, PrivacyPreferences existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Privacy ReadJson(JsonReader reader, Type objectType, Privacy existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.String)
             {
-                return new PrivacyPreferences
+                return new Privacy
                 {
                     RawComments = (string)reader.Value,
                     RawView = (string)reader.Value,
@@ -24,7 +24,7 @@ namespace Net.Essentials.Vimeo.JsonConverters
             else if (reader.TokenType == JsonToken.StartObject)
             {
                 var token = JToken.Load(reader);
-                return token.ToObject<PrivacyPreferences>();
+                return token.ToObject<Privacy>();
             }
             else
             {
@@ -32,7 +32,7 @@ namespace Net.Essentials.Vimeo.JsonConverters
             }
         }
 
-        public override void WriteJson(JsonWriter writer, PrivacyPreferences value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Privacy value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Net.Essentials.Converters;
 
 namespace Net.Essentials.Vimeo.Models
 {
@@ -15,6 +16,6 @@ namespace Net.Essentials.Vimeo.Models
         public long Used { get; set; }
         [JsonProperty("reset_date")] public DateTimeOffset ResetDate { get; set; }
 
-        [JsonIgnore] public UploadQuotaUnit Unit => UploadQuotaExtensions.ToUploadQuotaUnit(RawUnit);
+        [JsonIgnore] public UploadQuotaUnit Unit => StringEnumConverterRepository.Default.GetValue<UploadQuotaUnit>(RawUnit);
     }
 }

@@ -6,7 +6,7 @@ namespace Net.Essentials.Vimeo.Models
 {
     public enum UploadQuotaType
     {
-        Unknown,
+        Unspecified,
         Lifetime,
         Periodic
     }

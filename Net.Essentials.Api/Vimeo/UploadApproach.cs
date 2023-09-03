@@ -6,8 +6,10 @@ namespace Net.Essentials.Vimeo
 {
     public enum UploadApproach
     {
+        Unspecified = 0,
         Tus,
         Post,
-        Pull
+        Pull,
+        LegacyResumable
     }
 }

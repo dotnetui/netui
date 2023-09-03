@@ -1,20 +1,16 @@
-﻿using Net.Essentials.Vimeo.JsonConverters;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+
+using Net.Essentials.Converters;
 
 namespace Net.Essentials.Vimeo.Models
 {
     public enum CommentsPrivacy
     {
-        Unknown,
+        Unspecified,
         Anybody,
         Contacts,
         Nobody
-    }
-
-    public class CommentsPrivacyEnumBinding : StringEnumBinding<CommentsPrivacy> {
-        public static CommentsPrivacyEnumBinding Instance { get; } = new CommentsPrivacyEnumBinding();
     }
 }

@@ -10,7 +10,7 @@ namespace Net.Essentials.Vimeo.Models
     {
         [JsonProperty("rating")] public string[] RawRating { get; set; }
         public string Password { get; set; }
-        public PrivacyPreferences Privacy { get; set; }
+        public Privacy Privacy { get; set; }
 
         [JsonIgnore] public ContentFilters Rating => ContentFiltersExtensions.ToContentFilters(RawRating);
     }

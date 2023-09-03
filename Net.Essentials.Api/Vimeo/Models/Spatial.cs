@@ -4,11 +4,7 @@ using System.Text;
 
 namespace Net.Essentials.Vimeo.Models
 {
-    public enum EmbedPrivacy
+    internal class Spatial
     {
-        Unspecified,
-        Private,
-        Public,
-        Whitelist
     }
 }

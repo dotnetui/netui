@@ -14,6 +14,7 @@ namespace Net.Essentials.Vimeo.Models
         Nudity = 8,
         Safe = 16,
         Unrated = 32,
-        Violence = 64
+        Violence = 64,
+        Advertisement = 128
     }
 }

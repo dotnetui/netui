@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Net.Essentials.Converters;
+
+using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -32,7 +34,7 @@ namespace Net.Essentials.Vimeo.Models
         [JsonProperty("upload_quota")] public UploadQuota UploadQuota { get; set; }
         public Pictures Pictures { get; set; }
 
-        [JsonIgnore] public AccountType Account => AccountTypeExtensions.ToAccountType(RawAccount);
+        [JsonIgnore] public AccountType Account => StringEnumConverterRepository.Default.GetValue<AccountType>(RawAccount);
         [JsonIgnore] public ContentFilters ContentFilters => ContentFiltersExtensions.ToContentFilters(RawContentFilter);
     }
 }

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Net.Essentials.Converters;
+
+using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Net.Essentials.Vimeo.Models
 {
-    public class PrivacyPreferences
+    public class Privacy
     {
         [JsonProperty("view")] public string RawView { get; set; }
         [JsonProperty("comments")] public string RawComments { get; set; }
@@ -16,8 +18,8 @@ namespace Net.Essentials.Vimeo.Models
         [JsonProperty("allow_share_link")] public bool AllowShareLink { get; set; }
         public string Password { get; set; }
 
-        [JsonIgnore] public CommentsPrivacy Comments => CommentsPrivacyExtensions.ToCommentsPrivacy(RawComments);
-        [JsonIgnore] public EmbedPrivacy Embed => EmbedPrivacyExtensions.ToEmbedPrivacy(RawEmbed);
-        [JsonIgnore] public ViewPrivacy View => ViewPrivacyExtensions.ToViewPrivacy(RawView);
+        [JsonIgnore] public CommentsPrivacy Comments => StringEnumConverterRepository.Default.GetValue<CommentsPrivacy>(RawComments);
+        [JsonIgnore] public EmbedPrivacy Embed => StringEnumConverterRepository.Default.GetValue<EmbedPrivacy>(RawEmbed);
+        [JsonIgnore] public ViewPrivacy View => StringEnumConverterRepository.Default.GetValue<ViewPrivacy>(RawView);
     }
 }

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Net.Essentials.Vimeo.Models
 {
-    public enum EmbedPrivacy
+    public enum TranscodeStatus
     {
         Unspecified,
-        Private,
-        Public,
-        Whitelist
+        Complete,
+        Error,
+        InProgress
     }
 }
