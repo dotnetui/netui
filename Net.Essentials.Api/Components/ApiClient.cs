@@ -179,8 +179,8 @@ namespace Net.Essentials
             return default;
         }
 
-        protected virtual RestClient CreateClient(string url) => new RestClient(url ?? "");
-        protected virtual RestRequest CreateRequest(string path, Method method)
+        public virtual RestClient CreateClient(string url) => new RestClient(url ?? "");
+        public virtual RestRequest CreateRequest(string path, Method method)
         {
             var request = new RestRequest(path, method);
 
