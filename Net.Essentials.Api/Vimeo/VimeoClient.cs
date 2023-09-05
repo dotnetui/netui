@@ -133,21 +133,7 @@ namespace Net.Essentials.Vimeo
                 };
             }
 
-            Token = default;
-            var response = await RequestAsync("/oauth/access_token", Method.Post, new
-            {
-                grant_type = "authorization_code",
-                redirect_uri = parameters.RedirectUri,
-                code = parameters.Code
-            });
-            if (response.IsSuccessful)
-            {
-                return Token = DeserializeResponse<ApiToken>(response);
-            }
-            else
-            {
-                throw new VimeoException(response.Content);
-            }
+            return Token = await ExchangeAuthorizationCodeForAccessTokenAsync(parameters.Code, parameters.RedirectUri);
         }
 
         public async Task<DeviceCodeGrant> GetDeviceCodeGrantAsync(Scopes scopes)
@@ -205,6 +191,28 @@ namespace Net.Essentials.Vimeo
             }
         };
 
+        public async Task<Collection<T>> PaginatedRequestAsync<T>(
+            string path, 
+            HttpMethod method = HttpMethod.Get, 
+            object dto = default,
+            SortDirection direction = default,
+            int? page = default,
+            int? perPage = default,
+            string sort = default,
+            string query = default,
+            Action<RestRequest> requestBuilder = default) where T :  class, new()
+        {
+            return await RequestAsync<Collection<T>>(path, method, dto, buildRequest: req =>
+            {
+                if (direction != default) req.AddQueryParameter("direction", direction.ToString().ToLowerInvariant());
+                if (page != default) req.AddQueryParameter("page", page.ToString());
+                if (perPage != default) req.AddQueryParameter("per_page", perPage.ToString());
+                if (sort != default) req.AddQueryParameter("sort", sort);
+                if (query != default) req.AddQueryParameter("query", query);
+                requestBuilder?.Invoke(req);
+            });
+        }
+
         public override T DeserializeResponse<T>(RestResponse response, Action onfail = null)
         {
             if (response == null) return default;
@@ -224,6 +232,46 @@ namespace Net.Essentials.Vimeo
                 throw new VimeoException(response.Content);
 
             return default;
+        }
+
+        public async Task<bool> DeleteTokensAsync()
+        {
+            return (await RequestAsync("/tokens", Method.Delete)).StatusCode == HttpStatusCode.NoContent;
+        }
+
+        public async Task<bool> VerifyOAuth2AccessTokenAsync()
+        {
+            return IsOk(await RequestAsync("/oauth/verify"));
+        }
+
+
+        public async Task<ApiToken> ConvertOAuth1AccessTokenToOAuth2Async(string token, string tokenSecret)
+        {
+            return await RequestAsync<ApiToken>("/oauth/authorize/vimeo_oauth1", Method.Post, new
+            {
+                grant_type = "vimeo_oauth1",
+                token,
+                token_secret = tokenSecret
+            });
+        }
+
+        public async Task<ApiToken> ExchangeAuthorizationCodeForAccessTokenAsync(string code, string redirectUri)
+        {
+            var response = await RequestAsync("/oauth/access_token", Method.Post, new
+            {
+                grant_type = "authorization_code",
+                redirect_uri = redirectUri,
+                code
+            });
+
+            if (response.IsSuccessful)
+            {
+                return DeserializeResponse<ApiToken>(response);
+            }
+            else
+            {
+                throw new VimeoException(response.Content);
+            }
         }
 
         public async Task<RestResponse> GetOpenApiSpecsAsync()
