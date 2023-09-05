@@ -86,6 +86,7 @@ namespace Net.Essentials.Vimeo
             int? perPage = default,
             string sort = default,
             string query = default,
+            string filter = default,
             Action<RestRequest> requestBuilder = default) where T :  class, new()
         {
             return await RequestAsync<Collection<T>>(path, method, dto, buildRequest: req =>
@@ -95,6 +96,7 @@ namespace Net.Essentials.Vimeo
                 if (perPage != default) req.AddQueryParameter("per_page", perPage.ToString());
                 if (sort != default) req.AddQueryParameter("sort", sort);
                 if (query != default) req.AddQueryParameter("query", query);
+                if (filter != default) req.AddQueryParameter("filter", filter);
                 requestBuilder?.Invoke(req);
             });
         }

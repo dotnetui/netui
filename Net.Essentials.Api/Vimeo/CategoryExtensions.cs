@@ -24,7 +24,11 @@ namespace Net.Essentials.Vimeo
             int? perPage = default,
             string sort = default)
         {
-            return await client.PaginatedRequestAsync<Category>($"/categories");
+            return await client.PaginatedRequestAsync<Category>($"/categories",
+                direction: direction,
+                page: page,
+                perPage: perPage,
+                sort: sort);
         }
 
         public static async Task<Collection<Channel>> GetCategoryChannelsAsync(this VimeoClient client,
@@ -146,10 +150,9 @@ namespace Net.Essentials.Vimeo
                 page: page,
                 perPage: perPage,
                 sort: sort,
+                filter: filter,
                 requestBuilder: req =>
                 {
-                    if (!string.IsNullOrWhiteSpace(filter))
-                        req.AddQueryParameter("filter", filter);
                     if (filterEmbeddable.HasValue)
                         req.AddQueryParameter("filter_embeddable", filterEmbeddable.Value.ToString().ToLower());
                     if (!string.IsNullOrWhiteSpace(query))
