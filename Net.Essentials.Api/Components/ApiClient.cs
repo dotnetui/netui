@@ -7,6 +7,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace Net.Essentials
 {
@@ -41,6 +42,8 @@ namespace Net.Essentials
         public bool LogResponse = true;
         public bool ThrowExceptions = false;
 
+        public readonly Stack<Action<RestRequest>> GlobalRequestMutators = new Stack<Action<RestRequest>>();
+
         protected virtual void Log(string message, [CallerMemberName] string method = null)
         {
             OnLog?.Invoke(method, message);
@@ -73,6 +76,8 @@ namespace Net.Essentials
                 if (LogResponse) Log($"Request: [/{path}] {method} {path}");
                 RestClient client = CreateClient(BaseUrl);
                 var request = CreateRequest(path, method);
+                foreach (var mutator in GlobalRequestMutators.Reverse())
+                    mutator?.Invoke(request);
                 buildRequest?.Invoke(request);
                 if (dto != null)
                 {
