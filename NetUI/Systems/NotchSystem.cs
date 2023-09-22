@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+
 #if __IOS__
 using UIKit;
 #endif
@@ -34,35 +35,35 @@ public class NotchSystem
             bottom: t1.Bottom + t2.Bottom);
 
 #if __IOS__
-        float? top = null;
-        float? bottom = null;
+    float? top = null;
+    float? bottom = null;
 
-        public Thickness GetPageMargin()
+    public Thickness GetPageMargin()
+    {
+        if (OverridePadding.HasValue)
+            return GetOverridePadding();
+
+        if (top == null)
         {
-            if (OverridePadding.HasValue)
-                return GetOverridePadding();
-
-            if (top == null)
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                MainThread.BeginInvokeOnMainThread(() =>
+                Debug.WriteLine("Calculating safe areas...");
+                var window = UIKit.UIApplication.SharedApplication.Windows.FirstOrDefault();
+                if (window == null) Console.WriteLine($"No window found.");
+                else
                 {
-                    Debug.WriteLine("Calculating safe areas...");
-                    var window = UIKit.UIApplication.SharedApplication.Windows.FirstOrDefault();
-                    if (window == null) Console.WriteLine($"No window found.");
-                    else
-                    {
-                        top = (float)window.SafeAreaInsets.Top;
-                        bottom = HasNotch ? 25 : 0;
-                    }
-                });
-            }
-            return SumPadding(
-                new Thickness(0, HasNotch ? 40 : 20, 0, bottom.GetValueOrDefault()),
-                ExtraPadding);
+                    top = (float)window.SafeAreaInsets.Top;
+                    bottom = HasNotch ? 25 : 0;
+                }
+            });
         }
+        return SumPadding(
+            new Thickness(0, HasNotch ? 40 : 20, 0, bottom.GetValueOrDefault()),
+            ExtraPadding);
+    }
 
-        public GridLength BottomHeight => new GridLength(GetPageMargin().Bottom);
-        public bool HasWindowInformation => top.HasValue || OverridePadding.HasValue;
+    public GridLength BottomHeight => new GridLength(GetPageMargin().Bottom);
+    public bool HasWindowInformation => top.HasValue || OverridePadding.HasValue;
 #elif __ANDROID__
         Thickness AndroidSafeInsets = new Thickness();
         public bool HasWindowInformation => true;
@@ -87,27 +88,27 @@ public class NotchSystem
         get
         {
 #if __IOS__
-                var window = UIKit.UIApplication.SharedApplication.Windows.FirstOrDefault();
-                if (window != null)
-                {
-                    SafeAreaInsets = new Thickness
-                    (
-                        window.SafeAreaInsets.Left,
-                        window.SafeAreaInsets.Top,
-                        window.SafeAreaInsets.Right,
-                        window.SafeAreaInsets.Bottom
-                    );
-                }
-                if ((window?.SafeAreaInsets.Top ?? 20) > 20)
-                {
-                    return true;
-                }
+            var window = UIKit.UIApplication.SharedApplication.Windows.FirstOrDefault();
+            if (window != null)
+            {
+                SafeAreaInsets = new Thickness
+                (
+                    window.SafeAreaInsets.Left,
+                    window.SafeAreaInsets.Top,
+                    window.SafeAreaInsets.Right,
+                    window.SafeAreaInsets.Bottom
+                );
+            }
+            if ((window?.SafeAreaInsets.Top ?? 20) > 20)
+            {
+                return true;
+            }
 #endif
             return false;
         }
     }
 
 #if __IOS__
-        public Thickness SafeAreaInsets { get; set; }
+    public Thickness SafeAreaInsets { get; set; }
 #endif
 }

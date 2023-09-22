@@ -162,7 +162,7 @@ public partial class Drawer
         declaringType: typeof(Drawer),
         defaultValue: new GridLength(3, GridUnitType.Star),
         propertyChanged: (bindable, oldVal, newVal) =>
-        { 
+        {
             (bindable as Drawer)?.UpdateLayout();
         });
 
@@ -267,25 +267,25 @@ public partial class Drawer
         {
             (bindable as Drawer)?.UpdateLayout();
         });
-    
+
     public static readonly BindableProperty IsModalProperty = BindableProperty.Create(
         propertyName: nameof(IsModal),
         returnType: typeof(bool),
         declaringType: typeof(Drawer),
         defaultValue: true);
-    
+
     public static readonly BindableProperty ModalBackgroundColorProperty = BindableProperty.Create(
         propertyName: nameof(ModalBackgroundColor),
         returnType: typeof(Color),
         declaringType: typeof(Drawer),
         defaultValue: Palette.Transparent);
-    
+
     public static readonly BindableProperty OverrideOutsideTapCommandProperty = BindableProperty.Create(
         propertyName: nameof(OverrideOutsideTapCommand),
         returnType: typeof(bool),
         declaringType: typeof(Drawer),
         defaultValue: false);
-    
+
     public static readonly BindableProperty OutsideTapCommandProperty = BindableProperty.Create(
         propertyName: nameof(OutsideTapCommand),
         returnType: typeof(ICommand),
@@ -402,7 +402,8 @@ public partial class Drawer
             if (OutsideTapCommand != null)
                 if (OutsideTapCommand.CanExecute(OutsideTapCommandParameter))
                     OutsideTapCommand.Execute(OutsideTapCommandParameter);
-        } else SetValue(IsVisibleProperty, false);
+        }
+        else SetValue(IsVisibleProperty, false);
     }
 
     void UpdateLayout()

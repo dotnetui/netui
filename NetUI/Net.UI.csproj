@@ -17,7 +17,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Net.UI</Title>
-		<Version>1.0.2</Version>
+		<Version>1.0.12</Version>
 		<Company>netui.org</Company>
 		<Description>Components to boost multiplatform development</Description>
 		<PackageProjectUrl>https://netui.org</PackageProjectUrl>
@@ -38,8 +38,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
-	  <PackageReference Include="Net.Essentials" Version="1.0.8" />
+	  <!--<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />-->
+	  <PackageReference Include="Net.Essentials" Version="1.0.12" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 

@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-
-namespace Net.Essentials.Systems;
+﻿namespace Net.Essentials.Systems;
 
 internal class MessagingSystem
 {

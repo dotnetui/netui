@@ -4,9 +4,9 @@ namespace Net.UI;
 
 public partial class Code
 {
-	public Code()
-	{
-		InitializeComponent();
+    public Code()
+    {
+        InitializeComponent();
         tap.Tapped += Tap_Tapped;
         textBox.Focused += TextBox_Focused;
         Unfocused += CodeEntry_Unfocused;

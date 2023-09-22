@@ -1,10 +1,5 @@
 ﻿using Net.Essentials.Systems;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Net.UI;
@@ -238,17 +233,17 @@ public class Widget : ContentView
         return true;
     }
 
-    WeakReference<BindableModel> lastContext = null;
+    WeakReference<TinyViewModel> lastContext = null;
     protected override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
         if (lastContext != null && lastContext.TryGetTarget(out var lastVm) &&
             lastVm is MauiViewModel lastMvm)
             lastMvm?.OnUnbind(this);
-        if (BindingContext is BindableModel vm)
+        if (BindingContext is TinyViewModel vm)
         {
             if (vm is MauiViewModel mvm) mvm.OnBind(this);
-            lastContext = new WeakReference<BindableModel>(vm);
+            lastContext = new WeakReference<TinyViewModel>(vm);
         }
     }
 }

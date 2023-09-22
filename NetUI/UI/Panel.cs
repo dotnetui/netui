@@ -5,36 +5,36 @@ public class Panel : Grid
 {
     public IView Content
     {
-		get => (IView)GetValue(ContentProperty); 
-		set => SetValue(ContentProperty, value); 
+        get => (IView)GetValue(ContentProperty);
+        set => SetValue(ContentProperty, value);
     }
 
-	public static readonly BindableProperty ContentProperty = BindableProperty.Create(
-		nameof(Content),
-		typeof(IView),
-		typeof(Panel),
-		propertyChanged: (bindable, oldVal, newVal) =>
-		{
-			if (bindable is Panel panel)
-				panel.UpdateContent();
-		});
+    public static readonly BindableProperty ContentProperty = BindableProperty.Create(
+        nameof(Content),
+        typeof(IView),
+        typeof(Panel),
+        propertyChanged: (bindable, oldVal, newVal) =>
+        {
+            if (bindable is Panel panel)
+                panel.UpdateContent();
+        });
 
-	public Panel()
+    public Panel()
     {
-		UpdateContent();
+        UpdateContent();
     }
 
-	void UpdateContent()
+    void UpdateContent()
     {
-		if (Content == null && Children.Count > 0)
-			Dispatcher.Dispatch(Children.Clear);
-		else if (Content != null)
-		{
-			if (Children.Count > 0 &&
-				!Children.Contains(Content))
-				Dispatcher.Dispatch(Children.Clear);
-			if (!Children.Contains(Content))
-				Dispatcher.Dispatch(() => Children.Add(Content));
-		}
-	}
+        if (Content == null && Children.Count > 0)
+            Dispatcher.Dispatch(Children.Clear);
+        else if (Content != null)
+        {
+            if (Children.Count > 0 &&
+                !Children.Contains(Content))
+                Dispatcher.Dispatch(Children.Clear);
+            if (!Children.Contains(Content))
+                Dispatcher.Dispatch(() => Children.Add(Content));
+        }
+    }
 }

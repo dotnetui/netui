@@ -1,5 +1,6 @@
 ﻿using Net.Essentials.Systems;
 
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Net.UI;
@@ -162,7 +163,7 @@ public class WidgetPage : ContentPage
     public WidgetPage()
     {
 #if __IOS__
-        
+
 #endif
         //this.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FullScreen);
         AdjustPadding();
@@ -203,7 +204,7 @@ public class WidgetPage : ContentPage
                 lastContext = new WeakReference<ViewModel>(vm);
             }
 
-             mvm?.OnAppeared(this);
+            mvm?.OnAppeared(this);
         }
     }
 
@@ -233,10 +234,10 @@ public class WidgetPage : ContentPage
     {
         OnDisappeared?.Invoke(this, null);
 
-        if (isStarted && BindingContext is BindableModel vm)
+        if (isStarted && BindingContext != null)
         {
             isStarted = false;
-            if (vm is MauiViewModel mvm)
+            if (BindingContext is MauiViewModel mvm)
                 mvm.OnStop();
             lastContext = null;
         }

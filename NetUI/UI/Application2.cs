@@ -22,7 +22,7 @@ public class Application2 : Application
             HookSignals();
             InitializeSystems();
 #if __IOS__
-        SplashTasks.Add(GetPageMarginAsync);
+            SplashTasks.Add(GetPageMarginAsync);
 #endif
             ShowSplashPage();
         }

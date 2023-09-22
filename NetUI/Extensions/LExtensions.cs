@@ -1,5 +1,4 @@
-﻿using Net.Essentials;
-namespace Net.UI;
+﻿namespace Net.UI;
 
 [ContentProperty("Key")]
 public class LExtension : IMarkupExtension
