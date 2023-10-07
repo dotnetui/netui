@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ui="clr-namespace:Net.UI"
+    x:Class="Net.UI.MaterialishEntry">
+    <Grid
+        x:Name="grid"
+        HeightRequest="44">
+        <Label
+            TextColor="{Binding PlaceholderColor}"
+            Text="{Binding Placeholder}" 
+            VerticalOptions="Center"
+            InputTransparent="True"
+            />
+        <Entry
+            x:Name="entry"
+            IsVisible="{Binding Text, Converter={Static ui:IsNotNullConverter.Instance}}"
+            InputTransparent="{Binding IsFocused, Converter={Static ui:NotConverter.Instance}}"
+            Text="{Binding Text, Mode=TwoWay}"
+            BackgroundColor="Transparent"
+            />
+
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</ContentView>

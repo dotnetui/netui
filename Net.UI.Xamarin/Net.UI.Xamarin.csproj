@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Title>Net.UI.Xamarin</Title>
+		<Version>1.0.12</Version>
+		<Company>netui.org</Company>
+		<Description>Xamarin Forms port of Net.UI - Components to boost multiplatform development</Description>
+		<PackageProjectUrl>https://netui.org</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/dotnetui/netui</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RootNamespace>Net.UI</RootNamespace>
+		<AssemblyName>Net.UI.Xamarin</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="UI\**\*.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="UI\gradienth.png" />
+	  <None Remove="UI\gradienth2.png" />
+	  <None Remove="UI\gradientv.png" />
+	  <None Remove="UI\gradientv2.png" />
+	  <None Remove="UI\leftarrow.png" />
+	  <None Remove="UI\leftarrowb.png" />
+	  <None Remove="UI\menu.png" />
+	  <None Remove="UI\menub.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Net.Essentials" Version="1.0.12" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.8.0" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="UI\Dock.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\MaterialEntry.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="UI\MaterialPicker.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+</Project>

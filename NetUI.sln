@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.UI.Avalonia", "Net.UI.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.UI.Templates", "Net.UI.Templates\Net.UI.Templates.csproj", "{BDBD07E7-23C2-4F5B-B141-DC36B3718956}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.UI.Xamarin", "Net.UI.Xamarin\Net.UI.Xamarin.csproj", "{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,18 @@ Global
 		{BDBD07E7-23C2-4F5B-B141-DC36B3718956}.Release|arm64.Build.0 = Release|arm64
 		{BDBD07E7-23C2-4F5B-B141-DC36B3718956}.Release|x86.ActiveCfg = Release|x86
 		{BDBD07E7-23C2-4F5B-B141-DC36B3718956}.Release|x86.Build.0 = Release|x86
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Debug|arm64.Build.0 = Debug|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Debug|x86.Build.0 = Debug|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Release|arm64.ActiveCfg = Release|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Release|arm64.Build.0 = Release|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:Widget 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ui="clr-namespace:Net.UI"
+    x:Class="Net.UI.MaterialPicker">
+    <Grid x:Name="grid" VerticalOptions="StartAndExpand">
+        <Entry
+            InputTransparent="True"
+            Visual="Material"
+            Text="{Binding SelectedItem.Display, Source={Reference picker}, Mode=OneWay}"
+            Placeholder="{Binding Placeholder}"
+            />
+        <Picker
+            Opacity="0"
+            x:Name="picker"
+            InputTransparent="True"
+            ItemsSource="{Binding ItemsSource}"
+            ItemDisplayBinding="{Binding Display}"
+            SelectedIndexChanged="picker_SelectedIndexChanged" />
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer x:Name="tap" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</ui:Widget>
