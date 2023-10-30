@@ -21,5 +21,56 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Signals.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\MessagingSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\NotchSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Application2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Dock.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\FocusCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Icon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ImageButton2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\MaterialEntry.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\MaterialPicker.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UI\MauiViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\PageCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Palette.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Panel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\PopCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Search.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Shadows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\SwitchCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\TabBarItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Values.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Widget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\WidgetPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\WorkerPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Dock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradienth.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradienth2.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradientv.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradientv2.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\leftarrow.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\leftarrowb.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\MaterialEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\MaterialPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\menu.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\menub.png" />
   </ItemGroup>
 </Project>
