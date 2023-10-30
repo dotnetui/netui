@@ -65,4 +65,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<Import Project="..\Net.UI.Shared\Net.UI.Shared.projitems" Label="Shared" />
 </Project>

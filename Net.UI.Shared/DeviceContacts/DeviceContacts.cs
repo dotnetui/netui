@@ -1,40 +1,45 @@
-﻿#if IOS
+﻿#if __IOS__
 using Contacts;
 using Foundation;
 #endif
 
-namespace Net.Essentials.DeviceContacts;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using System;
 
-public partial class DeviceContacts
+namespace Net.Essentials.DeviceContacts
 {
-    List<DeviceContact> cache = null;
-
-    void Cache(List<DeviceContact> results)
+    public partial class DeviceContacts
     {
-        cache = results;
-    }
+        List<DeviceContact> cache = null;
 
-    public void ClearCache()
-    {
-        cache = null;
-    }
+        void Cache(List<DeviceContact> results)
+        {
+            cache = results;
+        }
 
-    public async Task<List<DeviceContact>> GetAllAsync(bool preferCached)
-    {
-        if (preferCached && cache != null && cache.Count > 0)
-            return cache.ToList();
+        public void ClearCache()
+        {
+            cache = null;
+        }
 
-        return await GetAllAsync();
-    }
+        public async Task<List<DeviceContact>> GetAllAsync(bool preferCached)
+        {
+            if (preferCached && cache != null && cache.Count > 0)
+                return cache.ToList();
 
-    internal static string FixSpaces(string original)
-    {
-        if (string.IsNullOrWhiteSpace(original)) return original;
-        var split = original.Trim().Split(" ", StringSplitOptions.RemoveEmptyEntries);
-        return string.Join(" ", split);
-    }
+            return await GetAllAsync();
+        }
 
-#if IOS
+        internal static string FixSpaces(string original)
+        {
+            if (string.IsNullOrWhiteSpace(original)) return original;
+            var split = original.Trim().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            return string.Join(" ", split);
+        }
+
+#if __IOS__
     public IEnumerable<CNContact> GetAllRaw()
     {
         var values = new[]
@@ -139,9 +144,10 @@ public partial class DeviceContacts
         };
     }
 #else
-    Task<List<DeviceContact>> GetAllAsync()
-    {
-        throw new NotImplementedException();
-    }
+        Task<List<DeviceContact>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
 #endif
+    }
 }

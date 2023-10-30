@@ -1,5 +1,8 @@
 ﻿using Net.Essentials.Converters;
+
+#if XAMARIN
 using Xamarin.Forms;
+#endif
 
 namespace Net.UI
 {

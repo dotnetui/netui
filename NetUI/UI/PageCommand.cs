@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using Net.Essentials;
+
+using System.Windows.Input;
 
 namespace Net.UI
 {

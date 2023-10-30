@@ -1,7 +1,10 @@
 ﻿using Net.Essentials;
 using System.Reflection;
-using Xamarin.Forms;
 using Net.UI;
+
+#if XAMARIN
+using Xamarin.Forms;
+#endif
 
 namespace Net.Internals
 {

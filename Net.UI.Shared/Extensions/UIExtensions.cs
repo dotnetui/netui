@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
-
+﻿#if XAMARIN
+using System.Collections.Generic;
 using Xamarin.Forms;
+#else
+using Microsoft.Maui.Controls.Compatibility;
+#endif
 
 namespace Net.UI
 {

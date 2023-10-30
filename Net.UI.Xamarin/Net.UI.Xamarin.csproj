@@ -14,6 +14,14 @@
 		<AssemblyName>Net.UI.Xamarin</AssemblyName>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);XAMARIN</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DefineConstants>$(DefineConstants);XAMARIN</DefineConstants>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<EmbeddedResource Include="UI\**\*.png" />
 	</ItemGroup>
@@ -54,5 +62,7 @@
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
 	</ItemGroup>
+
+	<Import Project="..\Net.UI.Shared\Net.UI.Shared.projitems" Label="Shared" />
 
 </Project>

@@ -1,9 +1,10 @@
 ﻿using Net.Essentials;
 
+#if XAMARIN
 using System;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+#endif
 
 namespace Net.UI
 {

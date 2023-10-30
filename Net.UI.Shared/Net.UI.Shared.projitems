@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>709c7923-bef9-4f09-a555-520efa000414</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Net.UI.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceContacts\DeviceContact.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceContacts\DeviceContacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceContacts\IDeviceContacts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ContainerExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\LExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\MessagingExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\UIExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Internals\EmbeddedResourceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Signals.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\MessagingSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\NotchSystem.cs" />
+  </ItemGroup>
+</Project>

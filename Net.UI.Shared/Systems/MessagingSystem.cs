@@ -1,6 +1,8 @@
 ﻿using System;
 
+#if XAMARIN
 using Xamarin.Forms;
+#endif
 
 namespace Net.Essentials.Systems
 {

@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 
+#if XAMARIN
 using Xamarin.Forms;
+#endif
 
 #if __IOS__
 using UIKit;
@@ -67,7 +69,7 @@ namespace Net.Essentials.Systems
 
     public GridLength BottomHeight => new GridLength(GetPageMargin().Bottom);
     public bool HasWindowInformation => top.HasValue || OverridePadding.HasValue;
-#elif __ANDROID__
+#elif ANDROID
         Thickness AndroidSafeInsets = new Thickness();
         public bool HasWindowInformation => true;
         public GridLength BottomHeight => new GridLength(GetPageMargin().Bottom);

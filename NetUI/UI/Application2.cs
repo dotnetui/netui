@@ -1,4 +1,5 @@
-﻿using Net.Essentials.Systems;
+﻿using Net.Essentials;
+using Net.Essentials.Systems;
 
 namespace Net.UI;
 
@@ -17,7 +18,7 @@ public class Application2 : Application
             _containerService = ContainerService.Instance;
             _containerService.Set(this);
 
-            MauiViewModel.RunOnUIAction = RunOnUI;
+            TinyViewModel.RunOnUIAction = RunOnUI;
 
             HookSignals();
             InitializeSystems();

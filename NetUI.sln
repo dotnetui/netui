@@ -17,7 +17,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.UI.Avalonia", "Net.UI.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.UI.Templates", "Net.UI.Templates\Net.UI.Templates.csproj", "{BDBD07E7-23C2-4F5B-B141-DC36B3718956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net.UI.Xamarin", "Net.UI.Xamarin\Net.UI.Xamarin.csproj", "{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net.UI.Xamarin", "Net.UI.Xamarin\Net.UI.Xamarin.csproj", "{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Essentials", "Essentials", "{B3368CE7-2172-4399-85F9-678DFCE622C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{E5F004A1-2D4D-4077-8281-8CD89712E1C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin", "Xamarin", "{864A221B-1C56-4318-B728-038D0B3F8767}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Etc", "Etc", "{C60F7CFB-BAC0-46B4-9AF1-C101B776A20F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Net.UI.Shared", "Net.UI.Shared\Net.UI.Shared.shproj", "{709C7923-BEF9-4F09-A555-520EFA000414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,7 +145,21 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7EC2433E-786D-4D04-9763-CA0BCC87098E} = {C60F7CFB-BAC0-46B4-9AF1-C101B776A20F}
+		{885B9A77-FB39-4E72-8B1C-16EB05485D99} = {B3368CE7-2172-4399-85F9-678DFCE622C8}
+		{3A876BBB-6483-4D41-A387-2989D9D06237} = {B3368CE7-2172-4399-85F9-678DFCE622C8}
+		{ED856060-F642-438A-8198-92B898F73645} = {B3368CE7-2172-4399-85F9-678DFCE622C8}
+		{09FC1B0E-1889-4827-9B88-0BF756438D65} = {C60F7CFB-BAC0-46B4-9AF1-C101B776A20F}
+		{BDBD07E7-23C2-4F5B-B141-DC36B3718956} = {E5F004A1-2D4D-4077-8281-8CD89712E1C7}
+		{AA6DA574-1B23-4EFB-A0FC-76E80DAFDCE6} = {864A221B-1C56-4318-B728-038D0B3F8767}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C16C6516-3C95-4CCC-81A1-D6B0E5E0D8D9}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Net.UI.Shared\Net.UI.Shared.projitems*{709c7923-bef9-4f09-a555-520efa000414}*SharedItemsImports = 13
+		Net.UI.Shared\Net.UI.Shared.projitems*{9824d875-8502-49da-9216-1b0c3fbdaa75}*SharedItemsImports = 5
+		Net.UI.Shared\Net.UI.Shared.projitems*{aa6da574-1b23-4efb-a0fc-76e80dafdce6}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
