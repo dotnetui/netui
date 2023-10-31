@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Net.Essentials
 {
@@ -30,7 +31,6 @@ namespace Net.Essentials
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static Action<Action> RunOnUIAction = a => a();
-        public static Func<Func<Task>, Task> RunOnUITask = a => a();
 
         PropertyInfo[] properties = null;
 

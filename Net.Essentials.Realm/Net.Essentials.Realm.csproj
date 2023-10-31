@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Net.Essentials" Version="1.0.14" />
-    <PackageReference Include="Realm" Version="11.5.0" />
+    <PackageReference Include="Net.Essentials" Version="1.0.3" />
+    <PackageReference Include="Realm" Version="10.21.1" />
   </ItemGroup>
 
 </Project>

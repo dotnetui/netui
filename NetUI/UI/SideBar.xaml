@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:TitleBarBase 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ui="clr-namespace:Net.UI"
+    x:Class="Net.UI.SideBar"
+    BackgroundColor="#333"
+    HorizontalOptions="StartAndExpand"
+    VerticalOptions="Fill"
+    WidthRequest="60">
+    <ui:Widget.Content>
+        <Grid
+            HorizontalOptions="Fill"
+            VerticalOptions="FillAndExpand">
+
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="1"
+                HorizontalOptions="Fill"
+                InputTransparent="True"
+                Opacity="{Binding BackgroundImageOpacity, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                Source="{Binding BackgroundImage, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                VerticalOptions="Fill" />
+            
+            <ui:Widget Content="{Binding Behind, Source={RelativeSource AncestorType={Type ui:SideBar}}}" />
+            
+            <ui:Widget
+                x:Name="contentContainer"
+                PadTop="{Binding PadTop, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                PadBottom="{Binding PadBottom, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                HorizontalOptions="Fill"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    Margin="{Binding ContentMargin, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                    Padding="5,0"
+                    RowSpacing="10"
+                    WidthRequest="{Binding ContentWidthRequest, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    RowDefinitions="Auto, *, Auto">
+                    <ui:Widget
+                        x:Name="titleView"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        CascadeInputTransparent="False"
+                        Content="{Binding Body, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        ControlTemplate="{Binding BodyTemplate, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        HorizontalOptions="Fill"
+                        InputTransparent="True"
+                        VerticalOptions="Fill" />
+
+                    <ui:Widget
+                        Grid.Row="0"
+                        Margin="0,8,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Content="{Binding Lead, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        IsVisible="{Binding Lead, Source={RelativeSource AncestorType={Type ui:SideBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                        VerticalOptions="Fill" />
+
+                    <Grid
+                        x:Name="controlButtons"
+                        Grid.Row="0"
+                        Margin="0,8,0,0"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="FillAndExpand"
+                        WidthRequest="{Binding ButtonContainerHeightRequest}">
+                        <Grid.IsVisible>
+                            <MultiBinding Converter="{Static ui:AndMultiConverter.Instance}">
+                                <Binding 
+                                    Path="Button" 
+                                    Converter="{Static ui:NotEqualsConverter.Instance}"
+                                    ConverterParameter="Hide"
+                                    Source="{RelativeSource AncestorType={Type ui:SideBar}}" />
+                                <Binding
+                                    Path="Lead"
+                                    Converter="{Static ui:IsNullConverter.Instance}"
+                                    Source="{RelativeSource AncestorType={Type ui:SideBar}}" />
+                            </MultiBinding>
+                        </Grid.IsVisible>
+                        <Image
+                            x:Name="backImage"
+                            Margin="{Binding ButtonMargin}"
+                            Aspect="{Binding ButtonAspect}"
+                            HeightRequest="{Binding ButtonHeightRequest}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            WidthRequest="{Binding ButtonWidthRequest}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Tap_Tapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Tap_Tapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+
+                    <Label
+                        x:Name="lblTitle"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Margin="0,8,0,0"
+                        FontAttributes="{Binding FontAttributes, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        FontSize="{Binding FontSize, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        HorizontalOptions="StartAndExpand"
+                        InputTransparent="True"
+                        LineBreakMode="TailTruncation"
+                        BackgroundColor="Red"
+                        Rotation="90"
+                        Text="{Binding Title, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        TextColor="{Binding TextColor, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        IsVisible="{Binding Body, Source={RelativeSource AncestorType={Type ui:SideBar}}, Converter={Static ui:IsNullConverter.Instance}}"
+                        VerticalOptions="Fill" />
+
+                    <ui:Widget
+                        Margin="0,0,0,8"
+                        Grid.Row="2"
+                        Content="{Binding Trail, Source={RelativeSource AncestorType={Type ui:SideBar}}}"
+                        IsVisible="{Binding Trail, Source={RelativeSource AncestorType={Type ui:SideBar}}, Converter={Static ui:IsNotNullConverter.Instance}}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="EndAndExpand" />
+                </Grid>
+            </ui:Widget>
+        </Grid>
+    </ui:Widget.Content>
+</ui:TitleBarBase>
