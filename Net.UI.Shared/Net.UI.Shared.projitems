@@ -9,6 +9,26 @@
     <Import_RootNamespace>Net.UI.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Button2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Application2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\CodeCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\FocusCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Icon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\ImageButton2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\ViewModel2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\PageCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Palette.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Panel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\PopCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Search.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Shadows.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\SwitchCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\TabBarItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\TitleBarBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Values.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Widget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\WidgetPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\WorkerPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceContacts\DeviceContact.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceContacts\DeviceContacts.cs" />

@@ -38,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Net.Essentials" Version="1.0.12" />
+	  <PackageReference Include="Net.Essentials" Version="1.0.14" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 

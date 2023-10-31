@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Title>Net.UI.Xamarin</Title>
+		<Version>1.0.12</Version>
+		<Company>netui.org</Company>
+		<Description>Xamarin Forms port of Net.UI - Components to boost multiplatform development</Description>
+		<PackageProjectUrl>https://netui.org</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<RepositoryUrl>https://github.com/dotnetui/netui</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RootNamespace>Net.UI</RootNamespace>
+		<AssemblyName>Net.UI</AssemblyName>
+		<DefineConstants>$(DefineConstants);XAMARIN</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Net.Essentials" Version="1.0.14" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Xamarin.Essentials" Version="1.8.0" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
+	</ItemGroup>
+
+	<Import Project="..\Net.UI.Shared\Net.UI.Shared.projitems" Label="Shared" />
+
+	<Import Project="..\Net.UI.Xamarin.Shared\Net.UI.Xamarin.Shared.projitems" Label="Shared" />
+
+</Project>
