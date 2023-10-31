@@ -3,15 +3,14 @@ using UIKit;
 #elif __ANDROID__
 using Android.Views;
 using Google.Android.Material.Button;
-#if !XAMARIN
-using TextAlignment = Microsoft.Maui.TextAlignment;
-#endif
 #endif
 
 #if XAMARIN
 using System;
 using Xamarin.Forms;
+using TextAlignment = Xamarin.Forms.TextAlignment;
 #else
+using TextAlignment = Microsoft.Maui.TextAlignment;
 using Microsoft.Maui.Handlers;
 using Microsoft.Maui.Platform;
 #endif

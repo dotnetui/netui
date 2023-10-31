@@ -9,6 +9,12 @@ using System.Runtime.CompilerServices;
 
 #if XAMARIN
 using Xamarin.Forms;
+#if __IOS__
+using UIKit;
+using Xamarin.Forms.Platform.iOS;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using VisualElement = Xamarin.Forms.VisualElement;
+#endif
 #endif
 
 namespace Net.UI
@@ -172,7 +178,7 @@ namespace Net.UI
         public WidgetPage()
         {
 #if XAMARIN && __IOS__
-            this.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FullScreen);
+            this.On<Xamarin.Forms.PlatformConfiguration.iOS>().SetModalPresentationStyle(Xamarin.Forms.PlatformConfiguration.iOSSpecific.UIModalPresentationStyle.FullScreen);
 #endif
             AdjustPadding();
         }

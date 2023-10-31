@@ -1,6 +1,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 using System;
+using System.Linq;
 
 namespace Net.UI
 {

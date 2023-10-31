@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 #else
 using Microsoft.Maui.Controls.Shapes;
 #endif
@@ -12,7 +13,7 @@ namespace Net.UI
 {
     public partial class Dots
     {
-        public new int Count
+        public int Count
         {
             get => (int)GetValue(CountProperty);
             set => SetValue(CountProperty, value);

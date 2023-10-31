@@ -9,56 +9,16 @@
     <Import_RootNamespace>Net.UI</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Dock.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\**\*.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\**\*.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradienth.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradienth2.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradientv.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\gradientv2.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\leftarrow.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\leftarrowb.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\MaterialEntry.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\MaterialPicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\menu.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\menub.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Code.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)UI\**\*.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Dock.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Dots.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\MaterialEntry.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)UI\MaterialPicker.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>%(Filename)</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)UI\Code.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)UI\Dots.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
 </Project>

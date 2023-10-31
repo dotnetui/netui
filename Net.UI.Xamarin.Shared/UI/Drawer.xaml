@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:Widget 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ui="clr-namespace:Net.UI"
+    x:Class="Net.UI.Drawer"
+    HorizontalOptions="Fill"
+    VerticalOptions="Fill"
+    IsVisible="{Binding Drawer.IsOpen, Mode=TwoWay}">
+    <ui:Widget.Content>
+        <Grid>
+            <Grid 
+                x:Name="btnDismiss" 
+                HorizontalOptions="Fill" 
+                VerticalOptions="Fill" 
+                BackgroundColor="{Binding ModalBackgroundColor, Source={RelativeSource AncestorType={Type ui:Drawer}}}"
+                IsVisible="{Binding IsModal, Source={RelativeSource AncestorType={Type ui:Drawer}}}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BtnDismiss_Clicked" />
+                </Grid.GestureRecognizers>
+            </Grid>
+            <Grid 
+                x:Name="mainGrid"
+                InputTransparent="True"
+                CascadeInputTransparent="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="colLeft" />
+                    <ColumnDefinition x:Name="colRight" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="rowTop" />
+                    <RowDefinition x:Name="rowBottom" />
+                </Grid.RowDefinitions>
+                
+                <ui:Widget
+                    x:Name="content"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+            </Grid>
+        </Grid>
+    </ui:Widget.Content>
+</ui:Widget>
