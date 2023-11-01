@@ -223,7 +223,6 @@ public partial class TabGroup
         returnType: typeof(bool),
         declaringType: typeof(TabGroup),
         defaultValue: true,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -237,7 +236,6 @@ public partial class TabGroup
         returnType: typeof(TabBarPositions),
         declaringType: typeof(TabGroup),
         defaultValue: TabBarPositions.Bottom,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -251,7 +249,6 @@ public partial class TabGroup
         returnType: typeof(View),
         declaringType: typeof(TabGroup),
         defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -266,7 +263,6 @@ public partial class TabGroup
         typeof(View),
         typeof(TabGroup),
         default(View),
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -346,7 +342,6 @@ public partial class TabGroup
         typeof(ImageButtonOrientations),
         typeof(TabGroup),
         ImageButtonOrientations.Up,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -359,7 +354,6 @@ public partial class TabGroup
         typeof(double),
         typeof(TabGroup),
         70.0,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -372,7 +366,6 @@ public partial class TabGroup
         typeof(double),
         typeof(TabGroup),
         0.0,
-        BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -385,7 +378,6 @@ public partial class TabGroup
         typeof(Thickness),
         typeof(TabGroup),
         new Thickness(),
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -397,8 +389,7 @@ public partial class TabGroup
         nameof(TabBarBackgroundColor),
         typeof(Color),
         typeof(TabGroup),
-        Color.Parse("#EEEEEE"),
-        BindingMode.TwoWay,
+        Palette.FromHex("#EEEEEE"),
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -411,7 +402,6 @@ public partial class TabGroup
         typeof(bool),
         typeof(TabGroup),
         true,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page && page.tabbarContainer != null)
@@ -424,7 +414,6 @@ public partial class TabGroup
         typeof(bool),
         typeof(TabGroup),
         true,
-        BindingMode.OneWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -437,7 +426,6 @@ public partial class TabGroup
             typeof(ImageButtonStyles),
             typeof(TabGroup),
             ImageButtonStyles.Image,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -450,7 +438,6 @@ public partial class TabGroup
             typeof(Thickness),
             typeof(TabGroup),
             new Thickness(8),
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -463,7 +450,6 @@ public partial class TabGroup
         returnType: typeof(View),
         declaringType: typeof(TabGroup),
         defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -477,7 +463,6 @@ public partial class TabGroup
         returnType: typeof(Color),
         declaringType: typeof(TabGroup),
         defaultValue: Palette.Black,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -489,7 +474,6 @@ public partial class TabGroup
         returnType: typeof(double),
         declaringType: typeof(TabGroup),
         defaultValue: 16.0,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -501,7 +485,6 @@ public partial class TabGroup
         returnType: typeof(Color),
         declaringType: typeof(TabGroup),
         defaultValue: Palette.Default,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -513,7 +496,6 @@ public partial class TabGroup
         returnType: typeof(double?),
         declaringType: typeof(TabGroup),
         defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -525,7 +507,6 @@ public partial class TabGroup
         returnType: typeof(string),
         declaringType: typeof(TabGroup),
         defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -537,7 +518,6 @@ public partial class TabGroup
         returnType: typeof(FontAttributes),
         declaringType: typeof(TabGroup),
         defaultValue: FontAttributes.Bold,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -549,7 +529,6 @@ public partial class TabGroup
         returnType: typeof(FontAttributes?),
         declaringType: typeof(TabGroup),
         defaultValue: FontAttributes.Bold,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -561,7 +540,6 @@ public partial class TabGroup
         typeof(GridLength),
         typeof(TabGroup),
         GridLength.Auto,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page)
@@ -573,7 +551,6 @@ public partial class TabGroup
         typeof(TabbedContentTransitions),
         typeof(TabGroup),
         TabbedContentTransitions.None,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page) { }
@@ -584,7 +561,6 @@ public partial class TabGroup
         typeof(double),
         typeof(TabGroup),
         250.0,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabGroup page) { }

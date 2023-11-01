@@ -137,7 +137,6 @@ public partial class TabBar
         typeof(ImageButtonOrientations),
         typeof(TabBar),
         ImageButtonOrientations.Up,
-        BindingMode.TwoWay,
         propertyChanged: (bindable, oldVal, newVal) =>
         {
             if (bindable is TabBar tabbar)
@@ -149,7 +148,6 @@ public partial class TabBar
         typeof(GridLength),
         typeof(TabBar),
         GridLength.Auto,
-        BindingMode.TwoWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     public static readonly BindableProperty ItemsProperty = BindableProperty.Create(
@@ -178,7 +176,6 @@ public partial class TabBar
         typeof(ImageButtonStyles),
         typeof(TabBar),
         ImageButtonStyles.Image,
-        BindingMode.TwoWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     public static readonly BindableProperty ImageHeightRequestProperty = BindableProperty.Create(
@@ -186,7 +183,6 @@ public partial class TabBar
         typeof(double),
         typeof(TabBar),
         -1.0,
-        BindingMode.TwoWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     public static readonly BindableProperty ImageWidthRequestProperty = BindableProperty.Create(
@@ -194,7 +190,6 @@ public partial class TabBar
         typeof(double),
         typeof(TabBar),
         -1.0,
-        BindingMode.TwoWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
@@ -202,7 +197,6 @@ public partial class TabBar
         returnType: typeof(Color),
         declaringType: typeof(TabBar),
         defaultValue: Palette.Black,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(
@@ -210,7 +204,6 @@ public partial class TabBar
         returnType: typeof(double),
         declaringType: typeof(TabBar),
         defaultValue: 16.0,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty SelectedTextColorProperty = BindableProperty.Create(
@@ -218,7 +211,6 @@ public partial class TabBar
         returnType: typeof(Color),
         declaringType: typeof(TabBar),
         defaultValue: Palette.Default,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty SelectedFontSizeProperty = BindableProperty.Create(
@@ -226,7 +218,6 @@ public partial class TabBar
         returnType: typeof(double?),
         declaringType: typeof(TabBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(
@@ -234,7 +225,6 @@ public partial class TabBar
         returnType: typeof(string),
         declaringType: typeof(TabBar),
         defaultValue: null,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(
@@ -242,7 +232,6 @@ public partial class TabBar
         returnType: typeof(FontAttributes),
         declaringType: typeof(TabBar),
         defaultValue: FontAttributes.Bold,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty SelectedFontAttributesProperty = BindableProperty.Create(
@@ -250,7 +239,6 @@ public partial class TabBar
         returnType: typeof(FontAttributes?),
         declaringType: typeof(TabBar),
         defaultValue: FontAttributes.Bold,
-        defaultBindingMode: BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
 
@@ -298,7 +286,6 @@ public partial class TabBar
         typeof(Thickness),
         typeof(TabBar),
         new Thickness(0),
-        BindingMode.TwoWay,
         propertyChanged: UpdateSelectedItemOnPropertyChanged);
 
     public static readonly BindableProperty OrientationProperty = BindableProperty.Create(
@@ -306,7 +293,6 @@ public partial class TabBar
         typeof(StackOrientation),
         typeof(TabBar),
         StackOrientation.Horizontal,
-        BindingMode.TwoWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     public static readonly BindableProperty SpacingProperty = BindableProperty.Create(
@@ -314,7 +300,6 @@ public partial class TabBar
         typeof(double),
         typeof(TabBar),
         (double)0,
-        BindingMode.TwoWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     public static readonly BindableProperty HorizontalSpacingProperty = BindableProperty.Create(
@@ -322,7 +307,6 @@ public partial class TabBar
         typeof(double),
         typeof(TabBar),
         (double)0,
-        BindingMode.OneWay,
         propertyChanged: UpdateItemsOnPropertyChanged);
 
     static void UpdateItemsOnPropertyChanged(BindableObject bindable, object oldVal, object newVal)

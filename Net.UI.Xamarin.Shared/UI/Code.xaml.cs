@@ -38,15 +38,13 @@ namespace Net.UI
             nameof(Text),
             typeof(string),
             typeof(Code),
-            "",
-            BindingMode.TwoWay);
+            "");
 
         public static readonly BindableProperty LengthProperty = BindableProperty.Create(
             nameof(Length),
             typeof(int),
             typeof(Code),
             4,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (oldVal != newVal && bindable is Code view)
@@ -58,7 +56,6 @@ namespace Net.UI
             typeof(Keyboard),
             typeof(Code),
             Keyboard.Numeric,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is Code view)
@@ -69,23 +66,20 @@ namespace Net.UI
             nameof(FinishCommand),
             typeof(ICommand),
             typeof(Code),
-            null,
-            BindingMode.OneWay);
+            null);
 
 
         public static readonly BindableProperty FinishCommandParameterProperty = BindableProperty.Create(
             nameof(FinishCommandParameter),
             typeof(object),
             typeof(Code),
-            null,
-            BindingMode.OneWay);
+            null);
 
         public static readonly BindableProperty EntryBackgroundColorProperty = BindableProperty.Create(
             nameof(EntryBackgroundColor),
             typeof(Color),
             typeof(Code),
             Palette.White,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is Code view)
@@ -97,7 +91,6 @@ namespace Net.UI
             typeof(Color),
             typeof(Code),
             Palette.Black,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is Code view)
@@ -109,7 +102,6 @@ namespace Net.UI
             typeof(double),
             typeof(Code),
             8.0,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is Code view)

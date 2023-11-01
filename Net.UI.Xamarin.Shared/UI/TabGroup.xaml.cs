@@ -230,7 +230,6 @@ namespace Net.UI
             returnType: typeof(bool),
             declaringType: typeof(TabGroup),
             defaultValue: true,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -244,7 +243,6 @@ namespace Net.UI
             returnType: typeof(TabBarPositions),
             declaringType: typeof(TabGroup),
             defaultValue: TabBarPositions.Bottom,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -258,7 +256,6 @@ namespace Net.UI
             returnType: typeof(View),
             declaringType: typeof(TabGroup),
             defaultValue: null,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -273,7 +270,6 @@ namespace Net.UI
             typeof(View),
             typeof(TabGroup),
             default(View),
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -353,7 +349,6 @@ namespace Net.UI
             typeof(ImageButtonOrientations),
             typeof(TabGroup),
             ImageButtonOrientations.Up,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -366,7 +361,6 @@ namespace Net.UI
             typeof(double),
             typeof(TabGroup),
             70.0,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -379,7 +373,6 @@ namespace Net.UI
             typeof(double),
             typeof(TabGroup),
             0.0,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -392,7 +385,6 @@ namespace Net.UI
             typeof(Thickness),
             typeof(TabGroup),
             new Thickness(),
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -405,7 +397,6 @@ namespace Net.UI
             typeof(Color),
             typeof(TabGroup),
             Palette.FromHex("#EEEEEE"),
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -418,7 +409,6 @@ namespace Net.UI
             typeof(bool),
             typeof(TabGroup),
             true,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page && page.tabbarContainer != null)
@@ -431,7 +421,6 @@ namespace Net.UI
             typeof(bool),
             typeof(TabGroup),
             true,
-            BindingMode.OneWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -444,7 +433,6 @@ namespace Net.UI
                 typeof(ImageButtonStyles),
                 typeof(TabGroup),
                 ImageButtonStyles.Image,
-                BindingMode.TwoWay,
                 propertyChanged: (bindable, oldVal, newVal) =>
                 {
                     if (bindable is TabGroup page)
@@ -457,7 +445,6 @@ namespace Net.UI
                 typeof(Thickness),
                 typeof(TabGroup),
                 new Thickness(8),
-                BindingMode.TwoWay,
                 propertyChanged: (bindable, oldVal, newVal) =>
                 {
                     if (bindable is TabGroup page)
@@ -470,13 +457,10 @@ namespace Net.UI
             returnType: typeof(View),
             declaringType: typeof(TabGroup),
             defaultValue: null,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
-                {
                     page.overlay.Content = (View)newVal;
-                }
             });
 
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
@@ -484,7 +468,6 @@ namespace Net.UI
             returnType: typeof(Color),
             declaringType: typeof(TabGroup),
             defaultValue: Palette.Black,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -496,7 +479,6 @@ namespace Net.UI
             returnType: typeof(double),
             declaringType: typeof(TabGroup),
             defaultValue: 16.0,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -508,7 +490,6 @@ namespace Net.UI
             returnType: typeof(Color),
             declaringType: typeof(TabGroup),
             defaultValue: Palette.Default,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -520,7 +501,6 @@ namespace Net.UI
             returnType: typeof(double?),
             declaringType: typeof(TabGroup),
             defaultValue: null,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -532,7 +512,6 @@ namespace Net.UI
             returnType: typeof(string),
             declaringType: typeof(TabGroup),
             defaultValue: null,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -544,7 +523,6 @@ namespace Net.UI
             returnType: typeof(FontAttributes),
             declaringType: typeof(TabGroup),
             defaultValue: FontAttributes.Bold,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -556,7 +534,6 @@ namespace Net.UI
             returnType: typeof(FontAttributes?),
             declaringType: typeof(TabGroup),
             defaultValue: FontAttributes.Bold,
-            defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -568,7 +545,6 @@ namespace Net.UI
             typeof(GridLength),
             typeof(TabGroup),
             GridLength.Auto,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page)
@@ -580,7 +556,6 @@ namespace Net.UI
             typeof(TabbedContentTransitions),
             typeof(TabGroup),
             TabbedContentTransitions.None,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page) { }
@@ -591,7 +566,6 @@ namespace Net.UI
             typeof(double),
             typeof(TabGroup),
             250.0,
-            BindingMode.TwoWay,
             propertyChanged: (bindable, oldVal, newVal) =>
             {
                 if (bindable is TabGroup page) { }

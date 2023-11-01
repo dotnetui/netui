@@ -31,8 +31,7 @@ namespace Net.UI
             nameof(FireDelay),
             typeof(double),
             typeof(PopCommand),
-            defaultValue: 1000.0,
-            defaultBindingMode: BindingMode.TwoWay);
+            defaultValue: 1000.0);
 
         public double FireDelay
         {
