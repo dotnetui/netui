@@ -11,7 +11,8 @@ namespace Net.Essentials
             typeof(BenchmarkService),
             typeof(ContainerService),
             typeof(RandomService),
-            typeof(ResourceService)
+            typeof(ResourceService),
+            typeof(SignalingService)
         };
     }
 }
