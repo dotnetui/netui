@@ -9,6 +9,9 @@ namespace Net.Essentials
 {
     public static class StringExtensions
     {
+        static readonly TextInfo EnUs = GetTextInfo();
+        static readonly Random Random = new Random();
+
         static TextInfo GetTextInfo()
         {
             try
@@ -20,8 +23,6 @@ namespace Net.Essentials
                 return CultureInfo.CurrentCulture?.TextInfo;
             }
         }
-
-        static readonly TextInfo EnUs = GetTextInfo();
 
         public static string Head(this string s, int take = 20)
         {
@@ -179,6 +180,25 @@ namespace Net.Essentials
             return
                 string.Join("", Enumerable.Range(0, iterations)
                 .Select(x => Guid.NewGuid().ToString().ToLower().Replace("-", "")));
+        }
+
+        public static string GenerateNumericCode(int length = 6)
+        {
+            return string.Join("",
+                Enumerable.Range(0, length)
+                .Select(x => Random.Next(10).ToString()));
+        }
+
+        public static string NormalizePhoneNumber(string original, string defaultCountryCode = "1")
+        {
+            if (string.IsNullOrWhiteSpace(original))
+                return default;
+
+            var normalized = string.Join("", original.Where(x => x >= '0' && x <= '9'));
+            if (original.StartsWith("+") || normalized.StartsWith(defaultCountryCode))
+                return "+" + normalized;
+
+            return !normalized.StartsWith("+") ? $"+{defaultCountryCode}" + normalized : normalized;
         }
     }
 }
