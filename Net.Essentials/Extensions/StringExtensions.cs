@@ -200,5 +200,14 @@ namespace Net.Essentials
 
             return !normalized.StartsWith("+") ? $"+{defaultCountryCode}" + normalized : normalized;
         }
+
+        public static bool IsValidPhoneNumber(string original)
+        {
+            if (string.IsNullOrWhiteSpace(original))
+                return false;
+
+            const string validChars = "-+() 0123456789";
+            return original.All(validChars.Contains);
+        }
     }
 }
