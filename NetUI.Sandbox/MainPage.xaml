@@ -70,7 +70,7 @@
                             x:Name="label"
                             Text="Hi There!" />
                         <ui:Code />
-                        <ui:AdvancedButton 
+                        <ui:Button2 
                             x:Name="button"
                             Text="My Button" 
                             TextAlignment="End"

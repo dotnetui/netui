@@ -168,5 +168,17 @@ namespace Net.Essentials
                 separator = "";
             return string.Join(separator, elements.Where(x => !string.IsNullOrWhiteSpace(x)));
         }
+
+        public static string NormalizeUserName(string userName)
+        {
+            return userName?.Trim().ToUpperInvariant();
+        }
+
+        public static string GenerateLongKey(int iterations = 1)
+        {
+            return
+                string.Join("", Enumerable.Range(0, iterations)
+                .Select(x => Guid.NewGuid().ToString().ToLower().Replace("-", "")));
+        }
     }
 }

@@ -14,9 +14,9 @@ namespace NetUI.Sandbox
             base.InitializeSystems();
         }
 
-        public override Page GetFirstPage()
+        public override Task<Page> GetFirstPageAsync()
         {
-            return new MainPage();
+            return Task.FromResult((Page)new MainPage());
         }
     }
 }
