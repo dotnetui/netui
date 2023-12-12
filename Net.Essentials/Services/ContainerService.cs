@@ -38,7 +38,7 @@ namespace Net.Essentials
         public Dictionary<Type, object> Children { get; private set; } =
             new Dictionary<Type, object>();
 
-        public T Get<T>() where T : class, new()
+        public T Get<T>() 
         {
             return Children.TryGetValue(typeof(T), out var vm) ? (T)vm : default;
         }
@@ -48,7 +48,7 @@ namespace Net.Essentials
             return Children.TryGetValue(type, out var vm) ? vm : default;
         }
 
-        public void Set<T>(T vm) where T : class, new()
+        public void Set<T>(T vm) 
         {
             Set(typeof(T), vm);
         }

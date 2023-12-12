@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/dotnetui/netui</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IncludeSymbols>False</IncludeSymbols>
-    <Version>1.0.19</Version>
+    <Version>1.0.20</Version>
   </PropertyGroup>
 
   <ItemGroup>

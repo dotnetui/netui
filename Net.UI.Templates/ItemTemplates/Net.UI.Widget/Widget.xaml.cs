@@ -1,9 +1,13 @@
-namespace $rootnamespace$;
+using Net.Essentials;
+using Net.UI;
 
-public partial class $safeitemname$
+namespace $rootnamespace$
 {
-	public $safeitemname$()
+	public partial class $safeitemname$
 	{
-		InitializeComponent();
+		public $safeitemname$()
+		{
+			InitializeComponent();
+		}
 	}
 }

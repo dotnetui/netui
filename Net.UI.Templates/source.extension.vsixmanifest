@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Net.UI.Templates" Version="1.30" Language="en-US" Publisher="netui" />
-        <DisplayName>Net.UI.Templates</DisplayName>
-        <Description xml:space="preserve">Essential templates for .NET (Vanilla, MAUI, Avalonia, Uno and more)</Description>
+        <Identity Id="Net.UI.Templates" Version="1.32" Language="en-US" Publisher="NeatCapital OÜ" />
+        <DisplayName>Net.UI Templates</DisplayName>
+        <Description xml:space="preserve">Essential templates for .NET (Vanilla, MAUI, Xamarin.Forms, Avalonia, Uno and more)</Description>
         <MoreInfo>https://netui.org/</MoreInfo>
         <License>license.txt</License>
         <GettingStartedGuide>https://netui.org/</GettingStartedGuide>
@@ -14,10 +14,10 @@
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
-            <ProductArchitecture>x86</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
+            <ProductArchitecture>arm64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
     <Dependencies>

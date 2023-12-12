@@ -1,6 +1,9 @@
-﻿namespace $rootnamespace$;
+﻿using Net.Essentials;
 
-public class $safeitemname$ : Net.Essentials.ViewModel
+namespace $rootnamespace$
 {
+    public class $safeitemname$ : ViewModel
+    {
 
+    }
 }

@@ -1,7 +1,7 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
   <TemplateData>
     <DefaultName>Net.UI.WidgetPage.xaml</DefaultName>
-    <Name>Net.UI.WidgetPage</Name>
+    <Name>Net.UI WidgetPage</Name>
     <Description>MAUI Net.UI WidgetPage (ContentPage)</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>

@@ -1,8 +1,8 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
   <TemplateData>
-    <DefaultName>Net.Essentials.ViewModel.cs</DefaultName>
-    <Name>Net.Essentials.ViewModel</Name>
-    <Description>Cross-Platform ViewModel for MAUI, Avalonia and Uno (Net.Essentials)</Description>
+    <DefaultName>ViewModel.cs</DefaultName>
+    <Name>Net.Essentials ViewModel</Name>
+    <Description>Cross-Platform ViewModel for MAUI, Xamarin.Forms, Avalonia and Uno (Net.Essentials)</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>__TemplateIcon.png</Icon>
