@@ -8,9 +8,9 @@ namespace Net.Essentials
 {
     public class CommandModel<T> : ICommand
     {
-        public Func<Task<T>> ExecuteTask { get; set; }
-        public Action<T> ExecuteAction { get; set; }
-        public Func<T, bool> CanExecuteFunc { get; set; }
+        Func<Task<T>> ExecuteTask { get; set; }
+        Action<T> ExecuteAction { get; set; }
+        Func<T, bool> CanExecuteFunc { get; set; }
 
         public event EventHandler CanExecuteChanged;
         public bool WaitUntilDone { get; set; }
@@ -68,8 +68,19 @@ namespace Net.Essentials
 
     public class CommandModel : CommandModel<object>
     {
-        public CommandModel(Action<object> execute, Func<object, bool> canExecute = null) : base(execute, canExecute)
+        public CommandModel(Action execute, Func<object, bool> canExecute = null, bool waitUntilDone = true) : base(_ => execute?.Invoke(), canExecute, waitUntilDone)
         {
+        }
+
+        public CommandModel(Func<Task> execute, Func<object, bool> canExecute = null, bool waitUntilDone = true) : base(() => ExecuteAsyncWrapper(execute), canExecute, waitUntilDone)
+        {
+        }
+
+        static async Task<object> ExecuteAsyncWrapper(Func<Task> execute)
+        {
+            if (execute != null)
+                await execute();
+            return null;
         }
     }
 }
