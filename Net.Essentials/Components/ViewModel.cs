@@ -25,6 +25,11 @@ namespace Net.Essentials
     {
     }
 
+    [AttributeUsage(AttributeTargets.All)]
+    public class PostWorkUpdateAttribute : Attribute
+    {
+    }
+
     public class TinyViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,6 +38,10 @@ namespace Net.Essentials
         public static Func<Func<Task>, Task> RunOnUITask = a => a();
 
         PropertyInfo[] properties = null;
+        HashSet<PropertyInfo> noUpdateProperties = new HashSet<PropertyInfo>();
+        HashSet<PropertyInfo> manualUpdateProperties = new HashSet<PropertyInfo>();
+        HashSet<PropertyInfo> rigidCommandsProperties = new HashSet<PropertyInfo>();
+        HashSet<PropertyInfo> postWorkUpdateProperties = new HashSet<PropertyInfo>();
 
         protected readonly static Random Random = new Random();
         public bool RaisePropertyChangeOnUI { get; set; }
@@ -57,24 +66,52 @@ namespace Net.Essentials
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
-        public void UpdateProperties(bool forceAll = false)
+        void LoadProperties()
         {
             if (properties == null)
+            {
                 properties = GetType().GetProperties();
+                foreach (var item in properties)
+                {
+                    if (item.GetCustomAttributes(typeof(NoUpdateAttribute), true).Any())
+                        noUpdateProperties.Add(item);
+                    if (item.GetCustomAttributes(typeof(ManualUpdateAttribute), true).Any())
+                        manualUpdateProperties.Add(item);
+                    if (item.PropertyType.IsAssignableFrom(typeof(ICommand)) && !item.GetCustomAttributes(typeof(UpdatesAttribute), true).Any())
+                        rigidCommandsProperties.Add(item);
+                    if (item.GetCustomAttributes(typeof(PostWorkUpdateAttribute), true).Any())
+                        postWorkUpdateProperties.Add(item);
+                }
+            }
+        }
+
+        public void UpdateProperties(bool forceAll = false)
+        {
+            LoadProperties();
 
             RunOnUIAction(() =>
             {
                 foreach (var item in properties)
                 {
-                    if (item.GetCustomAttributes(typeof(NoUpdateAttribute), true).Any())
+                    if (noUpdateProperties.Contains(item))
                         continue;
-                    if (item.GetCustomAttributes(typeof(ManualUpdateAttribute), true).Any() && !forceAll)
+                    if (manualUpdateProperties.Contains(item) && !forceAll)
                         continue;
-                    if (item.PropertyType.IsAssignableFrom(typeof(ICommand)) && !item.GetCustomAttributes(typeof(UpdatesAttribute), true).Any())
+                    if (postWorkUpdateProperties.Contains(item))
                         continue;
 
                     RaisePropertyChanged(onUI: false, item.Name);
                 }
+            });
+        }
+
+        public void UpdatePostWorkProperties()
+        {
+            LoadProperties();
+            RunOnUIAction(() =>
+            {
+                foreach (var item in postWorkUpdateProperties)
+                    RaisePropertyChanged(onUI: false, item.Name);
             });
         }
 
@@ -99,7 +136,10 @@ namespace Net.Essentials
         public static Action GlobalBackSignalAction;
         public static Action GlobalPopModalSignalAction;
 
-        public ViewModel() { }
+        public ViewModel()
+        {
+            Workers.OnUpdate += (s, e) => UpdatePostWorkProperties();
+        }
 
         [NoUpdate] public virtual WorkerViewModelPool Workers { get; set; } = new WorkerViewModelPool();
 
@@ -243,9 +283,10 @@ namespace Net.Essentials
 
         public WorkerViewModel()
         {
+            RaisePropertyChangeOnUI = true;
         }
 
-        public WorkerViewModel(string tag)
+        public WorkerViewModel(string tag) : this()
         {
             Tag = tag;
         }
@@ -262,7 +303,7 @@ namespace Net.Essentials
         public WorkerViewModel Add([CallerMemberName] string tag = null)
         {
             var item = new WorkerViewModel(tag);
-            Items.Add(item);
+            RunOnUIAction(() => Items.Add(item));
             item.PropertyChanged += Item_PropertyChanged;
             Refresh();
             return item;
@@ -285,7 +326,7 @@ namespace Net.Essentials
         {
             if (item == null || !Items.Contains(item)) return;
             item.PropertyChanged -= Item_PropertyChanged;
-            Items.Remove(item);
+            RunOnUIAction(() => Items.Remove(item));
             Refresh();
         }
 
@@ -297,7 +338,7 @@ namespace Net.Essentials
         void Refresh()
         {
             IsBusy = Items.Any(x => x.IsBusy);
-            RaisePropertyChanged(nameof(IsBusy));
+            RaisePropertyChanged(true, nameof(IsBusy));
             OnUpdate?.Invoke(this, null);
         }
 
