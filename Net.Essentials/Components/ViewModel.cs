@@ -44,6 +44,7 @@ namespace Net.Essentials
         HashSet<PropertyInfo> postWorkUpdateProperties = new HashSet<PropertyInfo>();
 
         protected readonly static Random Random = new Random();
+        [Browsable(false)]
         public bool RaisePropertyChangeOnUI { get; set; }
 
         public void RaisePropertyChanged([CallerMemberName] string m = null) =>
@@ -136,12 +137,25 @@ namespace Net.Essentials
         public static Action GlobalBackSignalAction;
         public static Action GlobalPopModalSignalAction;
 
-        public ViewModel()
+        WorkerViewModelPool _workers = null;
+        [Browsable(false)]
+        [NoUpdate]
+        public virtual WorkerViewModelPool Workers
         {
-            Workers.OnUpdate += (s, e) => UpdatePostWorkProperties();
+            get
+            {
+                if (_workers == null)
+                {
+                    _workers = new WorkerViewModelPool();
+                    _workers.OnUpdate += (s, e) => UpdatePostWorkProperties();
+                }
+                return _workers;
+            }
         }
 
-        [NoUpdate] public virtual WorkerViewModelPool Workers { get; set; } = new WorkerViewModelPool();
+        public ViewModel()
+        {
+        }
 
         public virtual void Refresh()
         {
